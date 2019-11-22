@@ -16,8 +16,38 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function(req, res) {
+  res.render('index');
+});
+
+// SignUp get action
+router.get('/signup', function(req, res) {
+  res.render('signup' , {error: ""});
+});
+
+// SignUp post action
+router.post('/signup', function(req, res) {
+  res.json(req.body);
+});
+
+// SignIn get action
+router.get('/signin', function(req, res) {
+  res.render('signin', {error: ""});
+});
+
+// SignIn get action
+router.post('/signin', function(req, res) {
+  res.json(req.body);
+});
+
+// Password Recovery get action
+router.get('/recovery', function(req, res) {
+  res.render('recovery');
+});
+
+// Password Recovery get action
+router.get('/recovery', function(req, res) {
+  res.render('recovery');
 });
 
 module.exports = router;

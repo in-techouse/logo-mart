@@ -1,0 +1,50 @@
+<% extend('layout') %>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="jumbotron">
+        <div class="row">
+            <form id="loginform" method="POST" action="/login"> 
+                <h1 style="text-align:center">Login</h1>
+                <br>
+                <div class="form-group">
+                    <input name="userEmail" required type="email" placeholder="Enter your email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input name="userPassword" required type="password" placeholder="Enter your password" class="form-control" minlength="6">
+                </div>
+        
+                <% if (error != "" ){ %>
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert">
+                            <%= error %>
+                        </div>
+                    </div>
+                <% } %>
+        
+                <input type="submit" class="btn btn-primary btn-block" value="LOGIN" id="btnlogin">
+            </form>
+        </div>
+        <div class="row" style="padding: 30px 0px 0px 0px;">
+            <div class="col-md-4 col-sm-5 col-xs-12">
+                <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>FACEBOOk</b></a>
+            </div>
+            <div class="col-md-4 col-sm-2 col-xs-12"></div>
+            <div class="col-md-4 col-sm-5 col-xs-12">
+                <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>GOOGLE</b></a>
+            </div>
+        </div>
+        <div class="row" style="padding: 30px 0px 0px 0px;">
+            <div class="col-md-12">
+                <a href="/signup" class="btn btn-info btn-sm btn-block">Don't have an account? Click here to <b>REGISTER</b></a>
+            </div>
+        </div>
+        <div class="row" style="padding: 30px 0px 0px 0px;">
+            <div class="col-md-12">
+                <a href="/recovery" class="btn btn-info btn-sm btn-block">Forgot Password? Click here to <b>RECOVER</b></a>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>

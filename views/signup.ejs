@@ -1,0 +1,67 @@
+<% extend('layout') %>
+<div class="row">
+    <div class="col-md-3 col-sm-2 col-xs-12"></div>
+    <div class="col-md-6 col-sm-8 col-xs-12">
+        <div class="jumbotron">
+            <div class="row">
+                <form id="loginform" action="/signup" method="POST">
+                    <h1 style="text-align:center">Sign Up Page</h1>
+                    <br>
+                    <div class="form-group">
+                        <input name="firstName" required type="text" placeholder="First Name" class="form-control" id="fname" minlength="3"/>
+                    </div>
+                    <div class="form-group">
+                        <input name="lastName" required type="text" placeholder="Last Name" class="form-control" id="lname" minlength="3"/>
+                    </div>
+                    <div class="form-group">
+                        <input name="email" required type="email" placeholder="Email Address" class="form-control" id="email"/>
+                    </div>
+                    <div class="form-group">
+                        <input name="password" required type="password" placeholder="Password" class="form-control" id="password" minlength="6"/>
+                    </div>
+                    <div class="form-group">
+                        <input name="passwordConfirmation" required type="password" placeholder="Retype Password" class="form-control" id="re_password" minlength="6"/>
+                    </div>
+                    <% if (error != "" ){ %>
+                        <div class="form-group">
+                            <div class="alert alert-danger" role="alert">
+                                <%= error %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <input type="submit" value="Sign Up" class="btn btn-primary btn-block" id="btnlogin"/>
+                </form>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>FACEBOOk</b></a>
+                </div>
+                <div class="col-md-4 col-sm-2 col-xs-12"></div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>GOOGLE</b></a>
+                </div>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-12">
+                    <a href="/signin" class="btn btn-info btn-sm btn-block">Already have an account? Click here to <b>LOGIN</b></a>
+                </div>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-12">
+                    <a href="/recovery" class="btn btn-info btn-sm btn-block">Forgot Password? Click here to <b>RECOVER</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-2 col-xs-12"></div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        console.log("Doc Ready");
+        $('#loginform').submit(function(e){
+            e.preventDefault();
+            console.log("Call Received");
+        });
+    });
+</script>

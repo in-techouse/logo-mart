@@ -1,0 +1,40 @@
+<% extend('layout') %>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+    <!-- Start recovery mail -->
+        <div class="jumbotron">
+            <div class="row">
+                <form id="recoveryform" method="POST" action="/checkrecovery">
+                    <h1 style="text-align: center;">Recover Password</h1>
+                    <br>
+                    <div class="form-group">
+                        <input name="userEmail" id="email" required type="email" placeholder="Enter your Email"class="form-control" >
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Send Password Recovery Email" id="btnRecovery"/>
+                </form>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>FACEBOOk</b></a>
+                </div>
+                <div class="col-md-4 col-sm-2 col-xs-12"></div>
+                <div class="col-md-4 col-sm-5 col-xs-12">
+                    <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>GOOGLE</b></a>
+                </div>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-12">
+                    <a href="/signup" class="btn btn-info btn-sm btn-block">Don't have an account? Click here to <b>REGISTER</b></a>
+                </div>
+            </div>
+            <div class="row" style="padding: 30px 0px 0px 0px;">
+                <div class="col-md-12">
+                    <a href="/signin" class="btn btn-info btn-sm btn-block">Already have an account? Click here to <b>LOGIN</b></a>
+                </div>
+            </div>
+
+        </div>                  
+    </div>
+    <div class="col-md-3"></div>
+</div>
