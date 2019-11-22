@@ -1,59 +1,48 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-  <head>
-    <title>LOGO MART</title>
-    <!-- Meta Tags -->
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0"
-    />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <!-- Styling Files -->
-    <link
-      rel="stylesheet"
-      href="/public/stylesheets/bootstrap.min.css"
-      type="text/css"
-    />
-    <link
-      href="/public/stylesheets/style.css"
-      type="text/css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/public/stylesheets/pageloader.css" />
-    <link rel="stylesheet" href="/public/javascripts/vendor/swiper.min.css" />
-    <link
-      rel="stylesheet"
-      href="/public/javascripts/vendor/jquery.fullpage.min.css"
-    />
-    <link rel="stylesheet" href="/public/javascripts/vegas/vegas.min.css" />
-    <!-- Main CSS files -->
-    <link rel="stylesheet" href="/public/stylesheets/main.css" />
-    <!-- Web fonts and Web Icons -->
-    <link rel="stylesheet" href="/public/fonts/opensans/stylesheet.css" />
-    <link rel="stylesheet" href="/public/fonts/bebas/stylesheet.css" />
-    <link rel="stylesheet" href="/public/fonts/ionicons.min.css" />
-    <link rel="stylesheet" href="/public/fonts/font-awesome.min.css" />
 
-    <!-- Script Files -->
-    <script src="/public/javascripts/jquery.min.js"></script>
-    <script src="/public/javascripts/bootstrap.min.js"></script>
-    <script src="/public/javascripts/vendor/modernizr-2.7.1.min.js"></script>
-    <script src="/public/javascripts/vendor/scrolloverflow.min.js"></script>
-    <script src="/public/javascripts/vendor/all.js"></script>
-    <script src="/public/javascripts/particlejs/particles.min.js"></script>
-    <script src="/public/javascripts/jquery.downCount.js"></script>
-    <script src="/public/javascripts/form_script.js"></script>
-    <script src="/public/javascripts/main.js"></script>
-  </head>
+<head>
+  <title>LOGO MART</title>
+  <!-- Meta Tags -->
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <!-- Styling Files -->
+  <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css" type="text/css" />
+  <link href="/public/stylesheets/style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="/public/stylesheets/pageloader.css" />
+  <link rel="stylesheet" href="/public/javascripts/vendor/swiper.min.css" />
+  <link rel="stylesheet" href="/public/javascripts/vendor/jquery.fullpage.min.css" />
+  <link rel="stylesheet" href="/public/javascripts/vegas/vegas.min.css" />
+  <!-- Main CSS files -->
+  <link rel="stylesheet" href="/public/stylesheets/main.css" />
+  <!-- Web fonts and Web Icons -->
+  <link rel="stylesheet" href="/public/fonts/opensans/stylesheet.css" />
+  <link rel="stylesheet" href="/public/fonts/bebas/stylesheet.css" />
+  <link rel="stylesheet" href="/public/fonts/ionicons.min.css" />
+  <link rel="stylesheet" href="/public/fonts/font-awesome.min.css" />
 
-  <body id="menu" class="body-page">
-    <%- include('./shared/_header.ejs')%>   
-    <%- include('./shared/_bg_slider.ejs')%>   
+  <!-- Script Files -->
+  <script src="/public/javascripts/jquery.min.js"></script>
+  <script src="/public/javascripts/bootstrap.min.js"></script>
+  <script src="/public/javascripts/vendor/modernizr-2.7.1.min.js"></script>
+  <script src="/public/javascripts/vendor/scrolloverflow.min.js"></script>
+  <script src="/public/javascripts/vendor/all.js"></script>
+  <script src="/public/javascripts/particlejs/particles.min.js"></script>
+  <script src="/public/javascripts/jquery.downCount.js"></script>
+  <script src="/public/javascripts/form_script.js"></script>
+  <script src="/public/javascripts/main.js"></script>
+</head>
 
-    <main class="page-main page-fullpage main-anim" id="mainpage">
-      <%- content %>
-    </main>
-    <%- include('./shared/_footer.ejs')%>   
+<body id="menu" class="body-page">
+  <%- include('./shared/_header.ejs')%>
+  <%- include('./shared/_bg_slider.ejs')%>
 
-  </body>
+  <main class="page-main page-fullpage main-anim" id="mainpage">
+    <%- content %>
+  </main>
+  <%- include('./shared/_footer.ejs')%>
+
+</body>
+
 </html>
