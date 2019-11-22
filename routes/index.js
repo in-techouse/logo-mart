@@ -1,5 +1,5 @@
-var express = require('express');
-var firebase= require('firebase');
+var express = require("express");
+var firebase = require("firebase");
 var router = express.Router();
 
 var firebaseConfig = {
@@ -16,38 +16,38 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index');
+router.get("/", function(req, res) {
+  res.render("pages/index");
 });
 
 // SignUp get action
-router.get('/signup', function(req, res) {
-  res.render('signup' , {error: ""});
+router.get("/signup", function(req, res) {
+  res.render("pages/signup", { error: "" });
 });
 
 // SignUp post action
-router.post('/signup', function(req, res) {
+router.post("/signup", function(req, res) {
   res.json(req.body);
 });
 
 // SignIn get action
-router.get('/signin', function(req, res) {
-  res.render('signin', {error: ""});
+router.get("/signin", function(req, res) {
+  res.render("pages/signin", { error: "" });
 });
 
 // SignIn get action
-router.post('/signin', function(req, res) {
+router.post("/signin", function(req, res) {
   res.json(req.body);
 });
 
 // Password Recovery get action
-router.get('/recovery', function(req, res) {
-  res.render('recovery');
+router.get("/recovery", function(req, res) {
+  res.render("pages/recovery");
 });
 
 // Password Recovery get action
-router.get('/recovery', function(req, res) {
-  res.render('recovery');
+router.get("/recovery", function(req, res) {
+  res.render("pages/recovery");
 });
 
 module.exports = router;
