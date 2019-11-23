@@ -23,9 +23,10 @@
   <link rel="stylesheet" href="/public/fonts/font-awesome.min.css" />
 
   <!-- Script Files -->
-  <script src="/public/javascripts/jquery.min.js"></script>
-  <script src="/public/javascripts/bootstrap.min.js"></script>
   <script src="/public/javascripts/vendor/modernizr-2.7.1.min.js"></script>
+  <script src="/public/javascripts/vendor/jquery-1.12.4.min.js"></script>
+  <!-- <script src="/public/javascripts/jquery.min.js"></script> -->
+  <script src="/public/javascripts/bootstrap.min.js"></script>
   <script src="/public/javascripts/vendor/scrolloverflow.min.js"></script>
   <script src="/public/javascripts/vendor/all.js"></script>
   <script src="/public/javascripts/particlejs/particles.min.js"></script>
@@ -35,6 +36,7 @@
 </head>
 
 <body id="menu" class="body-page">
+  <%- include('./shared/_loading.ejs')%>
   <%- include('./shared/_header.ejs')%>
   <%- include('./shared/_bg_slider.ejs')%>
 
