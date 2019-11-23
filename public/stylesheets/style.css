@@ -7,6 +7,12 @@ body .container-fluid{
   margin: 0px;
 }
 
+.jumbotron{
+  margin-top: 100px;
+  background: rgba(0,0,0,0.4);
+}
+
+
 .jumbotron > .row > form{
   width: 100%!important;
 }
