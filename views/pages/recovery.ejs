@@ -8,49 +8,34 @@
         <form id="recoveryform" method="POST" action="/checkrecovery">
           <h1 style="text-align: center;">Forgot Password</h1>
           <br />
-          <div class="form-group">
-            <input
-              name="userEmail"
-              id="email"
-              required
-              type="email"
-              placeholder="Enter your Email"
-              class="form-control"
-            />
+          <div class="form-group form-success-gone">
+            <label for="reg-name">Email</label>
+            <input name="userEmail" id="email" required type="email" placeholder="Enter your Email"
+              class="form-control-line form-control-white" />
           </div>
-          <input
-            type="submit"
-            class="btn btn-primary btn-block"
-            value="Send Password Recovery Email"
-            id="btnRecovery"
-          />
+          <input type="submit" class="btn btn-primary btn-block" value="Send Password Recovery Email"
+            id="btnRecovery" />
         </form>
       </div>
       <div class="row" style="padding: 30px 0px 0px 0px;">
         <div class="col-md-5 col-sm-5 col-xs-12">
-          <a href="#" class="btn btn-success btn-sm btn-block"
-            >SIGN-IN with <b>FACEBOOk</b></a
-          >
+          <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>FACEBOOk</b></a>
         </div>
         <div class="col-md-2 col-sm-2 col-xs-12"></div>
         <div class="col-md-5 col-sm-5 col-xs-12">
-          <a href="#" class="btn btn-success btn-sm btn-block"
-            >SIGN-IN with <b>GOOGLE</b></a
-          >
+          <a href="#" class="btn btn-success btn-sm btn-block">SIGN-IN with <b>GOOGLE</b></a>
         </div>
       </div>
       <div class="row" style="padding: 30px 0px 0px 0px;">
         <div class="col-md-12">
-          <a href="/signup" class="btn btn-info btn-sm btn-block"
-            >Don't have an account? Click here to <b>REGISTER</b></a
-          >
+          <a href="/signup" class="btn btn-info btn-sm btn-block">Don't have an account? Click here to
+            <b>REGISTER</b></a>
         </div>
       </div>
       <div class="row" style="padding: 30px 0px 0px 0px;">
         <div class="col-md-12">
-          <a href="/signin" class="btn btn-info btn-sm btn-block"
-            >Already have an account? Click here to <b>LOGIN</b></a
-          >
+          <a href="/signin" class="btn btn-info btn-sm btn-block">Already have an account? Click here to
+            <b>LOGIN</b></a>
         </div>
       </div>
     </div>
