@@ -5,7 +5,7 @@
     <!-- Start recovery mail -->
     <div class="jumbotron">
       <div class="row">
-        <form id="recoveryform" method="POST" action="/checkrecovery">
+        <form id="recoveryForm" method="POST" action="/recovery">
           <h1 style="text-align: center;">Forgot Password</h1>
           <br />
           <div class="form-group form-success-gone">
@@ -13,8 +13,7 @@
             <input name="userEmail" id="email" required type="email" placeholder="Enter your Email"
               class="form-control-line form-control-white" />
           </div>
-          <input type="submit" class="btn btn-primary btn-block" value="Send Password Recovery Email"
-            id="btnRecovery" />
+          <input type="submit" class="btn btn-primary btn-block" value="Send Password Recovery Email" />
         </form>
       </div>
       <div class="row" style="padding: 30px 0px 0px 0px;">

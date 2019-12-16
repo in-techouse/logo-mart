@@ -17,12 +17,12 @@ firebase.initializeApp(firebaseConfig);
 
 /* GET home page. */
 router.get("/", function(req, res) {
-  res.render("pages/index");
+  res.render("pages/index", { action: "index" });
 });
 
 // SignUp get action
 router.get("/signup", function(req, res) {
-  res.render("pages/signup", { error: "" });
+  res.render("pages/signup", { error: "", action: "" });
 });
 
 // SignUp post action
@@ -32,7 +32,7 @@ router.post("/signup", function(req, res) {
 
 // SignIn get action
 router.get("/signin", function(req, res) {
-  res.render("pages/signin", { error: "" });
+  res.render("pages/signin", { error: "", action: "" });
 });
 
 // SignIn get action
@@ -42,12 +42,12 @@ router.post("/signin", function(req, res) {
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
-  res.render("pages/recovery");
+  res.render("pages/recovery", { error: "", action: "" });
 });
 
-// Password Recovery get action
-router.get("/recovery", function(req, res) {
-  res.render("pages/recovery");
+// Password Recovery post action
+router.post("/recovery", function(req, res) {
+  res.json(req.body);
 });
 
 module.exports = router;
