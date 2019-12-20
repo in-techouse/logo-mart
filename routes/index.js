@@ -27,7 +27,15 @@ router.get("/signup", function(req, res) {
 
 // SignUp post action
 router.post("/signup", function(req, res) {
-  res.json(req.body);
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(req.body.email, req.body.password)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(error => {
+      res.render("pages/signup", { error: error.message, action: "signup" });
+    });
 });
 
 // SignIn get action
@@ -37,7 +45,15 @@ router.get("/signin", function(req, res) {
 
 // SignIn get action
 router.post("/signin", function(req, res) {
-  res.json(req.body);
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(req.body.userEmail, req.body.userPassword)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(error => {
+      res.render("pages/signin", { error: error.message, action: "signin" });
+    });
 });
 
 // Password Recovery get action
@@ -47,7 +63,18 @@ router.get("/recovery", function(req, res) {
 
 // Password Recovery post action
 router.post("/recovery", function(req, res) {
-  res.json(req.body);
+  firebase
+    .auth()
+    .sendPasswordResetEmail(req.body.userEmail)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(error => {
+      res.render("pages/recovery", {
+        error: error.message,
+        action: "recovery"
+      });
+    });
 });
 
 module.exports = router;
