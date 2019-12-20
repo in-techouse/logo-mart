@@ -22,7 +22,7 @@ router.get("/", function(req, res) {
 
 // SignUp get action
 router.get("/signup", function(req, res) {
-  res.render("pages/signup", { error: "", action: "" });
+  res.render("pages/signup", { error: "", action: "signup" });
 });
 
 // SignUp post action
@@ -32,7 +32,7 @@ router.post("/signup", function(req, res) {
 
 // SignIn get action
 router.get("/signin", function(req, res) {
-  res.render("pages/signin", { error: "", action: "" });
+  res.render("pages/signin", { error: "", action: "signin" });
 });
 
 // SignIn get action
@@ -42,7 +42,7 @@ router.post("/signin", function(req, res) {
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
-  res.render("pages/recovery", { error: "", action: "" });
+  res.render("pages/recovery", { error: "", action: "recovery" });
 });
 
 // Password Recovery post action

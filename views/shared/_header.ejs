@@ -67,7 +67,7 @@
     <!-- Begin of sidebar nav menu params class: text-only / icon-only-->
     <nav class="navbar-sidebar ">
       <ul class="navbar-nav" id="qmenu">
-        <% if (action && action == 'index') { %>
+        <% if (typeof action !== 'undefined' && action == 'index') { %>
         <li class="nav-item" data-menuanchor="home">
           <a href="#home">
             <i class="icon ion-ios-home-outline"></i>
@@ -78,6 +78,12 @@
           <a href="#about">
             <i class="icon ion-ios-information-outline"></i>
             <span class="txt">About</span>
+          </a>
+        </li>
+        <li class="nav-item" data-menuanchor="team">
+          <a href="#team">
+            <i class="icon ion-ios-people"></i>
+            <span class="txt">Team</span>
           </a>
         </li>
         <li class="nav-item" data-menuanchor="services">
@@ -121,6 +127,12 @@
           <a href="/#about">
             <i class="icon ion-ios-information-outline"></i>
             <span class="txt">About</span>
+          </a>
+        </li>
+        <li class="nav-item" data-menuanchor="team">
+          <a href="/#team">
+            <i class="icon ion-ios-people"></i>
+            <span class="txt">Team</span>
           </a>
         </li>
         <li class="nav-item" data-menuanchor="services">
