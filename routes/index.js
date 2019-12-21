@@ -20,9 +20,14 @@ router.get("/", function(req, res) {
   res.render("pages/index", { action: "index" });
 });
 
+/* GET gallery page. */
+router.get("/gallery", function(req, res) {
+  res.render("pages/gallery", { action: "index" });
+});
+
 // SignUp get action
 router.get("/signup", function(req, res) {
-  res.render("pages/signup", { error: "", action: "signup" });
+  res.render("pages/auth/signup", { error: "", action: "signup" });
 });
 
 // SignUp post action
@@ -34,13 +39,16 @@ router.post("/signup", function(req, res) {
       res.json(user);
     })
     .catch(error => {
-      res.render("pages/signup", { error: error.message, action: "signup" });
+      res.render("pages/auth/signup", {
+        error: error.message,
+        action: "signup"
+      });
     });
 });
 
 // SignIn get action
 router.get("/signin", function(req, res) {
-  res.render("pages/signin", { error: "", action: "signin" });
+  res.render("pages/auth/signin", { error: "", action: "signin" });
 });
 
 // SignIn get action
@@ -52,13 +60,16 @@ router.post("/signin", function(req, res) {
       res.json(user);
     })
     .catch(error => {
-      res.render("pages/signin", { error: error.message, action: "signin" });
+      res.render("pages/auth/signin", {
+        error: error.message,
+        action: "signin"
+      });
     });
 });
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
-  res.render("pages/recovery", { error: "", action: "recovery" });
+  res.render("pages/auth/recovery", { error: "", action: "recovery" });
 });
 
 // Password Recovery post action
@@ -70,7 +81,7 @@ router.post("/recovery", function(req, res) {
       res.json(user);
     })
     .catch(error => {
-      res.render("pages/recovery", {
+      res.render("pages/auth/recovery", {
         error: error.message,
         action: "recovery"
       });
