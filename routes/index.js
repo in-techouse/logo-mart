@@ -88,4 +88,17 @@ router.post("/recovery", function(req, res) {
     });
 });
 
+router.get( '/googleLogin', function(req,res) {
+  // res.json("!");
+  let provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('profile');
+  provider.addScope('https://www.googleapis.com/auth/drive');
+  firebase.auth().signInWithPopup(provider)
+  .then(user =>{
+    res.json(user);
+  })
+  .catch(err=>{
+    res.json(err)
+  });
+})
 module.exports = router;
