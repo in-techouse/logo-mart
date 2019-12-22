@@ -87,18 +87,34 @@ router.post("/recovery", function(req, res) {
       });
     });
 });
+router.get("/facebookLogin", function(req, res) {
+  let provider = new firebase.auth.FacebookAuthProvider();
+  // provider.addScope("profile");
+  // provider.addScope("https://www.googleapis.com/auth/drive");
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(error => {
+      res.json(error);
+    });
+});
 
-router.get( '/googleLogin', function(req,res) {
+router.get("/googleLogin", function(req, res) {
   // res.json("!");
   let provider = new firebase.auth.GoogleAuthProvider();
-  provider.addScope('profile');
-  provider.addScope('https://www.googleapis.com/auth/drive');
-  firebase.auth().signInWithPopup(provider)
-  .then(user =>{
-    res.json(user);
-  })
-  .catch(err=>{
-    res.json(err)
-  });
-})
+  // provider.addScope("profile");
+  // provider.addScope("https://www.googleapis.com/auth/drive");
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(user => {
+      res.json(user);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 module.exports = router;
