@@ -21,17 +21,47 @@
   <link rel="stylesheet" href="/public/fonts/bebas/stylesheet.css" />
   <link rel="stylesheet" href="/public/fonts/ionicons.min.css" />
   <link rel="stylesheet" href="/public/fonts/font-awesome.min.css" />
+  <link rel="stylesheet" href="/public/stylesheets/bootstrap-select.min.css" />
+
 
   <!-- Script Files -->
   <script src="/public/javascripts/vendor/modernizr-2.7.1.min.js"></script>
   <script src="/public/javascripts/vendor/jquery-1.12.4.min.js"></script>
+  <script src="/public/javascripts/popper.js"></script>
   <script src="/public/javascripts/bootstrap.min.js"></script>
   <script src="/public/javascripts/vendor/scrolloverflow.min.js"></script>
   <script src="/public/javascripts/vendor/all.js"></script>
   <script src="/public/javascripts/particlejs/particles.min.js"></script>
   <script src="/public/javascripts/jquery.downCount.js"></script>
   <script src="/public/javascripts/form_script.js"></script>
+  <script src="/public/javascripts/bootstrap-select.min.js"></script>
   <script src="/public/javascripts/main.js"></script>
+
+  <script src="/public/javascripts/mainScript.js"></script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB-oh_jVJatT5kMBk2NYb7wZ15CRLQ7BDo",
+      authDomain: "logo-mart.firebaseapp.com",
+      databaseURL: "https://logo-mart.firebaseio.com",
+      projectId: "logo-mart",
+      storageBucket: "logo-mart.appspot.com",
+      messagingSenderId: "654640285591",
+      appId: "1:654640285591:web:9dceebf9d27f8ec999a6d2",
+      measurementId: "G-VPBLGZ4WQC"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 </head>
 
 <body id="menu" class="body-page">
