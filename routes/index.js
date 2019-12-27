@@ -66,6 +66,11 @@ router.post("/signin", function(req, res) {
       });
     });
 });
+//Make your Own logo
+//post action
+router.post("/start",function(req, res){
+  res.json("1")
+});
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
