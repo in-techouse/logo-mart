@@ -51,7 +51,7 @@ router.get("/signin", function(req, res) {
   res.render("pages/auth/signin", { error: "", action: "signin" });
 });
 
-// SignIn get action
+// SignIn post action
 router.post("/signin", function(req, res) {
   firebase
     .auth()
@@ -178,4 +178,29 @@ router.get("/googleLogin", function(req, res) {
   // //     res.json(error);
   // //   });
 });
+
+   // Email us post action
+   router.post("/emailUs", function(req, res) {
+     res.json("1");
+  });
+
+  //brochures page
+  //get action
+  router.get("/brocures", function(req,res){
+   res.render("pages/brochures", { error: "", action:"brochures"});
+  });
+ 
+
+ //t-shirt page
+  //get action
+  router.get("/t-shirt", function(req,res){
+    res.render("pages/t-shirt", { error: "", action:"t-shirt"});
+   });
+
+   //logo page
+  //get action
+  router.get("/logo", function(req,res){
+    res.render("pages/logo", { error: "", action:"logo"});
+   });
+  
 module.exports = router;

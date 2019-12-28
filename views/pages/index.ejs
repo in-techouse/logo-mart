@@ -675,8 +675,8 @@
             <div class="">
               <div class="form-container form-container-card">
                 <!-- Message form container -->
-                <form class="send_message_form message form" method="post"
-                  action="http://demo.highhay.com/simpleux/ajaxserver/serverfile.php" id="message_form">
+                <form class="send_message_form message form" method="POST"
+                  action="emailUs" id="message_form">
                   <div class="form-group name">
                     <label for="mes-name">Name :</label>
                     <input id="mes-name" name="name" type="text" placeholder=""
@@ -700,7 +700,7 @@
                   </div>
 
                   <div class="btns">
-                    <button id="submit-message" class="btn btn-normal btn-white btn-round btn-full email_b"
+                    <button id="submit-message" type="submit" class="btn btn-normal btn-white btn-round btn-full email_b"
                       name="submit_message">
                       <span class="txt">Send</span>
                       <span class="arrow-icon"></span>
