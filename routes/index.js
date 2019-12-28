@@ -71,6 +71,24 @@ router.post("/signin", function(req, res) {
 router.post("/start",function(req, res){
   res.json("1")
 });
+//Get Started
+//get action
+router.get("/get-started", function(req, res) {
+  res.render("pages/get-started", { error: "", action: "getstarted" });
+});
+//Medical caps page
+//get action
+router.get("/caps", function(req, res) {
+  res.render("pages/caps", { error: "", action: "medicalcaps" });
+});
+
+
+//businesscard page
+//get action
+router.get("/businesscard", function(req, res) {
+  res.render("pages/businesscard", { error: "", action: "businesscard" });
+});
+
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
