@@ -186,7 +186,7 @@ router.get("/googleLogin", function(req, res) {
 
   //brochures page
   //get action
-  router.get("/brocures", function(req,res){
+  router.get("/brochures", function(req,res){
    res.render("pages/brochures", { error: "", action:"brochures"});
   });
  
