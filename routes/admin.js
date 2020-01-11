@@ -36,4 +36,8 @@ router.get("/newTShirt", function(req, res) {
   res.render("admins/newT_Shirts", { action: "index" });
 });
 
+router.get("/Requests", function(req, res) {
+  res.render("admins/Requests", { action: "index" });
+});
+
 module.exports = router;
