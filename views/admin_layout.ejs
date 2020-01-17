@@ -1,24 +1,38 @@
 <!doctype html>
 <html lang="en">
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LOGO MART</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <link href="/public/admin/stylesheets/main.css" rel="stylesheet"></head>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <link href="/public/admin/stylesheets/main.css" rel="stylesheet">
     <script type="text/javascript" src="/public/javascripts/jquery.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+    <script type="text/javascript" src="/public/javascripts/adminScript.js"></script>
+</head>
+
+
 <body>
 
-<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-    <%- include('./shared/admin_header.ejs')%>
-    <div class="app-main">
-        <%- include('./shared/admin_sidebar.ejs')%>
-        <%- content %>            
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <%- include('./shared/admin_header.ejs')%>
+        <div class="app-main">
+            <%- include('./shared/admin_sidebar.ejs')%>
+            <%- content %>
+        </div>
     </div>
-</div>
-<script type="text/javascript" src="/public/admin/scripts/main.87c0748b313a1dda75f5.js"></script>
+    <script type="text/javascript" src="/public/admin/scripts/main.87c0748b313a1dda75f5.js"></script>
 </body>
+
 </html>
