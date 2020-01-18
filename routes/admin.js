@@ -7,7 +7,12 @@ router.get("/", function(req, res) {
   res.render("admins/index", { action: "index" });
 });
 router.get("/allLogos", function(req, res) {
-  res.render("admins/allLogos", { action: "allLogos" });
+
+  firebase.database().ref().child('Logos').orderByKey().once('value').then(d=>{
+    res.render("admins/allLogos", { action: "allLogos" , data: d});
+  }).catch(e=>{
+    res.render("admins/allLogos", { action: "allLogos" , data: []});
+  })
 });
 router.get("/newLogo", function(req, res) {
   res.render("admins/newLogos", { action: "newLogos" });
