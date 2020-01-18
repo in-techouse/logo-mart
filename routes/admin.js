@@ -64,6 +64,20 @@ router.get("/newTShirt", function(req, res) {
   res.render("admins/newT_Shirts", { action: "newTShirt" });
 });
 
+router.post("/newTShirts", function(req, res) {
+  let id = firebase.database().ref().child('TShirts').push().key;
+  let T_Shirt = {
+    id: id,
+    designName: req.body.designName,
+    designURL: req.body.designURL,
+  };
+  firebase.database().ref().child('TShirts').child(T_Shirt.id).set(T_Shirt).then(r=>{
+    res.redirect("/admins/allTShirts");
+  }).catch(e=>{
+    res.render("admins/newT_Shirts", { action: "newTShirt" });
+  });
+});
+
 router.get("/requests", function(req, res) {
   res.render("admins/Requests", { action: "requests" });
 });
