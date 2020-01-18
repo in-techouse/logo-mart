@@ -31,7 +31,11 @@ router.post("/newLogo", function(req, res) {
   });
 });
 router.get("/allMedicalCaps", function(req, res) {
-  res.render("admins/allMedicalCaps", { action: "allMedicalCaps" });
+  firebase.database().ref().child('MedicalCaps').orderByKey().once('value').then(d=>{
+     res.render("admins/allMedicalCaps", { action: "allMedicalCaps",data: d});
+  }).catch(e=>{ 
+    res.render("admins/allMedicalCaps", { action: "allMedicalCaps",data: []});
+  });
 });
 
 router.get("/newMedicalCap", function(req, res) {
