@@ -7,51 +7,51 @@ router.get("/", function(req, res) {
   res.render("admins/index", { action: "index" });
 });
 router.get("/allLogos", function(req, res) {
-  res.render("admins/allLogos", { action: "index" });
+  res.render("admins/allLogos", { action: "allLogos" });
 });
 router.get("/newLogo", function(req, res) {
-  res.render("admins/newLogos", { action: "index" });
+  res.render("admins/newLogos", { action: "newLogos" });
 });
 router.post("/newLogo", function(req, res) {
   let id = firebase.database().ref().child('Logos').push().key;
   let logo = {
-    id,
+    id: id,
     designName: req.body.designName,
     designURL: req.body.designURL,
   };
   firebase.database().ref().child('Logos').child(logo.id).set(logo).then(r=>{
-    res.json("1");
+    res.redirect("/admins/allLogos");
   }).catch(e=>{
-    res.json("-1");
+    res.render("admins/newLogos", { action: "newLogos" });
   });
 });
 router.get("/allMedicalCaps", function(req, res) {
-  res.render("admins/allMedicalCaps", { action: "index" });
+  res.render("admins/allMedicalCaps", { action: "allMedicalCaps" });
 });
 router.get("/newMedicalCap", function(req, res) {
-  res.render("admins/newMedicalCaps", { action: "index" });
+  res.render("admins/newMedicalCaps", { action: "newMedicalCap" });
 });
 router.get("/allBusinessCards", function(req, res) {
-  res.render("admins/allBusinessCard", { action: "index" });
+  res.render("admins/allBusinessCard", { action: "allBusinessCards" });
 });
 router.get("/newBusinessCard", function(req, res) {
-  res.render("admins/newBusinesscard", { action: "index" });
+  res.render("admins/newBusinesscard", { action: "newBusinessCard" });
 });
 router.get("/allBrochuresAndPamphlets", function(req, res) {
-  res.render("admins/allBrochures&Pamphets", { action: "index" });
+  res.render("admins/allBrochures&Pamphets", { action: "allBrochuresAndPamphlets" });
 });
 router.get("/newBrochureAndPamphlet", function(req, res) {
-  res.render("admins/newBrochures&Pamphlets", { action: "index" });
+  res.render("admins/newBrochures&Pamphlets", { action: "newBrochureAndPamphlet" });
 });
 router.get("/allTShirts", function(req, res) {
-  res.render("admins/allT_Shirts", { action: "index" });
+  res.render("admins/allT_Shirts", { action: "allTShirts" });
 });
 router.get("/newTShirt", function(req, res) {
-  res.render("admins/newT_Shirts", { action: "index" });
+  res.render("admins/newT_Shirts", { action: "newTShirt" });
 });
 
-router.get("/Requests", function(req, res) {
-  res.render("admins/Requests", { action: "index" });
+router.get("/requests", function(req, res) {
+  res.render("admins/Requests", { action: "requests" });
 });
 
 module.exports = router;
