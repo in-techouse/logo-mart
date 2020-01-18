@@ -55,8 +55,14 @@ router.post("/newMedicalCaps", function(req, res) {
   });
 });
 router.get("/allBusinessCards", function(req, res) {
-  res.render("admins/allBusinessCard", { action: "allBusinessCards" });
+ firebase.database().ref().child("BusinessCards").orderByKey().once("value").then(d=>{
+ res.render("admins/allBusinessCard", { action: "allBusinessCards",data:d });
+ })
+ .catch(e=>{
+  res.render("admins/allBusinessCard", { action: "allBusinessCards",data:[] });
+ });
 });
+
 router.get("/newBusinessCard", function(req, res) {
   res.render("admins/newBusinesscard", { action: "newBusinessCard" });
 });
@@ -74,8 +80,13 @@ router.post("/newBusinessCard", function(req, res) {
   });
 });
 router.get("/allBrochuresAndPamphlets", function(req, res) {
-  res.render("admins/allBrochures&Pamphets", { action: "allBrochuresAndPamphlets" });
-});
+  firebase.database().ref().child("BrochuresAndPamphlets").orderByKey().once("value").then(d=>{
+    res.render("admins/allBrochures&Pamphets", { action: "allBrochuresAndPamphlets",data:d });
+    })
+    .catch(e=>{
+     res.render("admins/allBrochures&Pamphets", { action: "allBrochuresAndPamphlets",data:[] });
+    });
+   });
 router.get("/newBrochureAndPamphlet", function(req, res) {
   res.render("admins/newBrochures&Pamphlets", { action: "newBrochureAndPamphlet" });
 });
@@ -93,8 +104,13 @@ router.post("/newBrochureAndPamphlet", function(req, res) {
   });
 });
 router.get("/allTShirts", function(req, res) {
-  res.render("admins/allT_Shirts", { action: "allTShirts" });
-});
+  firebase.database().ref().child("TShirts").orderByKey().once("value").then(d=>{
+    res.render("admins/allT_Shirts", { action: "allTShirts",data:d });
+    })
+    .catch(e=>{
+     res.render("admins/allT_Shirts", { action: "allTShirts",data:[] });
+    });
+   });
 router.get("/newTShirt", function(req, res) {
   res.render("admins/newT_Shirts", { action: "newTShirt" });
 });
