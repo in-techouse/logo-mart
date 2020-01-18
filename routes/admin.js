@@ -51,11 +51,37 @@ router.get("/allBusinessCards", function(req, res) {
 router.get("/newBusinessCard", function(req, res) {
   res.render("admins/newBusinesscard", { action: "newBusinessCard" });
 });
+router.post("/newBusinessCard", function(req, res) {
+  let id = firebase.database().ref().child('BusinessCards').push().key;
+  let businesscard = {
+    id: id,
+    designName: req.body.designName,
+    designURL: req.body.designURL,
+  };
+  firebase.database().ref().child('BusinessCards').child(businesscard.id).set(businesscard).then(r=>{
+    res.redirect("/admins/allBusinessCards");
+  }).catch(e=>{
+    res.render("admins/newBusinessCard", { action: "newBusinessCard" });
+  });
+});
 router.get("/allBrochuresAndPamphlets", function(req, res) {
   res.render("admins/allBrochures&Pamphets", { action: "allBrochuresAndPamphlets" });
 });
 router.get("/newBrochureAndPamphlet", function(req, res) {
   res.render("admins/newBrochures&Pamphlets", { action: "newBrochureAndPamphlet" });
+});
+router.post("/newBrochureAndPamphlet", function(req, res) {
+  let id = firebase.database().ref().child('PamphletsAndBrochures').push().key;
+  let pamphlet = {
+    id: id,
+    designName: req.body.designName,
+    designURL: req.body.designURL,
+  };
+  firebase.database().ref().child('PamphletsAndBrochures').child(pamphlet.id).set(pamphlet).then(r=>{
+    res.redirect("/admins/allBrochuresAndPamphlets");
+  }).catch(e=>{
+    res.render("admins/newBrochures&Pamphlets", { action: "newBrochureAndPamphlet" });
+  });
 });
 router.get("/allTShirts", function(req, res) {
   res.render("admins/allT_Shirts", { action: "allTShirts" });
