@@ -28,8 +28,22 @@ router.post("/newLogo", function(req, res) {
 router.get("/allMedicalCaps", function(req, res) {
   res.render("admins/allMedicalCaps", { action: "allMedicalCaps" });
 });
+
 router.get("/newMedicalCap", function(req, res) {
-  res.render("admins/newMedicalCaps", { action: "newMedicalCap" });
+  res.render("admins/newMedicalCaps", { action: "newMedicalCaps" });
+});
+router.post("/newMedicalCaps", function(req, res) {
+  let id = firebase.database().ref().child('MedicalCaps').push().key;
+  let medicalcap = {
+    id: id,
+    designName: req.body.designName,
+    designURL: req.body.designURL,
+  };
+  firebase.database().ref().child('MedicalCaps').child(medicalcap.id).set(medicalcap).then(r=>{
+    res.redirect("/admins/allMedicalCaps");
+  }).catch(e=>{
+    res.render("admins/newMedicalCaps", { action: "newMedicalCaps" });
+  });
 });
 router.get("/allBusinessCards", function(req, res) {
   res.render("admins/allBusinessCard", { action: "allBusinessCards" });
