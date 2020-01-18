@@ -11,6 +11,7 @@ firebase.initializeApp(firebaseConfig);
 
 $(document).ready(function() {
     console.log("Upload is Ready");
+    $("#submit").prop("disabled", true);
 
     $("#upload").click(function() {
         $(".progress").show(100);
@@ -46,13 +47,16 @@ $(document).ready(function() {
             }
           },
           function(error) {
+            $("#submit").prop("disabled", false);
               console.log('Upload Error: ', error);
           },
           function() {
+            
             uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                 console.log("File available at", downloadURL);
                 $("#designURL").val(downloadURL);
-                $(".progress").hide(100);                
+                $(".progress").hide(100);   
+                $("#submit").prop("disabled", false);             
             });
           }
         );

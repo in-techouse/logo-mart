@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-6">
-    <input type="text" class="form-control" name="designName" placeholder="Design Name" />
+    <input type="text" class="form-control" name="designName" placeholder="Design Name" required/>
   </div>
   <div class="col-md-6">
-    <input type="file" class="form-control" id="designFile" accept="image/*" />
+    <input type="file" class="form-control" id="designFile" accept="image/*" required/>
   </div>
   <br /><br /><br />
   <div class="col-md-12">
-    <input type="text" class="form-control" id="designURL" name="designURL" />
+    <input type="hidden" class="form-control" id="designURL" name="designURL" />
   </div>
   <br /><br /><br />
   <div class="col-md-2"></div>
@@ -21,7 +21,7 @@
     <br /><br /><br />
     <p class="btn btn-sm btn-outline-success" id="upload" style="float: right; display: none;">UPLOAD IMAGE</p>
     <br /><br /><br />
-    <input type="submit" class="btn btn-primary btn-block" value="Submit" style="text-transform: uppercase;" />
+    <input type="submit" class="btn btn-primary btn-block" id="submit" value="Submit" style="text-transform: uppercase;" />
   </div>
   <div class="col-md-2"></div>
 </div>

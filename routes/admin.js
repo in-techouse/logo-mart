@@ -1,4 +1,5 @@
 var express = require("express");
+var firebase = require("firebase");
 var router = express.Router();
 
 /* GET home page. */
@@ -10,6 +11,19 @@ router.get("/allLogos", function(req, res) {
 });
 router.get("/newLogo", function(req, res) {
   res.render("admins/newLogos", { action: "index" });
+});
+router.post("/newLogo", function(req, res) {
+  let id = firebase.database().ref().child('Logos').push().key;
+  let logo = {
+    id,
+    designName: req.body.designName,
+    designURL: req.body.designURL,
+  };
+  firebase.database().ref().child('Logos').child(logo.id).set(logo).then(r=>{
+    res.json("1");
+  }).catch(e=>{
+    res.json("-1");
+  });
 });
 router.get("/allMedicalCaps", function(req, res) {
   res.render("admins/allMedicalCaps", { action: "index" });
