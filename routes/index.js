@@ -68,27 +68,14 @@ router.post("/signin", function(req, res) {
 });
 //Make your Own logo
 //post action
-router.post("/start",function(req, res){
-  res.json("1")
+router.post("/start", function(req, res) {
+  res.json("1");
 });
 //Get Started
 //get action
 router.get("/get-started", function(req, res) {
   res.render("pages/get-started", { error: "", action: "getstarted" });
 });
-//Medical caps page
-//get action
-router.get("/caps", function(req, res) {
-  res.render("pages/caps", { error: "", action: "medicalcaps" });
-});
-
-
-//businesscard page
-//get action
-router.get("/businesscard", function(req, res) {
-  res.render("pages/businesscard", { error: "", action: "businesscard" });
-});
-
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
@@ -179,28 +166,39 @@ router.get("/googleLogin", function(req, res) {
   // //   });
 });
 
-   // Email us post action
-   router.post("/emailUs", function(req, res) {
-     res.json("1");
-  });
+// Email us post action
+router.post("/emailUs", function(req, res) {
+  res.json("1");
+});
 
-  //brochures page
-  //get action
-  router.get("/brochures", function(req,res){
-   res.render("pages/brochures", { error: "", action:"brochures"});
-  });
- 
+//Medical caps page
+//get action
+router.get("/caps", function(req, res) {
+  res.render("pages/caps", { error: "", action: "medicalcaps" });
+});
 
- //t-shirt page
-  //get action
-  router.get("/t-shirt", function(req,res){
-    res.render("pages/t-shirt", { error: "", action:"t-shirt"});
-   });
+//businesscard page
+//get action
+router.get("/businesscard", function(req, res) {
+  res.render("pages/businesscard", { error: "", action: "businesscard" });
+});
 
-   //logo page
-  //get action
-  router.get("/logo", function(req,res){
-    res.render("pages/logo", { error: "", action:"logo"});
-   });
-  
+//brochures page
+//get action
+router.get("/brochures", function(req, res) {
+  res.render("pages/brochures", { error: "", action: "brochures" });
+});
+
+//t-shirt page
+//get action
+router.get("/t-shirt", function(req, res) {
+  res.render("pages/t-shirt", { error: "", action: "t-shirt" });
+});
+
+//logo page
+//get action
+router.get("/logo", function(req, res) {
+  res.render("pages/logo", { error: "", action: "logo" });
+});
+
 module.exports = router;
