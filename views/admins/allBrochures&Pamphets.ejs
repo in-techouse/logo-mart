@@ -11,10 +11,16 @@
             <div class="row">
                 <% data.forEach(d=>{ %>
                     <div class="col-md-4">
+                        <a href="#">
                         <div class="mb-3 card" style="padding: 12px;">
-                            <img src="<%= d.val().designURL%>" class="img-thumbnail img-responive"/>
-                            <h5><%= d.val().designName %></h5>
+                            <img
+                             src="<%= d.val().designURL%>"
+                              class="img-thumbnail img-responive"
+                              style="height: 300px!important;"/>
+                            <h5 style="width: 100%; text-align: center;">
+                                <%= d.val().designName %></h5>
                         </div>
+                    </a>
                     </div>
                 <% }) %>
             </div>

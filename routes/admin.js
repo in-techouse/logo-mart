@@ -147,7 +147,7 @@ router.get("/allBrochuresAndPamphlets", function(req, res) {
   firebase
     .database()
     .ref()
-    .child("BrochuresAndPamphlets")
+    .child("PamphletsAndBrochures")
     .orderByKey()
     .once("value")
     .then(d => {

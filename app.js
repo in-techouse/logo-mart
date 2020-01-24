@@ -28,7 +28,6 @@ app.use(
     secret: "XAS98HKN",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
   })
 );
 

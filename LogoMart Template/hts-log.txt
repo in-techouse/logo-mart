@@ -1,0 +1,14 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sat, 16 Nov 2019 09:18:11 at http://demo.highhay.com/simpleux/index-slideshow.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://demo.highhay.com/simpleux/index-slideshow.html -O1 "C:\My Web Sites\LogoMart" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+09:19:21	Error: 	"Not Found" (404) at link demo.highhay.com/img/bg-default.jpg (from demo.highhay.com/simpleux/index-slideshow.html)
+09:24:16	Warning: 	file not stored in cache due to bogus state (broken size, expected 3367886 got 3295042): demo.highhay.com/simpleux/vid/loop-bg.mp4
+09:24:16	Warning: 	Retry after error -4 (Incorrect length (3295042 Bytes, 3367886 expected)) at link demo.highhay.com/simpleux/vid/loop-bg.mp4 (from demo.highhay.com/simpleux/index-video.html)
+
+HTTrack Website Copier/3.49-2 mirror complete in 6 minutes 8 seconds : 116 links scanned, 113 files written (9778704 bytes overall) [9368016 bytes received at 25456 bytes/sec], 518074 bytes transferred using HTTP compression in 16 files, ratio 16%
+(1 errors, 2 warnings, 0 messages)
