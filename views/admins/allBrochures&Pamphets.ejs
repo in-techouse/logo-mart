@@ -1,1 +1,23 @@
 <% extend('../admin_layout.ejs') %>
+<div class="app-main__outer">
+    <div class="app-main__inner">
+        <div class="mb-3 card" style="padding: 20px;">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                    ALL BROCHURES & PAMPHLETS DESIGNS
+                </div>
+            </div>
+            <div class="row">
+                <% data.forEach(d=>{ %>
+                    <div class="col-md-4">
+                        <div class="mb-3 card" style="padding: 12px;">
+                            <img src="<%= d.val().designURL%>" class="img-thumbnail img-responive"/>
+                            <h5><%= d.val().designName %></h5>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
