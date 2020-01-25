@@ -1,22 +1,41 @@
 <% extend('./../layout.ejs') %>
 
-<div class="container">
-    <div class="row">
+<div
+  class="container0fluid"
+  style="overflow-y: scroll; overflow-x: hidden; height: 95%;"
+>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="row">
+        <% data.forEach(d=>{ %>
         <div class="col-md-4">
-            <div class="jumbotron">
-                Display design 1
+          <a href="#" style="text-decoration: none;">
+            <div class="jumbotron" style="padding: 5px 5px 5px 5px;">
+              <!-- Display design 1 -->
+              <img
+                src="<%= d.val().designURL %>"
+                class="img-thumbnail img-responsive"
+                style="height: 300px!important; width: 100%;"
+              />
+              <h3
+                style="width: 100%;
+                         text-align: center;
+                          text-transform: uppercase;
+                          color: white;
+                          margin-top: 12px;
+                          font-family: 'Times New Roman', Times, serif;
+                          
+                           "
+              >
+                <%= d.val().designName %>
+              </h3>
             </div>
+          </a>
         </div>
-        <div class="col-md-4">
-            <div class="jumbotron">
-                Display design 2  
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="jumbotron">
-                Display design 3
-            </div>
-        </div>
-
-    </div> 
+        <% }) %>
+      </div>
+    </div>  
+    <div class="col-md-2"></div>
+  </div>
 </div>

@@ -192,13 +192,38 @@ router.get("/brochures", function(req, res) {
 //t-shirt page
 //get action
 router.get("/t-shirt", function(req, res) {
-  res.render("pages/t-shirt", { error: "", action: "t-shirt" });
+ // res.render("pages/t-shirt", { error: "", action: "t-shirt" });
+ firebase
+ .database()
+ .ref()
+ .child("TShirts")
+ .orderByKey()
+ .once("value")
+ .then(d => {
+   res.render("pages/t-shirt", { action: "t-shirt", data: d });
+ })
+ .catch(e => {
+   res.render("pages/t-shirt", { action: "t-shirt", data: [] });
+ });
 });
 
 //logo page
 //get action
 router.get("/logo", function(req, res) {
-  res.render("pages/logo", { error: "", action: "logo" });
+  // res.render("pages/logo", { error: "", action: "logo" });
+  // res.render("admins/index", { action: "index" });
+  firebase
+  .database()
+  .ref()
+  .child("Logos")
+  .orderByKey()
+  .once("value")
+  .then(d => {
+    res.render("pages/logo", { error: "", action: "logo", data: d });
+  })
+  .catch(e => {
+    res.render("pages/logo", { error: "", action: "logo", data: [] });
+  });
 });
 
 module.exports = router;
