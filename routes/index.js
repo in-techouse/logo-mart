@@ -174,19 +174,55 @@ router.post("/emailUs", function(req, res) {
 //Medical caps page
 //get action
 router.get("/caps", function(req, res) {
-  res.render("pages/caps", { error: "", action: "medicalcaps" });
-});
+ // res.render("pages/caps", { error: "", action: "medicalcaps" });
+ firebase
+    .database()
+    .ref()
+    .child("MedicalCaps")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/caps", { action: "caps", data: d });
+    })
+    .catch(e => {
+      res.render("pages/caps", { action: "caps", data: [] });
+    });
+});  
 
 //businesscard page
 //get action
 router.get("/businesscard", function(req, res) {
-  res.render("pages/businesscard", { error: "", action: "businesscard" });
+ // res.render("pages/businesscard", { error: "", action: "businesscard" });
+ firebase
+ .database()
+ .ref()
+ .child("BusinessCards")
+ .orderByKey()
+ .once("value")
+ .then(d => {
+   res.render("pages/businesscard", { action: "businesscard", data: d });
+ })
+ .catch(e => {
+   res.render("pages/businesscard", { action: "businesscard", data: [] });
+ });
 });
 
 //brochures page
 //get action
 router.get("/brochures", function(req, res) {
-  res.render("pages/brochures", { error: "", action: "brochures" });
+  //res.render("pages/brochures", { error: "", action: "brochures" });
+  firebase
+  .database()
+  .ref()
+  .child("BrochuresAndPamphlets")
+  .orderByKey()
+  .once("value")
+  .then(d => {
+    res.render("pages/brochures", { action: "brochures", data: d });
+  })
+  .catch(e => {
+    res.render("pages/brochures", { action: "brochures", data: [] });
+  });
 });
 
 //t-shirt page
