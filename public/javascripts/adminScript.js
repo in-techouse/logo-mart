@@ -5,6 +5,7 @@ var firebaseConfig = {
   projectId: "logo-mart",
   storageBucket: "logo-mart.appspot.com",
   appId: "1:654640285591:web:9dceebf9d27f8ec999a6d2",
+  databaseURL: "https://logo-mart.firebaseio.com",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -61,4 +62,17 @@ $(document).ready(function() {
           }
         );
       });
+  loadDashboard();
 });
+
+
+function loadDashboard(){
+  $('#totalDesigns').text('200');
+  $('#allDesign').text('0');
+  $('#logoDesign').text('0');
+  $('#BusinessCardDesign').text('0');
+  $('#MedicalCapsDesign').text('0');
+  $('#TshirtsDesign').text('0');
+  $('#brochuresAndPamphlets').text('0');
+
+}
