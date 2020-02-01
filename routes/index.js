@@ -17,17 +17,17 @@ firebase.initializeApp(firebaseConfig);
 
 /* GET home page. */
 router.get("/", function(req, res) {
-  res.render("pages/index", { action: "index" });
+  res.render("pages/index", { action: "index",user: req.session });
 });
 
 /* GET gallery page. */
 router.get("/gallery", function(req, res) {
-  res.render("pages/gallery", { action: "index" });
+  res.render("pages/gallery", { action: "index",user: req.session });
 });
 
 // SignUp get action
 router.get("/signup", function(req, res) {
-  res.render("pages/auth/signup", { error: "", action: "signup" });
+  res.render("pages/auth/signup", { error: "", action: "signup" ,user: req.session });
 });
 
 // SignUp post action
@@ -35,7 +35,7 @@ router.post("/signup", function(req, res) {
   if (req.body.password !== req.body.passwordConfirmation) {
     res.render("pages/auth/signup", {
       error: "Password doesn't match",
-      action: "signup"
+      action: "signup" ,user: req.session
     });
   } else {
     firebase
@@ -69,7 +69,7 @@ router.post("/signup", function(req, res) {
       .catch(error => {
         res.render("pages/auth/signup", {
           error: error.message,
-          action: "signup"
+          action: "signup",user: req.session
         });
       });
   }
@@ -77,7 +77,7 @@ router.post("/signup", function(req, res) {
 
 // SignIn get action
 router.get("/signin", function(req, res) {
-  res.render("pages/auth/signin", { error: "", action: "signin" });
+  res.render("pages/auth/signin", { error: "", action: "signin",user: req.session });
 });
 
 // SignIn post action
@@ -103,7 +103,7 @@ router.post("/signin", function(req, res) {
           ) {
             res.render("pages/auth/signin", {
               error: "Something went wrong",
-              action: "signin"
+              action: "signin",user: req.session
             });
           } else {
             req.session.userId = data.val().id;
@@ -123,7 +123,7 @@ router.post("/signin", function(req, res) {
     .catch(error => {
       res.render("pages/auth/signin", {
         error: error.message,
-        action: "signin"
+        action: "signin",user: req.session
       });
     });
 });
@@ -135,12 +135,12 @@ router.post("/start", function(req, res) {
 //Get Started
 //get action
 router.get("/get-started", function(req, res) {
-  res.render("pages/get-started", { error: "", action: "getstarted" });
+  res.render("pages/get-started", { error: "", action: "getstarted",user: req.session });
 });
 
 // Password Recovery get action
 router.get("/recovery", function(req, res) {
-  res.render("pages/auth/recovery", { error: "", action: "recovery" });
+  res.render("pages/auth/recovery", { error: "", action: "recovery",user: req.session });
 });
 
 // Password Recovery post action
@@ -154,7 +154,7 @@ router.post("/recovery", function(req, res) {
     .catch(error => {
       res.render("pages/auth/recovery", {
         error: error.message,
-        action: "recovery"
+        action: "recovery",user: req.session
       });
     });
 });
@@ -243,10 +243,10 @@ router.get("/caps", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/caps", { action: "caps", data: d });
+      res.render("pages/caps", { action: "caps" ,user: req.session, data: d });
     })
     .catch(e => {
-      res.render("pages/caps", { action: "caps", data: [] });
+      res.render("pages/caps", { action: "caps",user: req.session, data: [] });
     });
 });
 
@@ -261,10 +261,10 @@ router.get("/businesscard", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/businesscard", { action: "businesscard", data: d });
+      res.render("pages/businesscard", { action: "businesscard",user: req.session, data: d });
     })
     .catch(e => {
-      res.render("pages/businesscard", { action: "businesscard", data: [] });
+      res.render("pages/businesscard", { action: "businesscard",user: req.session, data: [] });
     });
 });
 
@@ -279,10 +279,10 @@ router.get("/brochures", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/brochures", { action: "brochures", data: d });
+      res.render("pages/brochures", { action: "brochures",user: req.session, data: d });
     })
     .catch(e => {
-      res.render("pages/brochures", { action: "brochures", data: [] });
+      res.render("pages/brochures", { action: "brochures",user: req.session, data: [] });
     });
 });
 
@@ -297,10 +297,10 @@ router.get("/t-shirt", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/t-shirt", { action: "t-shirt", data: d });
+      res.render("pages/t-shirt", { action: "t-shirt",user: req.session, data: d });
     })
     .catch(e => {
-      res.render("pages/t-shirt", { action: "t-shirt", data: [] });
+      res.render("pages/t-shirt", { action: "t-shirt",user: req.session, data: [] });
     });
 });
 
@@ -316,10 +316,10 @@ router.get("/logo", function(req, res) {
     .orderByKey()
     .once("value")
     .then(d => {
-      res.render("pages/logo", { error: "", action: "logo", data: d });
+      res.render("pages/logo", { error: "", action: "logo",user: req.session, data: d });
     })
     .catch(e => {
-      res.render("pages/logo", { error: "", action: "logo", data: [] });
+      res.render("pages/logo", { error: "", action: "logo",user: req.session, data: [] });
     });
 });
 
