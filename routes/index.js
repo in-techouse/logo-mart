@@ -86,7 +86,39 @@ router.post("/signin", function(req, res) {
     .auth()
     .signInWithEmailAndPassword(req.body.userEmail, req.body.userPassword)
     .then(user => {
-      res.json(user);
+      var id = req.body.userEmail.replace("@", "-");
+      id = id.replace(/\./g, "_");
+      firebase
+        .database()
+        .ref()
+        .child("Users")
+        .child(id)
+        .once("value")
+        .then(data => {
+          if (
+            data === null ||
+            data === undefined ||
+            data.val() === null ||
+            data.val() === undefined
+          ) {
+            res.render("pages/auth/signin", {
+              error: "Something went wrong",
+              action: "signin"
+            });
+          } else {
+            req.session.userId = data.val().id;
+            req.session.firstName = data.val().firstName;
+            req.session.lastName = data.val().lastName;
+            req.session.email = data.val().email;
+            req.session.role = data.val().role;
+            if (req.session.role === 0) {
+              res.redirect("/");
+            } else {
+              res.redirect("/admins");
+            }
+          }
+        });
+      // res.json(user);
     })
     .catch(error => {
       res.render("pages/auth/signin", {
