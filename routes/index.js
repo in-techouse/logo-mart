@@ -32,18 +32,47 @@ router.get("/signup", function(req, res) {
 
 // SignUp post action
 router.post("/signup", function(req, res) {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(req.body.email, req.body.password)
-    .then(user => {
-      res.json(user);
-    })
-    .catch(error => {
-      res.render("pages/auth/signup", {
-        error: error.message,
-        action: "signup"
-      });
+  if (req.body.password !== req.body.passwordConfirmation) {
+    res.render("pages/auth/signup", {
+      error: "Password doesn't match",
+      action: "signup"
     });
+  } else {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(req.body.email, req.body.password)
+      .then(u => {
+        var id = req.body.email.replace("@", "-");
+        id = id.replace(/\./g, "_");
+        let user = {
+          id: id,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          role: 0
+        };
+        firebase
+          .database()
+          .ref()
+          .child("Users")
+          .child(id)
+          .set(user)
+          .then(d => {
+            req.session.userId = user.id;
+            req.session.firstName = user.firstName;
+            req.session.lastName = user.lastName;
+            req.session.email = user.email;
+            req.session.role = user.role;
+            res.redirect("/");
+          });
+      })
+      .catch(error => {
+        res.render("pages/auth/signup", {
+          error: error.message,
+          action: "signup"
+        });
+      });
+  }
 });
 
 // SignIn get action
@@ -174,8 +203,8 @@ router.post("/emailUs", function(req, res) {
 //Medical caps page
 //get action
 router.get("/caps", function(req, res) {
- // res.render("pages/caps", { error: "", action: "medicalcaps" });
- firebase
+  // res.render("pages/caps", { error: "", action: "medicalcaps" });
+  firebase
     .database()
     .ref()
     .child("MedicalCaps")
@@ -187,24 +216,24 @@ router.get("/caps", function(req, res) {
     .catch(e => {
       res.render("pages/caps", { action: "caps", data: [] });
     });
-});  
+});
 
 //businesscard page
 //get action
 router.get("/businesscard", function(req, res) {
- // res.render("pages/businesscard", { error: "", action: "businesscard" });
- firebase
- .database()
- .ref()
- .child("BusinessCards")
- .orderByKey()
- .once("value")
- .then(d => {
-   res.render("pages/businesscard", { action: "businesscard", data: d });
- })
- .catch(e => {
-   res.render("pages/businesscard", { action: "businesscard", data: [] });
- });
+  // res.render("pages/businesscard", { error: "", action: "businesscard" });
+  firebase
+    .database()
+    .ref()
+    .child("BusinessCards")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/businesscard", { action: "businesscard", data: d });
+    })
+    .catch(e => {
+      res.render("pages/businesscard", { action: "businesscard", data: [] });
+    });
 });
 
 //brochures page
@@ -212,35 +241,35 @@ router.get("/businesscard", function(req, res) {
 router.get("/brochures", function(req, res) {
   //res.render("pages/brochures", { error: "", action: "brochures" });
   firebase
-  .database()
-  .ref()
-  .child("BrochuresAndPamphlets")
-  .orderByKey()
-  .once("value")
-  .then(d => {
-    res.render("pages/brochures", { action: "brochures", data: d });
-  })
-  .catch(e => {
-    res.render("pages/brochures", { action: "brochures", data: [] });
-  });
+    .database()
+    .ref()
+    .child("BrochuresAndPamphlets")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/brochures", { action: "brochures", data: d });
+    })
+    .catch(e => {
+      res.render("pages/brochures", { action: "brochures", data: [] });
+    });
 });
 
 //t-shirt page
 //get action
 router.get("/t-shirt", function(req, res) {
- // res.render("pages/t-shirt", { error: "", action: "t-shirt" });
- firebase
- .database()
- .ref()
- .child("TShirts")
- .orderByKey()
- .once("value")
- .then(d => {
-   res.render("pages/t-shirt", { action: "t-shirt", data: d });
- })
- .catch(e => {
-   res.render("pages/t-shirt", { action: "t-shirt", data: [] });
- });
+  // res.render("pages/t-shirt", { error: "", action: "t-shirt" });
+  firebase
+    .database()
+    .ref()
+    .child("TShirts")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/t-shirt", { action: "t-shirt", data: d });
+    })
+    .catch(e => {
+      res.render("pages/t-shirt", { action: "t-shirt", data: [] });
+    });
 });
 
 //logo page
@@ -249,17 +278,17 @@ router.get("/logo", function(req, res) {
   // res.render("pages/logo", { error: "", action: "logo" });
   // res.render("admins/index", { action: "index" });
   firebase
-  .database()
-  .ref()
-  .child("Logos")
-  .orderByKey()
-  .once("value")
-  .then(d => {
-    res.render("pages/logo", { error: "", action: "logo", data: d });
-  })
-  .catch(e => {
-    res.render("pages/logo", { error: "", action: "logo", data: [] });
-  });
+    .database()
+    .ref()
+    .child("Logos")
+    .orderByKey()
+    .once("value")
+    .then(d => {
+      res.render("pages/logo", { error: "", action: "logo", data: d });
+    })
+    .catch(e => {
+      res.render("pages/logo", { error: "", action: "logo", data: [] });
+    });
 });
 
 module.exports = router;
