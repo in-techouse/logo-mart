@@ -229,7 +229,31 @@ router.get("/googleLogin", function(req, res) {
 
 // Email us post action
 router.post("/emailUs", function(req, res) {
-  res.json("1");
+  //res.json(req.body);
+  let id = firebase
+      .database()
+      .ref()
+      .child("Requests")
+      .push().key;
+      let request = {
+        id: id,
+        name: req.body.name,
+        email: req.body.email,
+        text: req.body.text,
+      };
+      // res.json(request);
+      firebase
+      .database()
+      .ref()
+      .child("Requests")
+      .child(request.id)
+      .set(request)
+      .then(r => {
+        res.json("1");
+      })
+      .catch(e => {
+        res.json("-1");
+      });
 });
 
 //Medical caps page
