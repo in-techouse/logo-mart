@@ -349,28 +349,27 @@ router.post("/newTShirts", function(req, res) {
 router.get("/requests", function(req, res) {
   if (req.session.role && req.session.role === 1) {
     //res.render("admins/Requests", { action: "requests", user: req.session });
-      firebase
-        .database()
-        .ref()
-        .child("Requests")
-        .orderByKey()
-        .once("value")
-        .then(d => {
-          res.render("admins/Requests", {
-            action: "requests",
-            data: d,
-            user: req.session
-          });
-        })
-        .catch(e => {
-          res.render("admins/Requests", {
-            action: "requests",
-            data: [],
-            user: req.session
-          });
+    firebase
+      .database()
+      .ref()
+      .child("Requests")
+      .orderByKey()
+      .once("value")
+      .then(d => {
+        res.render("admins/Requests", {
+          action: "requests",
+          data: d,
+          user: req.session
         });
-    } 
-  else {
+      })
+      .catch(e => {
+        res.render("admins/Requests", {
+          action: "requests",
+          data: [],
+          user: req.session
+        });
+      });
+  } else {
     res.redirect("/");
   }
 });
@@ -388,12 +387,12 @@ router.get("/chats", function(req, res) {
 
 router.get("/logout", function(req, res) {
   firebase.auth().signOut();
-  req.session.destroy(function(err){
-    if(err){
+  req.session.destroy(function(err) {
+    if (err) {
       res.negotiate(err);
     }
-      res.redirect("/");
-});
+    res.redirect("/");
+  });
 });
 
 module.exports = router;

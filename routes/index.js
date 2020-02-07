@@ -347,4 +347,15 @@ router.get("/logo", function(req, res) {
     });
 });
 
+router.get("/logout", function(req, res) {
+  firebase.auth().signOut();
+  req.session.destroy(function(err) {
+    if (err) {
+      res.negotiate(err);
+    }
+    res.redirect("/");
+  });
+});
+
+
 module.exports = router;
