@@ -375,4 +375,25 @@ router.get("/requests", function(req, res) {
   }
 });
 
+router.get("/chats", function(req, res) {
+  if (req.session.role && req.session.role === 1) {
+    res.render("admins/chats", {
+      action: "chats",
+      user: req.session
+    });
+  } else {
+    res.redirect("/");
+  }
+});
+
+router.get("/logout", function(req, res) {
+  firebase.auth().signOut();
+  req.session.destroy(function(err){
+    if(err){
+      res.negotiate(err);
+    }
+      res.redirect("/");
+});
+});
+
 module.exports = router;
