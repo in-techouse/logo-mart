@@ -1,1 +1,33 @@
 <% extend('../admin_layout.ejs') %>
+<div class="app-main__outer">
+    <div class="app-main__inner">
+        <div class="mb-3 card" style="padding: 20px;">
+            <div class="card-header-tab card-header">
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
+                    ALL REQUESTS
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr> 
+                            <td> Name</td>
+                            <td> Email</td>
+                            <td> Message</td>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <% data.forEach(d=>{ %>
+                            <tr>
+                                <td><%= d.val().name %></td>
+                                <td><%= d.val().email %></td>
+                                <td><%= d.val().text %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

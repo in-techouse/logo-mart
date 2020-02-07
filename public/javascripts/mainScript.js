@@ -19,8 +19,12 @@ $(document).ready(function() {
         text:text,
       },
       success: function(data){
+        $('#messageForm').trigger("reset");
         console.log("Success:",data);
-
+        $('#successMessage').show(500);
+        setTimeout(function(){
+          $('#successMessage').hide(500);
+        }, 2000);
       },
       error:function(error){
         console.log ("Error:",error);

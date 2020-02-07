@@ -348,8 +348,29 @@ router.post("/newTShirts", function(req, res) {
 
 router.get("/requests", function(req, res) {
   if (req.session.role && req.session.role === 1) {
-    res.render("admins/Requests", { action: "requests", user: req.session });
-  } else {
+    //res.render("admins/Requests", { action: "requests", user: req.session });
+      firebase
+        .database()
+        .ref()
+        .child("Requests")
+        .orderByKey()
+        .once("value")
+        .then(d => {
+          res.render("admins/Requests", {
+            action: "requests",
+            data: d,
+            user: req.session
+          });
+        })
+        .catch(e => {
+          res.render("admins/Requests", {
+            action: "requests",
+            data: [],
+            user: req.session
+          });
+        });
+    } 
+  else {
     res.redirect("/");
   }
 });
