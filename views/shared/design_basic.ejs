@@ -36,6 +36,8 @@
       reader.onload = function (e) {
         $('#showDesign').attr('src', e.target.result);
         $("#upload").show(400);
+        $("#showDesign").addClass('img-thumbnail');
+
       }
 
       reader.readAsDataURL(input.files[0]);

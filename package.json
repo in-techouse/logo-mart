@@ -14,6 +14,7 @@
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.17.0",
     "firebase": "^7.4.0",
+    "html2canvas": "^1.0.0-rc.5",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
   }

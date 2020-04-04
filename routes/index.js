@@ -10,38 +10,43 @@ var firebaseConfig = {
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  measurementId: process.env.MEASUREMENT_ID,
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 /* GET home page. */
-router.get("/", function(req, res) {
-  res.render("pages/index", { action: "index",user: req.session });
+router.get("/", function (req, res) {
+  res.render("pages/index", { action: "index", user: req.session });
 });
 
 /* GET gallery page. */
-router.get("/gallery", function(req, res) {
-  res.render("pages/gallery", { action: "index",user: req.session });
+router.get("/gallery", function (req, res) {
+  res.render("pages/gallery", { action: "index", user: req.session });
 });
 
 // SignUp get action
-router.get("/signup", function(req, res) {
-  res.render("pages/auth/signup", { error: "", action: "signup" ,user: req.session });
+router.get("/signup", function (req, res) {
+  res.render("pages/auth/signup", {
+    error: "",
+    action: "signup",
+    user: req.session,
+  });
 });
 
 // SignUp post action
-router.post("/signup", function(req, res) {
+router.post("/signup", function (req, res) {
   if (req.body.password !== req.body.passwordConfirmation) {
     res.render("pages/auth/signup", {
       error: "Password doesn't match",
-      action: "signup" ,user: req.session
+      action: "signup",
+      user: req.session,
     });
   } else {
     firebase
       .auth()
       .createUserWithEmailAndPassword(req.body.email, req.body.password)
-      .then(u => {
+      .then((u) => {
         var id = req.body.email.replace("@", "-");
         id = id.replace(/\./g, "_");
         let user = {
@@ -49,7 +54,7 @@ router.post("/signup", function(req, res) {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
-          role: 0
+          role: 0,
         };
         firebase
           .database()
@@ -57,7 +62,7 @@ router.post("/signup", function(req, res) {
           .child("Users")
           .child(id)
           .set(user)
-          .then(d => {
+          .then((d) => {
             req.session.userId = user.id;
             req.session.firstName = user.firstName;
             req.session.lastName = user.lastName;
@@ -66,26 +71,31 @@ router.post("/signup", function(req, res) {
             res.redirect("/");
           });
       })
-      .catch(error => {
+      .catch((error) => {
         res.render("pages/auth/signup", {
           error: error.message,
-          action: "signup",user: req.session
+          action: "signup",
+          user: req.session,
         });
       });
   }
 });
 
 // SignIn get action
-router.get("/signin", function(req, res) {
-  res.render("pages/auth/signin", { error: "", action: "signin",user: req.session });
+router.get("/signin", function (req, res) {
+  res.render("pages/auth/signin", {
+    error: "",
+    action: "signin",
+    user: req.session,
+  });
 });
 
 // SignIn post action
-router.post("/signin", function(req, res) {
+router.post("/signin", function (req, res) {
   firebase
     .auth()
     .signInWithEmailAndPassword(req.body.userEmail, req.body.userPassword)
-    .then(user => {
+    .then((user) => {
       var id = req.body.userEmail.replace("@", "-");
       id = id.replace(/\./g, "_");
       firebase
@@ -94,7 +104,7 @@ router.post("/signin", function(req, res) {
         .child("Users")
         .child(id)
         .once("value")
-        .then(data => {
+        .then((data) => {
           if (
             data === null ||
             data === undefined ||
@@ -103,7 +113,8 @@ router.post("/signin", function(req, res) {
           ) {
             res.render("pages/auth/signin", {
               error: "Something went wrong",
-              action: "signin",user: req.session
+              action: "signin",
+              user: req.session,
             });
           } else {
             req.session.userId = data.val().id;
@@ -120,60 +131,70 @@ router.post("/signin", function(req, res) {
         });
       // res.json(user);
     })
-    .catch(error => {
+    .catch((error) => {
       res.render("pages/auth/signin", {
         error: error.message,
-        action: "signin",user: req.session
+        action: "signin",
+        user: req.session,
       });
     });
 });
 //Make your Own logo
 //post action
-router.post("/start", function(req, res) {
+router.post("/start", function (req, res) {
   res.json("1");
 });
 //Get Started
 //get action
-router.get("/get-started", function(req, res) {
-  res.render("pages/get-started", { error: "", action: "getstarted",user: req.session });
+router.get("/get-started", function (req, res) {
+  res.render("pages/get-started", {
+    error: "",
+    action: "getstarted",
+    user: req.session,
+  });
 });
 
 // Password Recovery get action
-router.get("/recovery", function(req, res) {
-  res.render("pages/auth/recovery", { error: "", action: "recovery",user: req.session });
+router.get("/recovery", function (req, res) {
+  res.render("pages/auth/recovery", {
+    error: "",
+    action: "recovery",
+    user: req.session,
+  });
 });
 
 // Password Recovery post action
-router.post("/recovery", function(req, res) {
+router.post("/recovery", function (req, res) {
   firebase
     .auth()
     .sendPasswordResetEmail(req.body.userEmail)
-    .then(user => {
+    .then((user) => {
       res.json(user);
     })
-    .catch(error => {
+    .catch((error) => {
       res.render("pages/auth/recovery", {
         error: error.message,
-        action: "recovery",user: req.session
+        action: "recovery",
+        user: req.session,
       });
     });
 });
-router.get("/facebookLogin", function(req, res) {
+router.get("/facebookLogin", function (req, res) {
   let provider = new firebase.auth.FacebookAuthProvider();
   // provider.addScope("profile");
   // provider.addScope("https://www.googleapis.com/auth/drive");
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then(user => {
+    .then((user) => {
       res.json(user);
     })
-    .catch(error => {
+    .catch((error) => {
       res.json(error);
     });
 });
 
-router.get("/googleLogin", function(req, res) {
+router.get("/googleLogin", function (req, res) {
   // res.json("!");
   let provider = new firebase.auth.GoogleAuthProvider();
   // provider.addScope("profile");
@@ -181,10 +202,10 @@ router.get("/googleLogin", function(req, res) {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then(user => {
+    .then((user) => {
       res.json(user);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
   // var provider = new firebase.auth.GoogleAuthProvider();
@@ -228,37 +249,33 @@ router.get("/googleLogin", function(req, res) {
 });
 
 // Email us post action
-router.post("/emailUs", function(req, res) {
+router.post("/emailUs", function (req, res) {
   //res.json(req.body);
-  let id = firebase
-      .database()
-      .ref()
-      .child("Requests")
-      .push().key;
-      let request = {
-        id: id,
-        name: req.body.name,
-        email: req.body.email,
-        text: req.body.text,
-      };
-      // res.json(request);
-      firebase
-      .database()
-      .ref()
-      .child("Requests")
-      .child(request.id)
-      .set(request)
-      .then(r => {
-        res.json("1");
-      })
-      .catch(e => {
-        res.json("-1");
-      });
+  let id = firebase.database().ref().child("Requests").push().key;
+  let request = {
+    id: id,
+    name: req.body.name,
+    email: req.body.email,
+    text: req.body.text,
+  };
+  // res.json(request);
+  firebase
+    .database()
+    .ref()
+    .child("Requests")
+    .child(request.id)
+    .set(request)
+    .then((r) => {
+      res.json("1");
+    })
+    .catch((e) => {
+      res.json("-1");
+    });
 });
 
 //Medical caps page
 //get action
-router.get("/caps", function(req, res) {
+router.get("/caps", function (req, res) {
   // res.render("pages/caps", { error: "", action: "medicalcaps" });
   firebase
     .database()
@@ -266,17 +283,17 @@ router.get("/caps", function(req, res) {
     .child("MedicalCaps")
     .orderByKey()
     .once("value")
-    .then(d => {
-      res.render("pages/caps", { action: "caps" ,user: req.session, data: d });
+    .then((d) => {
+      res.render("pages/caps", { action: "caps", user: req.session, data: d });
     })
-    .catch(e => {
-      res.render("pages/caps", { action: "caps",user: req.session, data: [] });
+    .catch((e) => {
+      res.render("pages/caps", { action: "caps", user: req.session, data: [] });
     });
 });
 
 //businesscard page
 //get action
-router.get("/businesscard", function(req, res) {
+router.get("/businesscard", function (req, res) {
   // res.render("pages/businesscard", { error: "", action: "businesscard" });
   firebase
     .database()
@@ -284,17 +301,25 @@ router.get("/businesscard", function(req, res) {
     .child("BusinessCards")
     .orderByKey()
     .once("value")
-    .then(d => {
-      res.render("pages/businesscard", { action: "businesscard",user: req.session, data: d });
+    .then((d) => {
+      res.render("pages/businesscard", {
+        action: "businesscard",
+        user: req.session,
+        data: d,
+      });
     })
-    .catch(e => {
-      res.render("pages/businesscard", { action: "businesscard",user: req.session, data: [] });
+    .catch((e) => {
+      res.render("pages/businesscard", {
+        action: "businesscard",
+        user: req.session,
+        data: [],
+      });
     });
 });
 
 //brochures page
 //get action
-router.get("/brochures", function(req, res) {
+router.get("/brochures", function (req, res) {
   //res.render("pages/brochures", { error: "", action: "brochures" });
   firebase
     .database()
@@ -302,17 +327,25 @@ router.get("/brochures", function(req, res) {
     .child("BrochuresAndPamphlets")
     .orderByKey()
     .once("value")
-    .then(d => {
-      res.render("pages/brochures", { action: "brochures",user: req.session, data: d });
+    .then((d) => {
+      res.render("pages/brochures", {
+        action: "brochures",
+        user: req.session,
+        data: d,
+      });
     })
-    .catch(e => {
-      res.render("pages/brochures", { action: "brochures",user: req.session, data: [] });
+    .catch((e) => {
+      res.render("pages/brochures", {
+        action: "brochures",
+        user: req.session,
+        data: [],
+      });
     });
 });
 
 //t-shirt page
 //get action
-router.get("/t-shirt", function(req, res) {
+router.get("/t-shirt", function (req, res) {
   // res.render("pages/t-shirt", { error: "", action: "t-shirt" });
   firebase
     .database()
@@ -320,17 +353,25 @@ router.get("/t-shirt", function(req, res) {
     .child("TShirts")
     .orderByKey()
     .once("value")
-    .then(d => {
-      res.render("pages/t-shirt", { action: "t-shirt",user: req.session, data: d });
+    .then((d) => {
+      res.render("pages/t-shirt", {
+        action: "t-shirt",
+        user: req.session,
+        data: d,
+      });
     })
-    .catch(e => {
-      res.render("pages/t-shirt", { action: "t-shirt",user: req.session, data: [] });
+    .catch((e) => {
+      res.render("pages/t-shirt", {
+        action: "t-shirt",
+        user: req.session,
+        data: [],
+      });
     });
 });
 
 //logo page
 //get action
-router.get("/logo", function(req, res) {
+router.get("/logo", function (req, res) {
   // res.render("pages/logo", { error: "", action: "logo" });
   // res.render("admins/index", { action: "index" });
   firebase
@@ -339,23 +380,36 @@ router.get("/logo", function(req, res) {
     .child("Logos")
     .orderByKey()
     .once("value")
-    .then(d => {
-      res.render("pages/logo", { error: "", action: "logo",user: req.session, data: d });
+    .then((d) => {
+      res.render("pages/logo", {
+        error: "",
+        action: "logo",
+        user: req.session,
+        data: d,
+      });
     })
-    .catch(e => {
-      res.render("pages/logo", { error: "", action: "logo",user: req.session, data: [] });
+    .catch((e) => {
+      res.render("pages/logo", {
+        error: "",
+        action: "logo",
+        user: req.session,
+        data: [],
+      });
     });
 });
 
-router.get("/logout", function(req, res) {
+router.get("/design", function (req, res) {
+  res.render("pages/design/finalDesign");
+});
+
+router.get("/logout", function (req, res) {
   firebase.auth().signOut();
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     if (err) {
       res.negotiate(err);
     }
     res.redirect("/");
   });
 });
-
 
 module.exports = router;

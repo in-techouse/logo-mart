@@ -1,0 +1,112 @@
+<!-- BEGIN OF site header Menu -->
+<header class="page-header navbar page-header-alpha scrolled-white menu-right topmenu-right"
+  style="min-height: 100px; background-color: #303030;">
+  <!-- Begin of menu icon toggler -->
+  <button class="navbar-toggler site-menu-icon" id="navMenuIcon">
+    <!-- Available class : menu-icon-dot / menu-icon-thick /menu-icon-random -->
+    <span class="menu-icon menu-icon-random">
+      <span class="bars">
+        <span class="bar1"></span>
+        <span class="bar2"></span>
+        <span class="bar3"></span>
+      </span>
+    </span>
+  </button>
+  <!-- End of menu icon toggler -->
+
+  <!-- Begin of logo/brand -->
+  <a class="navbar-brand" href="/" target="_blank">
+    <span class="logo">
+      <img class="light-logo" src="/public/img/logo1.png" alt="Logo" />
+    </span>
+    <span class="text">
+      <span class="line">Logo Mart</span>
+    </span>
+  </a>
+  <!-- End of logo/brand -->
+
+  <!-- begin of menu wrapper -->
+  <div class="all-menu-wrapper" id="navbarMenu">
+    <!-- Begin of top menu -->
+    <nav class="navbar-topmenu">
+      <!-- Begin of CTA Actions, & Icons menu -->
+      <ul class="navbar-nav navbar-nav-actions">
+        <li class="nav-item">
+          <a class="btn btn-outline-white btn-round" href="/signin">
+            Sign-In
+          </a>
+          <a class="btn btn-outline-white btn-round" href="/signup">
+            Sign-Up
+          </a>
+        </li>
+      </ul>
+      <!-- End of CTA & Icons menu -->
+    </nav>
+    <!-- End of top menu -->
+
+    <!-- Begin of hamburger mainmenu menu -->
+    <nav class="navbar-mainmenu">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gallery">Gallery</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- End of hamburger mainmenu menu -->
+
+    <!-- Begin of sidebar nav menu params class: text-only / icon-only-->
+    <nav class="navbar-fixed-left" style="background-color: #303030;">
+      <div class="container-fluid h-100">
+        <div class="row justify-content-center h-100">
+          <div class="col-md-3 hidden-md-down" style="padding: 0px; background-color: #D1335B;">
+            <ul class="nav designNav btn-pref">
+              <li>
+                <a class="btn btn-large btn-block btn-primary active show" href="#tab1" data-toggle="tab">
+                  <!-- <i class="icon ion-ios-home-outline"></i> -->
+                  <i class="icon designIcon ion-android-search"></i>
+                  <!-- <span class="iconify" data-icon="ion:add" data-inline="false"></span> -->
+                  <div class="hidden-xs">ICON</div>
+                </a>
+              </li>
+              <li>
+                <a class="btn btn-large btn-block" href="#tab2" data-toggle="tab">
+                  <i class="icon designIcon ion-android-create"></i>
+                  <div class="hidden-xs">TEXT</div>
+                </a>
+              </li>
+              <li>
+                <a class="btn btn-large btn-block" href="#tab3" data-toggle="tab">
+                  <i class="icon designIcon ion-ios-home-outline"></i>
+                  <div class="hidden-xs">Stars</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-9 hidden-md-down" style="background-color: lightgray;">
+            <div class="row">
+              <div class="tab-content">
+                <div class="tab-pane fade in active show" id="tab1">
+                  <%- include('../pages/design/iconTab.ejs')%>
+                </div>
+                <div class="tab-pane fade in" id="tab2">
+                  <h3>This is tab 2</h3>
+                </div>
+                <div class="tab-pane fade in" id="tab3">
+                  <h3>This is tab 3</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- End of sidebar nav menu -->
+  </div>
+  <!-- end of menu wrapper -->
+</header>
+<!-- END OF site header Menu-->

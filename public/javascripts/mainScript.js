@@ -13,22 +13,21 @@ $(document).ready(function() {
     $.ajax({
       type: "POST",
       url: "/emailUs",
-      data:{
+      data: {
         name: name,
-        email:email,
-        text:text,
+        email: email,
+        text: text
       },
-      success: function(data){
-        $('#messageForm').trigger("reset");
-        console.log("Success:",data);
-        $('#successMessage').show(500);
-        setTimeout(function(){
-          $('#successMessage').hide(500);
+      success: function(data) {
+        $("#messageForm").trigger("reset");
+        console.log("Success:", data);
+        $("#successMessage").show(500);
+        setTimeout(function() {
+          $("#successMessage").hide(500);
         }, 2000);
       },
-      error:function(error){
-        console.log ("Error:",error);
-
+      error: function(error) {
+        console.log("Error:", error);
       }
     });
   });
