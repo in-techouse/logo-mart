@@ -19,11 +19,15 @@ const icons = [
   { icon: "ion-android-arrow-forward", text: "Arrow Right" },
   { icon: "ion-android-bar", text: "Bar" },
   { icon: "ion-android-boat", text: "Boat" },
+  { icon: "ion-alert", text: "My Text" },
+  { icon: "icon-name-from-file", text: "Icon text to be displayed to user" },
 
   // Font Awesome Icons
   { icon: "faIcon fa fa-automobile", text: "Automobile" },
   { icon: "faIcon fa fa-ambulance", text: "Ambulance" },
   { icon: "faIcon fa fa-balance-scale", text: "Ambulance" },
+  { icon: "faIcon fa fa-android", text: "Android Icon" },
+  { icon: "faIcon fa icon-name-from-file", text: "Icon text to be displayed to user" },
 ];
 
 $(document).ready(function () {
