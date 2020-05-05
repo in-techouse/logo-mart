@@ -47,36 +47,37 @@
           <div class="row">
             <form id="logoFeatureInForm" method="POST" action="/start">
               <h1 style="text-align:center">Make Your Own Logo</h1>
-              <br />
               <div class="form-group form-success-gone">
-                <label for="reg-name">Enter Company Name</label>
                 <input name="companyName" required type="text" placeholder="Enter your Company Name"
                   class="form-control-line form-control-white" />
               </div>
               <div class="form-group form-success-gone">
                 <label for="reg-name">Select Your Industry</label>
-                <select class="form-control selectpicker" data-live-search="true">
-                  <option value ="Marketing"> Marketing</option>
-                  <option value ="Designing"> Designing</option> 
-                  <option value ="Agriculture"> Agriculture</option> 
-                  <option value ="Steel "> Steel</option>
-                  <option value ="Hi-Tech"> Hi-Tech </option>
-                  <option value ="Transport"> Transport</option>
-                  <option value ="Computer"> Computer</option>
-                  <option value ="Education"> Education</option>
-                  <option value ="Hopitality"> Hospitality</option>
-                  <option value ="Entertainment">Entertainment</option>
-                  <option value ="Aerospace"> Aerospace</option>
-                  <option value ="Telecommunication"> Telecommunication</option>
-                  <option value ="Contruction"> Construction</option>
-                  <option value ="Pharmacetical"> Pharmacetical</option>
-                  <option value ="Health Care"> Health Care</option>
-                  <option value ="News Media"> News Media</option>
-                  <option value ="Manufacturing"> Manufacturing</option>
-                  <option value ="Music"> Music</option>
-                  <option value ="Electronics"> Electronics</option>
-                  <option value ="World Wide Web"> World Wide Web</option>
+                <select name="category" class="form-control selectpicker" data-live-search="true">
+                  <option value="Marketing"> Marketing</option>
+                  <option value="Designing"> Designing</option>
+                  <option value="Agriculture"> Agriculture</option>
+                  <option value="Steel "> Steel</option>
+                  <option value="Hi-Tech"> Hi-Tech </option>
+                  <option value="Transport"> Transport</option>
+                  <option value="Computer"> Computer</option>
+                  <option value="Education"> Education</option>
+                  <option value="Hopitality"> Hospitality</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Aerospace"> Aerospace</option>
+                  <option value="Telecommunication"> Telecommunication</option>
+                  <option value="Contruction"> Construction</option>
+                  <option value="Pharmacetical"> Pharmacetical</option>
+                  <option value="Health Care"> Health Care</option>
+                  <option value="News Media"> News Media</option>
+                  <option value="Manufacturing"> Manufacturing</option>
+                  <option value="Music"> Music</option>
+                  <option value="Electronics"> Electronics</option>
+                  <option value="World Wide Web"> World Wide Web</option>
                 </select>
+              </div>
+              <div class="form-group form-success-gone">
+                <button type="submit" class="btn btn-primary btn-block">NEXT</button>
               </div>
             </form>
           </div>
@@ -498,9 +499,9 @@
             <p>
               The very purpose of the Logo is to Identify an Entity, a brand,
               an organization, or an association. A well designed logo will be
-              memorable, helping customers to remember the brand. A logo is a 
+              memorable, helping customers to remember the brand. A logo is a
               graphic mark, emblem or symbol used to aid and promote public
-              recognization. It may be of an abstract or figurative design 
+              recognization. It may be of an abstract or figurative design
               or include the text of a name it represent as an logo type
               or word mark.
             </p>
@@ -618,7 +619,7 @@
             <p>
               A Printed T-shirt is a T-shirt bearing a design,image
               or lettering on it.T-shirt typically contains silk
-              screened graphics of the name, logo, or image of a musical 
+              screened graphics of the name, logo, or image of a musical
               performer. A popular graphic on the rear of the T-shirts
               is a listing of information about the band's current tour,
               including tour cities (sometimes specifying venues) and
@@ -683,7 +684,7 @@
               Now they may include social media addresses such as Facebook, LinkedIn
               and Twitter. Traditionally, many cards were simple black text on white
               stock, and the distinctive look and feel of cards printed from an
-              engraved plate was a desirable sign of professionalism. 
+              engraved plate was a desirable sign of professionalism.
             </p>
           </div>
 
@@ -738,10 +739,10 @@
             <p>
               Pamphlets are also called “leaflets” and generally considered
               unbound booklets. Pamphlets vary in both size and style, but
-              for the most part, a pamphlet is something that contains 
-              information about a single subject. Printed brochures, 
-              on the other hand, are sometimes used interchangeably 
-              with word “pamphlet. There are people who use 
+              for the most part, a pamphlet is something that contains
+              information about a single subject. Printed brochures,
+              on the other hand, are sometimes used interchangeably
+              with word “pamphlet. There are people who use
               the terms pamphlets and brochures interchangeably, while
               others insist that pamphlets are closer to color copies,
               while brochures are their own type of collateral altogether.
@@ -858,7 +859,7 @@
             <div class="">
               <div class="form-container form-container-card">
                 <!-- Message form container -->
-                <form class="message form" method="POST" id ="messageForm">
+                <form class="message form" method="POST" id="messageForm">
                   <div class="form-group name">
                     <label for="mes-name">Name :</label>
                     <input id="mes-name" name="name" type="text" placeholder=""
@@ -882,8 +883,8 @@
                   </div>
 
                   <div class="btns">
-                    <button id="submit-message" type="submit" class="btn btn-normal btn-white btn-round btn-full email_b"
-                      name="submit_message">
+                    <button id="submit-message" type="submit"
+                      class="btn btn-normal btn-white btn-round btn-full email_b" name="submit_message">
                       <span class="txt">Send</span>
                       <span class="arrow-icon"></span>
                     </button>

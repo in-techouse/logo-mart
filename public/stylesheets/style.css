@@ -3,21 +3,29 @@ body {
   margin: 0px;
   padding: 0px;
 }
-body .container-fluid{
+body .container-fluid {
   margin: 0px;
 }
 
-.jumbotron{
+.jumbotron {
   margin-top: 100px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
 }
-.jumbotron .row form h1{
+.jumbotron .row form h1 {
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 800;
-} 
+}
 
+.jumbotron > .row > form {
+  width: 100% !important;
+}
 
-.jumbotron > .row > form{
-  width: 100%!important;
+.designHeading {
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  margin-top: 12px;
+  font-family: "Times New Roman", Times, serif;
 }

@@ -1,18 +1,6 @@
 <!-- BEGIN OF site header Menu -->
 <header class="page-header navbar page-header-alpha scrolled-white menu-right topmenu-right"
   style="min-height: 100px; background-color: #303030;">
-  <!-- Begin of menu icon toggler -->
-  <button class="navbar-toggler site-menu-icon" id="navMenuIcon">
-    <!-- Available class : menu-icon-dot / menu-icon-thick /menu-icon-random -->
-    <span class="menu-icon menu-icon-random">
-      <span class="bars">
-        <span class="bar1"></span>
-        <span class="bar2"></span>
-        <span class="bar3"></span>
-      </span>
-    </span>
-  </button>
-  <!-- End of menu icon toggler -->
 
   <!-- Begin of logo/brand -->
   <a class="navbar-brand" href="/" target="_blank">
@@ -32,6 +20,11 @@
       <!-- Begin of CTA Actions, & Icons menu -->
       <ul class="navbar-nav navbar-nav-actions">
         <li class="nav-item">
+          <button class="btn btn-primary" id="download">
+            <i class="icon fa fa-download"></i> Download
+          </button>
+        </li>
+        <li class="nav-item">
           <a class="btn btn-outline-white btn-round" href="/signin">
             Sign-In
           </a>
@@ -43,21 +36,6 @@
       <!-- End of CTA & Icons menu -->
     </nav>
     <!-- End of top menu -->
-
-    <!-- Begin of hamburger mainmenu menu -->
-    <nav class="navbar-mainmenu">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/gallery">Gallery</a>
-        </li>
-      </ul>
-    </nav>
-    <!-- End of hamburger mainmenu menu -->
 
     <!-- Begin of sidebar nav menu params class: text-only / icon-only-->
     <nav class="navbar-fixed-left" style="background-color: #303030;">
@@ -82,7 +60,13 @@
               <li>
                 <a class="btn btn-large btn-block" href="#tab3" data-toggle="tab">
                   <i class="icon designIcon ion-ios-home-outline"></i>
-                  <div class="hidden-xs">Stars</div>
+                  <div class="hidden-xs">Size-Color</div>
+                </a>
+              </li>
+              <li>
+                <a class="btn btn-large btn-block" href="#tab4" data-toggle="tab">
+                  <i class="icon designIcon ion-ios-home-outline"></i>
+                  <div class="hidden-xs">Background</div>
                 </a>
               </li>
             </ul>
@@ -97,7 +81,10 @@
                   <%- include('../pages/design/fontTab.ejs')%>
                 </div>
                 <div class="tab-pane fade in" id="tab3">
-                  <h3>This is tab 3</h3>
+                  <%- include('../pages/design/fontColorTab.ejs')%>
+                </div>
+                <div class="tab-pane fade in" id="tab4">
+                  <%- include('../pages/design/backgroundTab.ejs')%>
                 </div>
               </div>
             </div>

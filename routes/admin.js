@@ -3,14 +3,14 @@ var firebase = require("firebase");
 var router = express.Router();
 
 /* GET home page. */
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/index", { action: "index", user: req.session });
   } else {
     res.redirect("/");
   }
 });
-router.get("/allLogos", function(req, res) {
+router.get("/allLogos", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
       .database()
@@ -18,42 +18,38 @@ router.get("/allLogos", function(req, res) {
       .child("Logos")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/allLogos", {
           action: "allLogos",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/allLogos", {
           action: "allLogos",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/newLogo", function(req, res) {
+router.get("/newLogo", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newLogos", { action: "newLogos", user: req.session });
   } else {
     res.redirect("/");
   }
 });
-router.post("/newLogo", function(req, res) {
+router.post("/newLogo", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    let id = firebase
-      .database()
-      .ref()
-      .child("Logos")
-      .push().key;
+    let id = firebase.database().ref().child("Logos").push().key;
     let logo = {
       id: id,
       designName: req.body.designName,
-      designURL: req.body.designURL
+      designURL: req.body.designURL,
     };
     firebase
       .database()
@@ -61,20 +57,20 @@ router.post("/newLogo", function(req, res) {
       .child("Logos")
       .child(logo.id)
       .set(logo)
-      .then(r => {
+      .then((r) => {
         res.redirect("/admins/allLogos");
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/newLogos", {
           action: "newLogos",
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/allMedicalCaps", function(req, res) {
+router.get("/allMedicalCaps", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
       .database()
@@ -82,18 +78,18 @@ router.get("/allMedicalCaps", function(req, res) {
       .child("MedicalCaps")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/allMedicalCaps", {
           action: "allMedicalCaps",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/allMedicalCaps", {
           action: "allMedicalCaps",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
@@ -101,27 +97,23 @@ router.get("/allMedicalCaps", function(req, res) {
   }
 });
 
-router.get("/newMedicalCap", function(req, res) {
+router.get("/newMedicalCap", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newMedicalCaps", {
       action: "newMedicalCaps",
-      user: req.session
+      user: req.session,
     });
   } else {
     res.redirect("/");
   }
 });
-router.post("/newMedicalCaps", function(req, res) {
+router.post("/newMedicalCaps", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    let id = firebase
-      .database()
-      .ref()
-      .child("MedicalCaps")
-      .push().key;
+    let id = firebase.database().ref().child("MedicalCaps").push().key;
     let medicalcap = {
       id: id,
       designName: req.body.designName,
-      designURL: req.body.designURL
+      designURL: req.body.designURL,
     };
     firebase
       .database()
@@ -129,20 +121,20 @@ router.post("/newMedicalCaps", function(req, res) {
       .child("MedicalCaps")
       .child(medicalcap.id)
       .set(medicalcap)
-      .then(r => {
+      .then((r) => {
         res.redirect("/admins/allMedicalCaps");
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/newMedicalCaps", {
           action: "newMedicalCaps",
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/allBusinessCards", function(req, res) {
+router.get("/allBusinessCards", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
       .database()
@@ -150,18 +142,18 @@ router.get("/allBusinessCards", function(req, res) {
       .child("BusinessCards")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/allBusinessCard", {
           action: "allBusinessCards",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/allBusinessCard", {
           action: "allBusinessCards",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
@@ -169,27 +161,23 @@ router.get("/allBusinessCards", function(req, res) {
   }
 });
 
-router.get("/newBusinessCard", function(req, res) {
+router.get("/newBusinessCard", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newBusinesscard", {
       action: "newBusinessCard",
-      user: req.session
+      user: req.session,
     });
   } else {
     res.redirect("/");
   }
 });
-router.post("/newBusinessCard", function(req, res) {
+router.post("/newBusinessCard", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    let id = firebase
-      .database()
-      .ref()
-      .child("BusinessCards")
-      .push().key;
+    let id = firebase.database().ref().child("BusinessCards").push().key;
     let businesscard = {
       id: id,
       designName: req.body.designName,
-      designURL: req.body.designURL
+      designURL: req.body.designURL,
     };
     firebase
       .database()
@@ -197,66 +185,63 @@ router.post("/newBusinessCard", function(req, res) {
       .child("BusinessCards")
       .child(businesscard.id)
       .set(businesscard)
-      .then(r => {
+      .then((r) => {
         res.redirect("/admins/allBusinessCards");
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/newBusinessCard", {
           action: "newBusinessCard",
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/allBrochuresAndPamphlets", function(req, res) {
+router.get("/allBrochuresAndPamphlets", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
       .database()
       .ref()
-      .child("BrochuresAndPamphlets")
+      .child("PamphletsAndBrochures")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/allBrochures&Pamphets", {
           action: "allBrochuresAndPamphlets",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/allBrochures&Pamphets", {
           action: "allBrochuresAndPamphlets",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/newBrochureAndPamphlet", function(req, res) {
+router.get("/newBrochureAndPamphlet", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newBrochures&Pamphlets", {
       action: "newBrochureAndPamphlet",
-      user: req.session
+      user: req.session,
     });
   } else {
     res.redirect("/");
   }
 });
-router.post("/newBrochureAndPamphlet", function(req, res) {
+router.post("/newBrochureAndPamphlet", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    let id = firebase
-      .database()
-      .ref()
-      .child("PamphletsAndBrochures")
-      .push().key;
+    let id = firebase.database().ref().child("PamphletsAndBrochures").push()
+      .key;
     let pamphlet = {
       id: id,
       designName: req.body.designName,
-      designURL: req.body.designURL
+      designURL: req.body.designURL,
     };
     firebase
       .database()
@@ -264,20 +249,20 @@ router.post("/newBrochureAndPamphlet", function(req, res) {
       .child("PamphletsAndBrochures")
       .child(pamphlet.id)
       .set(pamphlet)
-      .then(r => {
+      .then((r) => {
         res.redirect("/admins/allBrochuresAndPamphlets");
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/newBrochures&Pamphlets", {
           action: "newBrochureAndPamphlet",
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/allTShirts", function(req, res) {
+router.get("/allTShirts", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
       .database()
@@ -285,46 +270,42 @@ router.get("/allTShirts", function(req, res) {
       .child("TShirts")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/allT_Shirts", {
           action: "allTShirts",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/allT_Shirts", {
           action: "allTShirts",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
     res.redirect("/");
   }
 });
-router.get("/newTShirt", function(req, res) {
+router.get("/newTShirt", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newT_Shirts", {
       action: "newTShirt",
-      user: req.session
+      user: req.session,
     });
   } else {
     res.redirect("/");
   }
 });
 
-router.post("/newTShirts", function(req, res) {
+router.post("/newTShirts", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    let id = firebase
-      .database()
-      .ref()
-      .child("TShirts")
-      .push().key;
+    let id = firebase.database().ref().child("TShirts").push().key;
     let T_Shirt = {
       id: id,
       designName: req.body.designName,
-      designURL: req.body.designURL
+      designURL: req.body.designURL,
     };
     firebase
       .database()
@@ -332,13 +313,13 @@ router.post("/newTShirts", function(req, res) {
       .child("TShirts")
       .child(T_Shirt.id)
       .set(T_Shirt)
-      .then(r => {
+      .then((r) => {
         res.redirect("/admins/allTShirts");
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/newT_Shirts", {
           action: "newTShirt",
-          user: req.session
+          user: req.session,
         });
       });
   } else {
@@ -346,7 +327,7 @@ router.post("/newTShirts", function(req, res) {
   }
 });
 
-router.get("/requests", function(req, res) {
+router.get("/requests", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     //res.render("admins/Requests", { action: "requests", user: req.session });
     firebase
@@ -355,18 +336,18 @@ router.get("/requests", function(req, res) {
       .child("Requests")
       .orderByKey()
       .once("value")
-      .then(d => {
+      .then((d) => {
         res.render("admins/Requests", {
           action: "requests",
           data: d,
-          user: req.session
+          user: req.session,
         });
       })
-      .catch(e => {
+      .catch((e) => {
         res.render("admins/Requests", {
           action: "requests",
           data: [],
-          user: req.session
+          user: req.session,
         });
       });
   } else {
@@ -374,20 +355,20 @@ router.get("/requests", function(req, res) {
   }
 });
 
-router.get("/chats", function(req, res) {
+router.get("/chats", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/chats", {
       action: "chats",
-      user: req.session
+      user: req.session,
     });
   } else {
     res.redirect("/");
   }
 });
 
-router.get("/logout", function(req, res) {
+router.get("/logout", function (req, res) {
   firebase.auth().signOut();
-  req.session.destroy(function(err) {
+  req.session.destroy(function (err) {
     if (err) {
       res.negotiate(err);
     }

@@ -43,13 +43,19 @@
     <script src="/public/design/jquery-ui.min.js"></script>
 
     <script src="/public/design/script.js"></script>
+    <!-- This file will load and display all the icons. -->
     <script src="/public/design/loadIcons.js"></script>
+    <!-- This file will load and display all the fonts. -->
+    <script src="/public/design/loadFonts.js"></script>
+    <!-- This file will load and display all the colors. -->
+    <script src="/public/design/loadFontColor.js"></script>
+    <!-- This file will load and display all the background colors. -->
+    <script src="/public/design/loadBackgroundColor.js"></script>
 
 
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/godswearhats/jquery-ui-rotatable@1.1/jquery.ui.rotatable.css">
     <script src="/public/design/jquery.ui.rotatable.min.js"></script>
-
 
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -64,18 +70,15 @@
     <%- include('../../shared/_loading.ejs')%>
     <%- include('../../shared/_design_header.ejs')%>
     <main class="page-main page-fullpage main-anim designPage" id="mainpage">
-        <div class="row designInner" id="mainCanvas">
-            <div id="output"></div>
-            <div id="capture">
+        <div class="row designInner">
+            <div class="col-md-12 designInnerLevelOne">
+                <div class="card designInnerLevelTwo d-flex justify-content-lg-center" id="mainCanvas">
+                    <div id="MainDiv">
+                        <img src="<%= design.val().designURL %>" class="designImage designBorder" />
+                        <!-- <i id="icon0" class="icon designIcon ion-android-arrow-dropup-circle"></i> -->
+                    </div>
+                </div>
             </div>
-
-            <div id="MainDiv" style="background-color: green;  height: 200px;">
-                <img src="https://firebasestorage.googleapis.com/v0/b/logo-mart.appspot.com/o/Admins%2FDesigns%2F1579241549472HINA%20WEBSITE.jpg?alt=media&token=858ce2ba-e346-4ec2-94e8-f55f1a8f969d"
-                    width="80" />
-                <div>Test</div>
-                <div>Tes2</div>
-            </div>
-
         </div>
     </main>
 </body>

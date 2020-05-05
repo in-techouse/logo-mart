@@ -142,8 +142,34 @@ router.post("/signin", function (req, res) {
 //Make your Own logo
 //post action
 router.post("/start", function (req, res) {
-  res.json("1");
+  let userDesign = {
+    id: "",
+    userId: "",
+    category: req.body.category,
+    companyName: req.body.companyName,
+    designType: "",
+    designId: "",
+    designUrl: "",
+  };
+  if (req.session.userId) {
+    userDesign.userId = req.session.userId;
+  }
+  userDesign.id = firebase.database().ref().child("UserDesign").push().key;
+  firebase
+    .database()
+    .ref()
+    .child("UserDesign")
+    .child(userDesign.id)
+    .set(userDesign)
+    .then((d) => {
+      req.session.userDesignId = userDesign.id;
+      res.redirect("/get-started");
+    })
+    .catch((e) => {
+      res.render("pages/index", { action: "index", user: req.session });
+    });
 });
+
 //Get Started
 //get action
 router.get("/get-started", function (req, res) {
@@ -179,6 +205,7 @@ router.post("/recovery", function (req, res) {
       });
     });
 });
+
 router.get("/facebookLogin", function (req, res) {
   let provider = new firebase.auth.FacebookAuthProvider();
   // provider.addScope("profile");
@@ -324,7 +351,7 @@ router.get("/brochures", function (req, res) {
   firebase
     .database()
     .ref()
-    .child("BrochuresAndPamphlets")
+    .child("PamphletsAndBrochures")
     .orderByKey()
     .once("value")
     .then((d) => {
@@ -399,7 +426,92 @@ router.get("/logo", function (req, res) {
 });
 
 router.get("/design", function (req, res) {
-  res.render("pages/design/finalDesign");
+  if (req.query.id) {
+    firebase
+      .database()
+      .ref()
+      .child(req.query.type)
+      .child(req.query.id)
+      .once("value")
+      .then((data) => {
+        if (req.session.userDesignId) {
+          firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .child(req.session.userDesignId)
+            .once("value")
+            .then((userDesign) => {
+              let ud = {};
+              ud.id = userDesign.val().id;
+              ud.designId = req.query.id;
+              ud.designType = req.query.type;
+              ud.userId = userDesign.val().userId;
+              ud.category = userDesign.val().category;
+              ud.companyName = userDesign.val().companyName;
+              ud.designUrl = userDesign.val().designUrl;
+              firebase
+                .database()
+                .ref()
+                .child("UserDesign")
+                .child(ud.id)
+                .set(ud)
+                .then((d) => {
+                  res.render("pages/design/finalDesign", {
+                    design: data,
+                    userDesign: ud,
+                    user: req.session,
+                  });
+                })
+                .catch((e) => {
+                  res.redirect("/");
+                });
+            })
+            .catch((e) => {
+              res.redirect("/");
+            });
+        } else {
+          let userDesign = {
+            id: "",
+            userId: "",
+            category: "",
+            companyName: "",
+            designType: req.query.type,
+            designId: req.query.id,
+            designUrl: "",
+          };
+          if (req.session.userId) {
+            userDesign.userId = req.session.userId;
+          }
+          userDesign.id = firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .push().key;
+          firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .child(userDesign.id)
+            .set(userDesign)
+            .then((d) => {
+              res.render("pages/design/finalDesign", {
+                design: data,
+                userDesign: userDesign,
+                user: req.session,
+              });
+            })
+            .catch((e) => {
+              res.redirect("/");
+            });
+        }
+      })
+      .catch((err) => {
+        res.redirect("/");
+      });
+  } else {
+    res.redirect("/");
+  }
 });
 
 router.get("/logout", function (req, res) {

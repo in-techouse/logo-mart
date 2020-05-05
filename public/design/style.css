@@ -3,6 +3,7 @@
   border: 2px solid;
   padding: 20px;
   overflow: auto;
+  height: 200px;
 }
 
 /* Left Navbar */
@@ -48,14 +49,68 @@
 }
 
 .designPage > .designInner {
-  background-color: red;
+  background-color: lightgray;
+  height: 89%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 30px;
+}
+.designInnerLevelOne {
+  width: 100%;
+  background-color: lightgray;
+}
+
+.designInnerLevelTwo {
   height: 100%;
+  background-color: #d1335b;
+}
+
+.designBorder {
+  border: solid 1px lightgray;
+}
+
+#MainDiv {
+  height: 300px;
+  width: 300px;
+  cursor: move;
+}
+
+.designImage {
+  height: 300px;
+  width: 300px;
 }
 
 .designIcon {
+  width: 50px;
   font-size: 35px;
   font-weight: bold;
   color: #f0f0f0;
+  cursor: move;
+  /* background-color: blue; */
+}
+
+.designInputUpper {
+  height: 120px;
+  width: 40%;
+  cursor: move;
+  padding: 30px;
+}
+.designInput {
+  background-color: transparent;
+  height: 40px;
+  font-size: 20px;
+  width: 100%;
+  cursor: move;
+}
+#mainCanvas textarea {
+  outline: none;
+  border: solid 0px white;
+  resize: none;
+}
+#mainCanvas textarea:focus {
+  outline: none;
+  border: solid 0px white;
 }
 
 .hidden-xs {
@@ -118,4 +173,14 @@
 .fontsContainer > a:hover {
   color: #d1335b;
   background-color: white;
+}
+
+/* Font Color Styling */
+.fontColorStyle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
