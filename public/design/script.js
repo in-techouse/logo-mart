@@ -106,7 +106,6 @@ $(document).ready(function () {
         $("#" + i).removeClass("designBorder");
       }
     }
-    // $("#mainCanvas .designBorder").removeClass("designBorder");
     $(".ui-rotatable-handle").hide();
     html2canvas(document.querySelector("#mainCanvas"), {
       useCORS: true,
@@ -144,23 +143,19 @@ $(document).ready(function () {
   $("#fontSize").on("change", function () {
     let widget = "";
     for (var i in map) {
-      console.log(`${i} in Map: `, map[i]);
       if (map[i] === true) {
         widget = i;
       }
     }
     if (widget.includes("input")) {
       let str = widget.split("input");
-      console.log("Split Str: ", str);
       let fontId = "font" + str[1];
-      console.log("Font Count ", fontId);
       $("#" + fontId).css({ "font-size": this.value });
     }
   });
 });
 
 function elementClicked(id) {
-  console.log(`${id} Click, Hash Map: `, map);
   for (var i in map) {
     map[i] = false;
     $("#" + i).removeClass("focusDesignBorder");
@@ -169,13 +164,11 @@ function elementClicked(id) {
   map[id] = true;
   $("#" + id).removeClass("designBorder");
   $("#" + id).addClass("focusDesignBorder");
-  console.log(`${id} Click, Hash Map: `, map);
   if (id.includes("icon")) {
     $("#fontStylingCard").show(300);
     $("#fontStylingError").hide(300);
   } else if (id.includes("input")) {
     var size = $("#" + id + " .designInput").css("font-size");
-    console.log(`Size of ${id}: `, size);
     $("#fontSize").val(size);
     $("#fontStylingCard").show(300);
     $("#fontStylingError").hide(300);
@@ -257,19 +250,15 @@ function fontSelected(fontFamily) {
 }
 
 function colorSelected(color) {
-  console.log("Font Color Selected: ", color);
   let widget = "";
   for (var i in map) {
-    console.log(`${i} in Map: `, map[i]);
     if (map[i] === true) {
       widget = i;
     }
   }
   if (widget.includes("input")) {
     let str = widget.split("input");
-    console.log("Split Str: ", str);
     let fontId = "font" + str[1];
-    console.log("Font Count ", fontId);
     $("#" + fontId).css({ color: color });
   } else if (widget.includes("icon")) {
   }
