@@ -106,7 +106,6 @@ const icons = [
 ];
 
 $(document).ready(function () {
-  console.log("Screen height", screen.height);
   $("#iconTabs").height(screen.height - 200);
   icons.forEach((icon) => {
     let iconDiv = `<div class="col-md-4 designCol" onclick="iconSelected('${icon.icon}')">

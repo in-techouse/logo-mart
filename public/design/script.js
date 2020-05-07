@@ -88,8 +88,10 @@ const fontFamilies = [
 
 let iconCount = 0;
 let fontCount = 0;
+let map = {};
 $(document).ready(function () {
-  console.log("Design Doc is ready");
+  map["MainDiv"] = false;
+
   // Tabs Listener
   $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
@@ -97,26 +99,33 @@ $(document).ready(function () {
   });
 
   $("#download").click(function () {
-    console.log("Download Clicked");
-    $("#mainCanvas .designBorder").removeClass("designBorder");
+    for (var i in map) {
+      if (map[i] === true) {
+        $("#" + i).removeClass("focusDesignBorder");
+      } else {
+        $("#" + i).removeClass("designBorder");
+      }
+    }
+    // $("#mainCanvas .designBorder").removeClass("designBorder");
     $(".ui-rotatable-handle").hide();
     html2canvas(document.querySelector("#mainCanvas"), {
       useCORS: true,
     }).then((canvas) => {
       saveAs(canvas.toDataURL(), "file-name.png");
       $(".ui-rotatable-handle").show();
+      for (var i in map) {
+        if (map[i] === true) {
+          $("#" + i).addClass("focusDesignBorder");
+        } else {
+          $("#" + i).addClass("designBorder");
+        }
+      }
     });
-  });
-
-  $("#MainDiv").click(function () {
-    console.log("Main Div Clicked");
   });
 
   $("#MainDiv").resizable({
     containment: "parent",
     resize: function (e, ui) {
-      console.log("UI: ", ui);
-      console.log("UI: ", ui.size);
       $(".designImage").css({
         height: ui.size.height + "px",
         width: ui.size.width + "px",
@@ -128,7 +137,53 @@ $(document).ready(function () {
     containment: "parent",
   });
   $("#MainDiv").rotatable();
+  $("#MainDiv").click(function () {
+    elementClicked("MainDiv");
+  });
+
+  $("#fontSize").on("change", function () {
+    let widget = "";
+    for (var i in map) {
+      console.log(`${i} in Map: `, map[i]);
+      if (map[i] === true) {
+        widget = i;
+      }
+    }
+    if (widget.includes("input")) {
+      let str = widget.split("input");
+      console.log("Split Str: ", str);
+      let fontId = "font" + str[1];
+      console.log("Font Count ", fontId);
+      $("#" + fontId).css({ "font-size": this.value });
+    }
+  });
 });
+
+function elementClicked(id) {
+  console.log(`${id} Click, Hash Map: `, map);
+  for (var i in map) {
+    map[i] = false;
+    $("#" + i).removeClass("focusDesignBorder");
+    $("#" + i).addClass("designBorder");
+  }
+  map[id] = true;
+  $("#" + id).removeClass("designBorder");
+  $("#" + id).addClass("focusDesignBorder");
+  console.log(`${id} Click, Hash Map: `, map);
+  if (id.includes("icon")) {
+    $("#fontStylingCard").show(300);
+    $("#fontStylingError").hide(300);
+  } else if (id.includes("input")) {
+    var size = $("#" + id + " .designInput").css("font-size");
+    console.log(`Size of ${id}: `, size);
+    $("#fontSize").val(size);
+    $("#fontStylingCard").show(300);
+    $("#fontStylingError").hide(300);
+  } else {
+    $("#fontStylingError").show(300);
+    $("#fontStylingCard").hide(300);
+  }
+}
 
 function saveAs(uri, filename) {
   var link = document.createElement("a");
@@ -147,9 +202,10 @@ function saveAs(uri, filename) {
 }
 
 function iconSelected(iconName) {
-  console.log("Selected Icon is: ", iconName);
-  let iconDiv = `<i id="icon${iconCount}" class="designBorder designIcon ${iconName}"></i>`;
+  let iconDiv = `<i id="icon${iconCount}" class="designBorder designIcon ${iconName}" onmousedown="elementClicked('icon${iconCount}')"></i>`;
   $("#mainCanvas").append(iconDiv);
+  map["icon" + iconCount] = true;
+  elementClicked("icon" + iconCount);
   setTimeout(() => {
     let count = iconCount;
     iconCount++;
@@ -160,8 +216,6 @@ function iconSelected(iconName) {
     $("#icon" + count).resizable({
       containment: "parent",
       resize: function (e, ui) {
-        console.log(`Icon ${count} UI: `, ui);
-        console.log(`Icon ${count} UI: `, ui.size);
         $("#icon" + count).css({
           "font-size": ui.size.width - ui.size.width * 0.2 + "px",
         });
@@ -172,14 +226,14 @@ function iconSelected(iconName) {
 }
 
 function fontSelected(fontFamily) {
-  console.log("Selected Font Family: ", fontFamily);
   let input = `
-    <div class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
+    <div onmousedown="elementClicked('input${fontCount}')" class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
   $("#mainCanvas").append(input);
+  map["input" + fontCount] = true;
+  elementClicked("input" + fontCount);
   setTimeout(() => {
     let count = fontCount;
     fontCount++;
-    console.log("Font Count, Count: ", count);
     $("#input" + count).draggable({
       cursor: "pointer",
       containment: "parent",
@@ -187,8 +241,6 @@ function fontSelected(fontFamily) {
     $("#input" + count).resizable({
       containment: "parent",
       resize: function (e, ui) {
-        console.log(`Icon ${count} UI: `, ui);
-        console.log(`Icon ${count} UI: `, ui.size);
         $("#font" + count).css({
           height: ui.size.height - 62 + "px",
         });
@@ -199,8 +251,30 @@ function fontSelected(fontFamily) {
       $("#font" + count).prop("readonly", false);
     });
     $("#font" + count).blur(function () {
-      console.log("On Blur Called");
       $("#font" + count).prop("readonly", true);
     });
   }, 200);
+}
+
+function colorSelected(color) {
+  console.log("Font Color Selected: ", color);
+  let widget = "";
+  for (var i in map) {
+    console.log(`${i} in Map: `, map[i]);
+    if (map[i] === true) {
+      widget = i;
+    }
+  }
+  if (widget.includes("input")) {
+    let str = widget.split("input");
+    console.log("Split Str: ", str);
+    let fontId = "font" + str[1];
+    console.log("Font Count ", fontId);
+    $("#" + fontId).css({ color: color });
+  } else if (widget.includes("icon")) {
+  }
+}
+
+function backgroundSelected(color) {
+  $(".designInnerLevelTwo").css({ "background-color": color });
 }

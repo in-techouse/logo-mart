@@ -87,7 +87,6 @@ const fonts = [
 ];
 
 $(document).ready(function () {
-  console.log("Fonts page is ready");
   $(".fontsContainer").height(screen.height - 200);
   fonts.forEach((font) => {
     let fontText = `<a href="#" class="${font.class}" onclick="fontSelected('${font.class}')">${font.family}</a>`;

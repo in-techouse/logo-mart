@@ -32,8 +32,7 @@ $(document).ready(function () {
   console.log("Background Color Tabs ready");
   $("#backgroundTab").height(screen.height - 200);
   backgroundColors.forEach((color) => {
-    console.log("Color: ", color);
-    let colorElement = `<div class="col-md-4" style="margin-top: 7px;">
+    let colorElement = `<div class="col-md-4" style="margin-top: 7px;" onclick="backgroundSelected('${color.color}')">
           <div style="background-color: ${color.color};" class="fontColorStyle"></div>
       </div>`;
     $(".backgroundRow").append(colorElement);

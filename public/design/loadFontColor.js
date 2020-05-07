@@ -32,8 +32,7 @@ $(document).ready(function () {
   console.log("Font Color Tabs ready");
   $("#fontColorTab").height(screen.height - 200);
   colors.forEach((color) => {
-    console.log("Color: ", color);
-    let colorElement = `<div class="col-md-4" style="margin-top: 7px;">
+    let colorElement = `<div class="col-md-4" style="margin-top: 7px;" onclick="colorSelected('${color.color}')">
         <div style="background-color: ${color.color};" class="fontColorStyle"></div>
     </div>`;
     $(".fontColorRow").append(colorElement);
