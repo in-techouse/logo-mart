@@ -1,31 +1,42 @@
 <% extend('../admin_layout.ejs') %>
 <div class="app-main__outer">
     <div class="app-main__inner">
-        <div class="mb-3 card" style="padding: 20px;">
+        <!-- Closing Main -->
+        <div class="card mb-3">
             <div class="card-header-tab card-header">
-                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                    <i class="header-icon lnr-charts icon-gradient bg-happy-green"> </i>
-                    ALL REQUESTS
+                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i
+                        class="header-icon lnr-laptop-phone mr-3 text-muted opacity-6"> </i>Listing All Requests
                 </div>
             </div>
-            <div class="row">
-                <table class="table table-bordered">
+            <div class="card-body">
+                <table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
                     <thead>
-                        <tr> 
-                            <td> Name</td>
-                            <td> Email</td>
-                            <td> Message</td>
+                        <tr>
+                            <th> Name</th>
+                            <th> Email</th>
+                            <th> Message</th>
+                            <th> Details </th>
                         </tr>
                     </thead>
-                    <tbody> 
+                    <tbody>
                         <% data.forEach(d=>{ %>
-                            <tr>
-                                <td><%= d.val().name %></td>
-                                <td><%= d.val().email %></td>
-                                <td><%= d.val().text %></td>
-                            </tr>
+                        <tr>
+                            <td><%= d.name %></td>
+                            <td><%= d.email %></td>
+                            <td><%= d.text %></td>
+                            <td><a href="/admins/chat?id=<%= d.id%>" class="btn btn-sm btn-success">Chat/Deliver</a>
+                            </td>
+                        </tr>
                         <% }) %>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th> Name</th>
+                            <th> Email</th>
+                            <th> Message</th>
+                            <th> Details </th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

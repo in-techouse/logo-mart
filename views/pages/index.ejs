@@ -874,12 +874,6 @@
                     <label for="mes-text">Message</label>
                     <textarea id="mes-text" placeholder="..." name="message"
                       class="form-control form-control-outline thick form-success-clean" required></textarea>
-
-                    <div id="successMessage">
-                      <p class="message-ok invisible form-text-feedback form-success-visible">
-                        Your message has been sent, thank you.
-                      </p>
-                    </div>
                   </div>
 
                   <div class="btns">
@@ -888,6 +882,11 @@
                       <span class="txt">Send</span>
                       <span class="arrow-icon"></span>
                     </button>
+                  </div>
+                  <div id="successMessage" style="display: none;">
+                    <p class="message-ok form-success-visible">
+                      Your message has been sent, You will be contacted soon. Thank you!.
+                    </p>
                   </div>
                 </form>
               </div>

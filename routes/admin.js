@@ -10,6 +10,7 @@ router.get("/", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/allLogos", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
@@ -36,6 +37,7 @@ router.get("/allLogos", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/newLogo", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newLogos", { action: "newLogos", user: req.session });
@@ -43,6 +45,7 @@ router.get("/newLogo", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.post("/newLogo", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     let id = firebase.database().ref().child("Logos").push().key;
@@ -70,6 +73,7 @@ router.post("/newLogo", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/allMedicalCaps", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
@@ -107,6 +111,7 @@ router.get("/newMedicalCap", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.post("/newMedicalCaps", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     let id = firebase.database().ref().child("MedicalCaps").push().key;
@@ -134,6 +139,7 @@ router.post("/newMedicalCaps", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/allBusinessCards", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
@@ -171,6 +177,7 @@ router.get("/newBusinessCard", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.post("/newBusinessCard", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     let id = firebase.database().ref().child("BusinessCards").push().key;
@@ -198,6 +205,7 @@ router.post("/newBusinessCard", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/allBrochuresAndPamphlets", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
@@ -224,6 +232,7 @@ router.get("/allBrochuresAndPamphlets", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/newBrochureAndPamphlet", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newBrochures&Pamphlets", {
@@ -234,6 +243,7 @@ router.get("/newBrochureAndPamphlet", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.post("/newBrochureAndPamphlet", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     let id = firebase.database().ref().child("PamphletsAndBrochures").push()
@@ -262,6 +272,7 @@ router.post("/newBrochureAndPamphlet", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/allTShirts", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     firebase
@@ -288,6 +299,7 @@ router.get("/allTShirts", function (req, res) {
     res.redirect("/");
   }
 });
+
 router.get("/newTShirt", function (req, res) {
   if (req.session.role && req.session.role === 1) {
     res.render("admins/newT_Shirts", {
@@ -329,7 +341,6 @@ router.post("/newTShirts", function (req, res) {
 
 router.get("/requests", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    //res.render("admins/Requests", { action: "requests", user: req.session });
     firebase
       .database()
       .ref()
@@ -337,9 +348,13 @@ router.get("/requests", function (req, res) {
       .orderByKey()
       .once("value")
       .then((d) => {
+        let requests = [];
+        d.forEach((r) => {
+          requests.push(r.val());
+        });
         res.render("admins/Requests", {
           action: "requests",
-          data: d,
+          data: requests.reverse(),
           user: req.session,
         });
       })
@@ -355,12 +370,24 @@ router.get("/requests", function (req, res) {
   }
 });
 
-router.get("/chats", function (req, res) {
+router.get("/chat", function (req, res) {
   if (req.session.role && req.session.role === 1) {
-    res.render("admins/chats", {
-      action: "chats",
-      user: req.session,
-    });
+    firebase
+      .database()
+      .ref()
+      .child("Requests")
+      .child(req.query.id)
+      .once("value")
+      .then((data) => {
+        res.render("admins/chat", {
+          action: "chat",
+          user: req.session,
+          request: data.val(),
+        });
+      })
+      .catch((err) => {
+        res.redirect("/admins/Requests");
+      });
   } else {
     res.redirect("/");
   }

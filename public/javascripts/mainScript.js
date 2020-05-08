@@ -1,7 +1,7 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Enable search on all selects
   $(".selectpicker").selectpicker();
-  $("#messageForm").submit(function(e) {
+  $("#messageForm").submit(function (e) {
     e.preventDefault();
     console.log("Form is Submit");
     var name = $("#mes-name").val();
@@ -16,19 +16,19 @@ $(document).ready(function() {
       data: {
         name: name,
         email: email,
-        text: text
+        text: text,
       },
-      success: function(data) {
+      success: function (data) {
         $("#messageForm").trigger("reset");
         console.log("Success:", data);
         $("#successMessage").show(500);
-        setTimeout(function() {
+        setTimeout(function () {
           $("#successMessage").hide(500);
-        }, 2000);
+        }, 7000);
       },
-      error: function(error) {
+      error: function (error) {
         console.log("Error:", error);
-      }
+      },
     });
   });
 });
