@@ -293,7 +293,7 @@ router.post("/emailUs", function (req, res) {
     .child(request.id)
     .set(request)
     .then((r) => {
-      res.json("1");
+      res.json(request.id);
     })
     .catch((e) => {
       res.json("-1");

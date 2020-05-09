@@ -6,16 +6,17 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "cookie-parser": "~1.4.5",
+    "debug": "~4.1.1",
     "dotenv": "^8.2.0",
-    "ejs": "^2.7.2",
-    "express": "~4.16.1",
+    "ejs": "^3.1.2",
+    "express": "~4.17.1",
     "express-ejs-extend": "0.0.1",
-    "express-session": "^1.17.0",
-    "firebase": "^7.14.2",
+    "express-session": "^1.17.1",
+    "firebase": "^7.14.3",
+    "firechat": "^3.0.1",
     "html2canvas": "^1.0.0-rc.5",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "http-errors": "~1.7.3",
+    "morgan": "~1.10.0"
   }
 }
