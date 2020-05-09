@@ -14,7 +14,6 @@
     "express-ejs-extend": "0.0.1",
     "express-session": "^1.17.1",
     "firebase": "^7.14.3",
-    "firechat": "^3.0.1",
     "html2canvas": "^1.0.0-rc.5",
     "http-errors": "~1.7.3",
     "morgan": "~1.10.0"
