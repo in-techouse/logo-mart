@@ -371,7 +371,7 @@ router.get("/requests", function (req, res) {
 });
 
 router.get("/chat", function (req, res) {
-  if (req.session.role && req.session.role === 1) {
+  // if (req.session.role && req.session.role === 1) {
     firebase
       .database()
       .ref()
@@ -388,9 +388,9 @@ router.get("/chat", function (req, res) {
       .catch((err) => {
         res.redirect("/admins/Requests");
       });
-  } else {
-    res.redirect("/");
-  }
+  // } else {
+  //   res.redirect("/");
+  // }
 });
 
 router.get("/logout", function (req, res) {

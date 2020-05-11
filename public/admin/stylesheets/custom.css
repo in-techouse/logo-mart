@@ -1,4 +1,4 @@
-.chatBottom {
+/* .chatBottom {
   width: 100%;
   background-color: aqua;
   position: absolute;
@@ -6,8 +6,6 @@
   left: 0;
   right: 0;
   height: 100px;
-  /* padding-left: 15px;
-  padding-right: 15px; */
 }
 
 .chatBottom .col-lg-12 {
@@ -21,10 +19,14 @@
 }
 .chatBottom .col-xs-12 {
   height: 100px !important;
-}
+} */
 .chatTextArea {
   padding: 10px;
   width: 100%;
   resize: none;
   height: 100px !important;
+}
+
+#mainChatRoom {
+  padding-bottom: 130px;
 }
