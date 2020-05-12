@@ -46,6 +46,11 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js">
+  </script>
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"> -->
+  <!-- <script src="//code.jquery.com/jquery-1.12.4.js"></script> -->
+  <!-- <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -65,6 +70,7 @@
 </head>
 
 <body id="menu" class="body-page">
+  <audio id="sound_tag" src="/public/pristine.mp3" preload="auto"></audio>
   <%- include('./shared/_loading.ejs')%>
   <%- include('./shared/_header.ejs')%>
   <%- include('./shared/_bg_slider.ejs')%>
