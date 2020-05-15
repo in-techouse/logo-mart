@@ -41,11 +41,6 @@ function enableUserMessaging(rId, email) {
   $("#userMessageBox").keypress(function (e) {
     if (e.which == 13) {
       console.log("Key is pressed");
-      console.log("Before Scrolled Done");
-      $(".scrollbar-container").scrollTop(
-        $("#userMainChatRoom")[0].scrollHeight
-      );
-      console.log("Scrolled Done");
 
       let message = $("#userMessageBox").val();
       if (message.length < 1) {
@@ -62,7 +57,6 @@ function enableUserMessaging(rId, email) {
         "HH:mm:ss a, dddd MMM YYYY"
       );
       console.log("messageObj: ", messageObj);
-      console.log("Formatted Time: ", formattedTime);
       let messageDiv = `
             <div class="row msg" style="margin-left: 20px; margin-right: 20px;">
                 <div class="float-right" style="float: right; width: 100%;">
@@ -79,19 +73,16 @@ function enableUserMessaging(rId, email) {
                     </div>
                 </div>
             </div>`;
-
       $("#userMainChatRoom").append(messageDiv);
       $("#userMessageBox").val("");
 
-      $("#userChatBottomBox").animate(
-        { scrollTop: $("#userChatBottomBox").prop("scrollHeight") },
-        500
+      $(".scrollbar-container").animate(
+        {
+          scrollTop: $("#userMainChatRoom").height(),
+        },
+        1000
       );
-
-      // $(".scrollbar-container").scrollTop(
-      //   $("#userMainChatRoom")[0].scrollHeight
-      // );
-      $("#userMessageBox").val("");
+      return false;
     }
   });
 }
@@ -145,44 +136,13 @@ function loadPreviousChat(rId, email) {
         }
 
         $("#userMainChatRoom").append(messageDiv);
-        // $("#userMainChatRoom").scrollTop(
-        //   $("#userMainChatRoom")[0].scrollHeight
-        // );
       });
-      // $(".scrollbar-container").scrollTop(
-      //   $("#userMainChatRoom")[0].scrollHeight
-      // );
-
-      // var objDiv = document.getElementById(".scrollbar-container");
-      // objDiv.scrollTop = objDiv.scrollHeight;
-      // $("#userMainChatRoom").animate({
-      //   scrollTop: $("#userMainChatRoom").prop("scrollHeight"),
-      // });
-      // $(".scrollbar-container").animate(
-      //   {
-      //     scrollTop: $("#userMainChatRoom").position().top,
-      //   },
-      //   1000
-      // );
-      console.log("Before Scrolled Done");
-      // $("#userChatBottomBox").scrollTop(
-      //   $("#userChatBottomBox")[0].scrollHeight
-      // );
-      // $("#userChatBottomBox")[0].scrollTop = $(
-      //   "#userChatBottomBox"
-      // )[0].scrollHeight;
-      $("#userChatBottomBox").animate(
-        { scrollTop: $("#userChatBottomBox").prop("scrollHeight") },
-        500
+      $(".scrollbar-container").animate(
+        {
+          scrollTop: $("#userMainChatRoom").height(),
+        },
+        1000
       );
-      console.log("Scrolled Done");
-
-      // $("#userMainChatRoom").animate(
-      //   {
-      //     scrollTop: $("#userMainChatRoom .msg:last-child").position().bottom,
-      //   },
-      //   "slow"
-      // );
     })
     .catch((err) => {});
 }

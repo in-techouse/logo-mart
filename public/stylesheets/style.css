@@ -112,3 +112,16 @@ body .container-fluid {
   margin-left: 15px;
   margin-right: 15px;
 }
+
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  touch-action: auto;
+}
+
+/* .ps--active-x > .ps__rail-x, */
+.ps--active-y {
+  overflow-y: scroll !important;
+  display: block;
+  background-color: transparent;
+}

@@ -44,7 +44,12 @@ $(document).ready(function () {
       $("#mainChatRoom").append(box);
       $("#messageBox").val("");
 
-      $(".scrollbar-container").scrollTop($("#mainChatRoom")[0].scrollHeight);
+      $(".scrollbar-container").animate(
+        {
+          scrollTop: $("#mainChatRoom").height(),
+        },
+        1000
+      );
 
       let mId = firebase.database().ref().child("Chats").child(requestId).push()
         .key;
@@ -101,8 +106,13 @@ function loadPreviousChat() {
         } else {
           // User Message
         }
-        $(".scrollbar-container").scrollTop($("#mainChatRoom")[0].scrollHeight);
       });
+      $(".scrollbar-container").animate(
+        {
+          scrollTop: $("#mainChatRoom").height(),
+        },
+        1000
+      );
     })
     .catch((err) => {});
 }
