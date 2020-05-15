@@ -1,1 +1,27 @@
 <% extend('./../layout.ejs') %>
+<script type="text/javascript" src="/public/javascripts/userChat.js"></script>
+
+<div class="row" style="height: 100%;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="jumbotron" style="padding-top: 7px!important; padding-bottom: 7px!important; height: 85%;">
+            <div class="scroll-area-lg">
+                <div class="scrollbar-container">
+                    <div class="p-2" id="userMainChatRoom">
+                    </div>
+                </div>
+            </div>
+            <div class="row userChatBottomBox">
+                <div class="col-md-10">
+                    <textarea id="userMessageBox" class="form-control chatTextArea"
+                        placeholder="Enter your message here"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <p>SEND</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

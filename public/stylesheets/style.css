@@ -9,7 +9,7 @@ body .container-fluid {
 
 .jumbotron {
   margin-top: 100px;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
 }
 .jumbotron .row form h1 {
   text-transform: uppercase;
@@ -28,4 +28,87 @@ body .container-fluid {
   color: white;
   margin-top: 12px;
   font-family: "Times New Roman", Times, serif;
+}
+
+.userMainChat {
+  height: 83% !important;
+  overflow-y: scroll;
+}
+
+.scroll-area-lg {
+  height: 560px;
+  overflow-x: hidden;
+}
+.scrollbar-sidebar,
+.scrollbar-container {
+  position: relative;
+  height: 100%;
+}
+
+.p-2 {
+  padding: 0.5rem !important;
+}
+.chat-box-wrapper {
+  display: flex;
+  clear: both;
+  padding: 0.75rem;
+}
+.chat-box-wrapper + .chat-box-wrapper {
+  padding-top: 0;
+}
+.chat-box-wrapper .chat-box {
+  box-shadow: 0 0 0 transparent;
+  position: relative;
+  opacity: 1;
+  background: #e0f3ff;
+  border: 0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  border-top-left-radius: 0.25rem;
+  flex: 1;
+  display: flex;
+  max-width: 50%;
+  min-width: 100%;
+  text-align: left;
+}
+.chat-box-wrapper .chat-box + small {
+  text-align: left;
+  padding: 0.5rem 0 0;
+  margin-left: 1.5rem;
+  display: block;
+}
+.chat-box-wrapper.chat-box-wrapper-right {
+  text-align: right;
+}
+.chat-box-wrapper.chat-box-wrapper-right .chat-box {
+  border-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 0.25rem;
+  margin-left: auto;
+}
+.chat-box-wrapper.chat-box-wrapper-right .chat-box + small {
+  text-align: right;
+  margin-right: 1.5rem;
+  margin-left: 0;
+}
+.opacity-6 {
+  opacity: 0.6 !important;
+}
+.float-right {
+  float: right !important;
+}
+
+.userChatBottomBox {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 18px;
+}
+.userChatBottomBox textarea {
+  resize: none;
+  height: 100px;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
 }

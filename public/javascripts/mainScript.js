@@ -37,11 +37,15 @@ $(document).ready(function () {
 function loadChat() {
   let id = localStorage.getItem("rId");
   if (id !== null && id !== null && id.length > 0) {
-    $("#miniChatBox").show(500);
-    setTimeout(function () {
-      console.log("Mini Chat Box, going to bounce");
-      $("#sound_tag")[0].play();
-      $("#miniChatBox").effect("bounce", { times: 7 }, 2000);
-    }, 2400);
+    console.log("Current Location: ", window.location.href);
+    let url = window.location.href;
+    if (!url.includes("chat")) {
+      $("#miniChatBox").show(500);
+      setTimeout(function () {
+        console.log("Mini Chat Box, going to bounce");
+        $("#sound_tag")[0].play();
+        $("#miniChatBox").effect("bounce", { times: 7 }, 2000);
+      }, 2400);
+    }
   }
 }

@@ -81,7 +81,8 @@ function loadPreviousChat() {
           var formattedTime = moment(m.timeStamps).format(
             "HH:mm:ss a, dddd MMM YYYY"
           );
-          let box = `<div class="row" style="margin-left: 20px; margin-right: 20px;"> 
+          let box = `
+          <div class="row" style="margin-left: 20px; margin-right: 20px;"> 
               <div class="float-right" style="float: right; width: 100%;">
                   <div class="chat-box-wrapper chat-box-wrapper-right">
                       <div style="float: right; width: 100%;">
