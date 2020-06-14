@@ -46,11 +46,34 @@
     <!-- Begin of hamburger mainmenu menu -->
     <nav class="navbar-mainmenu">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="/">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
+        <% if (typeof action !== 'undefined' && action == 'index') { %>
+        <li class="nav-item" data-menuanchor="about">
+          <a class="nav-link" href="#about">
+            <span class="txt">About</span>
+          </a>
+        </li>
+        <li class="nav-item" data-menuanchor="contact">
+          <a class="nav-link" href="#contact">
+            <span class="txt">Contact</span>
+          </a>
+        </li>
+        <% } else {%>
+        <li class="nav-item" data-menuanchor="about">
+          <a class="nav-link" href="/#about">
+            <span class="txt">About</span>
+          </a>
+        </li>
+        <li class="nav-item" data-menuanchor="contact">
+          <a class="nav-link" href="/#contact">
+            <span class="txt">Contact</span>
+          </a>
+        </li>
+        <%}%>
         <li class="nav-item">
           <a class="nav-link" href="/gallery">Gallery</a>
         </li>

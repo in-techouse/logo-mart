@@ -122,6 +122,20 @@ $(document).ready(function () {
     });
   });
 
+  $("#delete").click(function () {
+    console.log("Delete Button Clicked");
+    let id = "";
+    for (var i in map) {
+      if (map[i] == true) {
+        id = i;
+      }
+    }
+    if (id.length > 0) {
+      $("#" + id).remove();
+      $("#delete").fadeOut(300);
+    }
+  });
+
   $("#MainDiv").resizable({
     containment: "parent",
     resize: function (e, ui) {
@@ -131,6 +145,7 @@ $(document).ready(function () {
       });
     },
   });
+
   $("#MainDiv").draggable({
     cursor: "pointer",
     containment: "parent",
@@ -165,16 +180,19 @@ function elementClicked(id) {
   $("#" + id).removeClass("designBorder");
   $("#" + id).addClass("focusDesignBorder");
   if (id.includes("icon")) {
+    $("#delete").fadeIn(300);
     $("#fontStylingCard").show(300);
     $("#fontStylingError").hide(300);
   } else if (id.includes("input")) {
     var size = $("#" + id + " .designInput").css("font-size");
+    $("#delete").show(300);
     $("#fontSize").val(size);
     $("#fontStylingCard").show(300);
     $("#fontStylingError").hide(300);
   } else {
     $("#fontStylingError").show(300);
     $("#fontStylingCard").hide(300);
+    $("#delete").fadeOut(300);
   }
 }
 

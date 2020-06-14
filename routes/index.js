@@ -22,7 +22,7 @@ router.get("/", function (req, res) {
 
 /* GET gallery page. */
 router.get("/gallery", function (req, res) {
-  res.render("pages/gallery", { action: "index", user: req.session });
+  res.render("pages/gallery", { action: "gallery", user: req.session });
 });
 
 // SignUp get action
