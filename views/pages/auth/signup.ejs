@@ -4,7 +4,7 @@
     <div class="col-md-6 col-sm-8 col-xs-12">
         <div class="jumbotron" style="padding-top: 7px!important; padding-bottom: 7px!important;">
             <div class="row">
-                <form id="signUpForm" action="/signup" method="POST">
+                <form id="signUpForm" action="/auth/signup" method="POST">
                     <h1 style="text-align:center">SignUp</h1>
                     <br>
                     <div class="row">
@@ -59,28 +59,16 @@
                         style="text-transform: uppercase;" />
                 </form>
             </div>
-            <div class="row" style="padding: 30px 0px 0px 0px;">
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <a href="/facebookLogin" class="btn btn-success btn-sm btn-block">
-                        SIGN-IN with <b>FACEBOOK</b> <i class="icon fa fa-facebook"></i>
-                    </a>
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-12"></div>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                    <a href="/googleLogin" class="btn btn-success btn-sm btn-block">
-                        SIGN-IN with <b>GOOGLE</b> <i class="icon fa fa-google"></i>
-                    </a>
-                </div>
-            </div>
+
             <div class="row" style="padding: 30px 0px 0px 0px;">
                 <div class="col-md-12">
-                    <a href="/signin" class="btn btn-info btn-sm btn-block">Already have an account? Click here to
+                    <a href="/auth/signin" class="btn btn-info btn-sm btn-block">Already have an account? Click here to
                         <b>LOGIN</b></a>
                 </div>
             </div>
             <div class="row" style="padding: 30px 0px 0px 0px;">
                 <div class="col-md-12">
-                    <a href="/recovery" class="btn btn-info btn-sm btn-block">Forgot Password? Click here to
+                    <a href="/auth/recovery" class="btn btn-info btn-sm btn-block">Forgot Password? Click here to
                         <b>RECOVER</b></a>
                 </div>
             </div>
