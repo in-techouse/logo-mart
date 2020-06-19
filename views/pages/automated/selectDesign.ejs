@@ -1,0 +1,52 @@
+<% extend('./../../layout.ejs') %>
+
+<div class="container0fluid" style="overflow-y: scroll; overflow-x: hidden; height: 95%;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="display-4 display-title anim-2" style="margin-top: 80px; text-align: center;">
+                Choose Any Five Designs
+            </h4>
+            <div class="row">
+                <% designs.forEach(d=>{ %>
+                <div class="col-md-4" id="designUpper<%= d.val().id %>">
+                    <a href="javascript:;" style="text-decoration: none;" id="design<%= d.val().id %>"
+                        onclick="selectDesign('<%= d.val().id %>')">
+                        <div class="jumbotron" style="padding: 5px 5px 5px 5px;">
+                            <img src="<%= d.val().designURL %>" class="img-thumbnail img-responsive"
+                                style="height: 300px!important; width: 100%;" />
+                            <h3 class="designHeading">
+                                <%= d.val().designName %>
+                            </h3>
+                        </div>
+                    </a>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        console.log("Select Design Document is ready");
+    });
+
+    function selectDesign(id) {
+        // console.log("Selected Design's id is: ", id);
+        // const borderColor = $(`#designUpper${id}`).css("border-color");
+        // console.log("Border Color: ", borderColor);
+        $(`#designUpper${id}`).css({
+            "border-color": "#F0F0F0",
+            "border-width": "2px",
+            "border-style": "solid"
+        });
+
+        // $(`#design${id}`).css({
+        //     "border-color": "#F0F0F0",
+        //     "border-width": "2px",
+        //     "border-style": "solid"
+        // });
+    }
+</script>

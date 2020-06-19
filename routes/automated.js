@@ -3,8 +3,8 @@ var firebase = require("firebase");
 var router = express.Router();
 
 // Logo-Maker
-router.get("/logo-maker", function (req, res) {
-  res.render("pages/automated/logo-maker", {
+router.get("/", function (req, res) {
+  res.render("pages/automated/automatedDesign", {
     error: "",
     action: "logo-maker",
     user: req.session,
@@ -21,7 +21,7 @@ router.get("/getName", function (req, res) {
 });
 
 // Get Style
-router.post("/getStyle", function (req, res) {
+router.post("/getName", function (req, res) {
   let userId = req.session.userId ? req.session.userId : "";
   let ud = {
     id: "",
@@ -40,11 +40,35 @@ router.post("/getStyle", function (req, res) {
     .child(ud.id)
     .set(ud)
     .then((d) => {
-      res.json("1");
+      req.session.userDesign = ud;
+      res.redirect("/automated/selectDesign");
     })
     .catch((e) => {
       res.redirect("/");
     });
 });
 
+// Get Name
+router.get("/selectDesign", function (req, res) {
+  firebase
+    .database()
+    .ref()
+    .child(req.session.userDesign.designType)
+    .orderByKey()
+    .once("value")
+    .then((d) => {
+      res.render("pages/automated/selectDesign", {
+        action: "selectDesign",
+        user: req.session,
+        designs: d,
+      });
+    })
+    .catch((e) => {
+      res.render("pages/automated/selectDesign", {
+        action: "selectDesign",
+        user: req.session,
+        designs: [],
+      });
+    });
+});
 module.exports = router;
