@@ -23,30 +23,73 @@
                 </div>
                 <% }) %>
             </div>
+            <div class="row" style="position: fixed; bottom: 0; left: 0; right: 0; margin-bottom: 10px;">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button id="submitDesigns" class="btn btn-block btn-primary" style="font-weight: 800;">NEXT</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
         </div>
         <div class="col-md-2"></div>
     </div>
 </div>
 
 <script>
+    let count = 0;
+    let selectedDesigns = [];
     $(document).ready(function () {
-        console.log("Select Design Document is ready");
+        $("#submitDesigns").prop('disabled', true);
+        $("#submitDesigns").click(function () {
+            console.log("Selected Desings are: ", selectedDesigns);
+            localStorage.setItem("selectedDesigns", JSON.stringify(selectedDesigns));
+            window.location.href = "http://localhost:3000/automated/selectColors";
+        })
     });
 
     function selectDesign(id) {
-        // console.log("Selected Design's id is: ", id);
-        // const borderColor = $(`#designUpper${id}`).css("border-color");
-        // console.log("Border Color: ", borderColor);
-        $(`#designUpper${id}`).css({
-            "border-color": "#F0F0F0",
-            "border-width": "2px",
-            "border-style": "solid"
-        });
-
-        // $(`#design${id}`).css({
-        //     "border-color": "#F0F0F0",
-        //     "border-width": "2px",
-        //     "border-style": "solid"
-        // });
+        const borderColor = to_hex($(`#designUpper${id}`).css("border-color"));
+        if (borderColor === "#ffffff") {
+            if (count >= 5) {
+                return;
+            }
+            $(`#designUpper${id}`).css({
+                "border-color": "#F0F0F0",
+                "border-width": "2px",
+                "border-style": "solid"
+            });
+            selectedDesigns.push(id);
+            count++;
+            if (count > 3) {
+                $("#submitDesigns").prop('disabled', false);
+            }
+        }
+        else {
+            $(`#designUpper${id}`).css({
+                "border-color": "#FFFFFF",
+                "border-width": "0px",
+                "border-style": "solid"
+            });
+            count--;
+            let ids = [];
+            selectedDesigns.forEach(design => {
+                if (design !== id) {
+                    ids.push(design);
+                }
+            });
+            selectedDesigns = ids;
+            if (count < 4) {
+                $("#submitDesigns").prop('disabled', true);
+            }
+        }
     }
+
+    function to_hex(color) {
+        var chars = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+        var red = parseInt(chars[2]);
+        var green = parseInt(chars[3]);
+        var blue = parseInt(chars[4]);
+        var rgb = blue | (green << 8) | (red << 16);
+        return chars[1] + '#' + rgb.toString(16);
+    };
 </script>

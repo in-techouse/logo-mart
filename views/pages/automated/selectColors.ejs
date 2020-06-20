@@ -1,0 +1,83 @@
+<% extend('./../../layout.ejs') %>
+
+<div class="container0fluid" style="overflow-y: scroll; overflow-x: hidden; height: 95%;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="display-4 display-title anim-2" style="margin-top: 80px; text-align: center;">
+                Choose Any Five Colors
+            </h4>
+            <div class="row" id="selectColorsDiv">
+
+            </div>
+            <div class="row" style="position: fixed; bottom: 0; left: 0; right: 0; margin-bottom: 10px;">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button id="submitColors" class="btn btn-block btn-primary" style="font-weight: 800;">NEXT</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/design/loadBackgroundColor.js"></script>
+
+<script>
+    let count = 0;
+    let colors = [];
+    $(document).ready(function () {
+        $("#submitColors").prop('disabled', true);
+        $("#submitColors").click(function () {
+            console.log("Selected Colors are: ", colors);
+            localStorage.setItem("selectedColors", JSON.stringify(colors));
+            window.location.href = "http://localhost:3000/automated/makeDesign";
+        })
+    });
+
+    function selectColor(color) {
+        const borderColor = to_hex($(`#selectColor${color} div`).css("border-color"));
+        if (borderColor === "#ffffff") {
+            if (count >= 5) {
+                return;
+            }
+            $(`#selectColor${color} div`).css({
+                "border-color": "#F0F0F0",
+                "border-width": "5px",
+                "border-style": "solid"
+            });
+            colors.push(color);
+            count++;
+            if (count > 3) {
+                $("#submitColors").prop('disabled', false);
+            }
+        }
+        else {
+            $(`#selectColor${color} div`).css({
+                "border-color": "#FFFFFF",
+                "border-width": "0px",
+                "border-style": "solid"
+            });
+            count--;
+            let c = [];
+            colors.forEach(co => {
+                if (co !== color) {
+                    c.push(co);
+                }
+            });
+            colors = c;
+            if (count < 4) {
+                $("#submitColors").prop('disabled', true);
+            }
+        }
+    }
+
+    function to_hex(color) {
+        var chars = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+        var red = parseInt(chars[2]);
+        var green = parseInt(chars[3]);
+        var blue = parseInt(chars[4]);
+        var rgb = blue | (green << 8) | (red << 16);
+        return chars[1] + '#' + rgb.toString(16);
+    };
+</script>

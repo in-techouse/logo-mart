@@ -2,7 +2,7 @@ var express = require("express");
 var firebase = require("firebase");
 var router = express.Router();
 
-// Logo-Maker
+// Automated Index
 router.get("/", function (req, res) {
   res.render("pages/automated/automatedDesign", {
     error: "",
@@ -20,7 +20,7 @@ router.get("/getName", function (req, res) {
   });
 });
 
-// Get Style
+// Post get name
 router.post("/getName", function (req, res) {
   let userId = req.session.userId ? req.session.userId : "";
   let ud = {
@@ -48,7 +48,7 @@ router.post("/getName", function (req, res) {
     });
 });
 
-// Get Name
+// Get Select Design
 router.get("/selectDesign", function (req, res) {
   firebase
     .database()
@@ -71,4 +71,21 @@ router.get("/selectDesign", function (req, res) {
       });
     });
 });
+
+// Get Select Colors
+router.get("/selectColors", function (req, res) {
+  res.render("pages/automated/selectColors", {
+    action: "selectColors",
+    user: req.session,
+  });
+});
+
+// Get Select Colors
+router.get("/makeDesign", function (req, res) {
+  res.render("pages/automated/makeDesign", {
+    action: "makeDesign",
+    user: req.session,
+  });
+});
+
 module.exports = router;

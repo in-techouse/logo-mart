@@ -50,7 +50,6 @@ const backgroundColors = [
   { color: "#00FF00" },
   { color: "#D2691E" },
   { color: "#008080" },
-
 ];
 
 $(document).ready(function () {
@@ -58,8 +57,19 @@ $(document).ready(function () {
   $("#backgroundTab").height(screen.height - 200);
   backgroundColors.forEach((color) => {
     let colorElement = `<div class="col-md-4" style="margin-top: 7px;" onclick="backgroundSelected('${color.color}')">
-          <div style="background-color: ${color.color};" class="fontColorStyle"></div>
-      </div>`;
+        <div style="background-color: ${color.color};" class="fontColorStyle"></div>
+    </div>`;
+
+    let colorElement1 = `<div class="col-md-4" style="cursor: pointer; margin-top: 11px; height: 100px; border-radius: 25px;" onclick="selectColor('${color.color.substring(
+      1,
+      color.color.length
+    )}')" id="selectColor${color.color.substring(1, color.color.length)}">
+      <div style="background-color: ${
+        color.color
+      }; height: 100%; width: 100%; border-radius: 25px;"></div>
+    </div>`;
+
     $(".backgroundRow").append(colorElement);
+    $("#selectColorsDiv").append(colorElement1);
   });
 });
