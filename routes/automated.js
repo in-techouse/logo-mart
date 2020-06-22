@@ -40,7 +40,7 @@ router.post("/getName", function (req, res) {
     .child(ud.id)
     .set(ud)
     .then((d) => {
-      req.session.userDesign = ud;
+      req.session.userDesignId = ud;
       res.redirect("/automated/selectDesign");
     })
     .catch((e) => {
@@ -76,6 +76,14 @@ router.get("/selectDesign", function (req, res) {
 router.get("/selectColors", function (req, res) {
   res.render("pages/automated/selectColors", {
     action: "selectColors",
+    user: req.session,
+  });
+});
+
+// Get Select Colors
+router.get("/selectTextStyle", function (req, res) {
+  res.render("pages/automated/selectTextStyle", {
+    action: "selectTextStyle",
     user: req.session,
   });
 });

@@ -215,13 +215,7 @@ router.get("/design", function (req, res) {
                   userDesign: ud,
                   user: req.session,
                 });
-              })
-              .catch((e) => {
-                res.redirect("/");
               });
-          })
-          .catch((e) => {
-            res.redirect("/");
           });
       } else {
         let userDesign = {
@@ -253,9 +247,6 @@ router.get("/design", function (req, res) {
               userDesign: userDesign,
               user: req.session,
             });
-          })
-          .catch((e) => {
-            res.redirect("/");
           });
       }
     })

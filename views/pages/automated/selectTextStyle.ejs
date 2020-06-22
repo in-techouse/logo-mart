@@ -1,0 +1,181 @@
+<% extend('./../../layout.ejs') %>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Oswald&family=Roboto+Slab&family=Playfair+Display:ital,wght@1,500&family=Dancing+Script:wght@700&family=Orbitron:wght@700&family=Lemonada&family=Lobster&family=Pacifico&family=Indie+Flower&family=Shadows+Into+Light&family=Permanent+Marker&family=Caveat:wght@700&family=Satisfy&amily=Lobster+Two:ital@1&family=Kaushan+Script&family=Sacramento&family=Gloria+Hallelujah"
+    rel="stylesheet">
+<style>
+    .oswald {
+        font-family: 'Oswald', sans-serif;
+    }
+
+    .robotoSlab {
+        font-family: 'Roboto Slab', serif;
+    }
+
+    .playfair {
+        font-family: 'Playfair Display', serif;
+    }
+
+    .dancingScript {
+        font-family: 'Dancing Script', cursive;
+    }
+
+    .orbitron {
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .lemonada {
+        font-family: 'Lemonada', cursive;
+    }
+
+    .lobster {
+        font-family: 'Lobster', cursive;
+    }
+
+    .pacifico {
+        font-family: 'Pacifico', cursive;
+    }
+
+    .indieFlower {
+        font-family: 'Indie Flower', cursive;
+    }
+
+    .shadowsIntoLight {
+        font-family: 'Shadows Into Light', cursive;
+    }
+
+    .permanentMarker {
+        font-family: 'Permanent Marker', cursive;
+    }
+
+    .caveat {
+        font-family: 'Caveat', cursive;
+    }
+
+    .satisfy {
+        font-family: 'Satisfy', cursive;
+    }
+
+    .lobster {
+        font-family: 'Lobster Two', cursive;
+    }
+
+    .kaushanScript {
+        font-family: 'Kaushan Script', cursive;
+    }
+
+    .sacramento {
+        font-family: 'Sacramento', cursive;
+    }
+
+    .gloriaHallelujah {
+        font-family: 'Gloria Hallelujah', cursive;
+    }
+
+    #selectTextStyleDiv>div {
+        cursor: pointer;
+        margin-top: 11px;
+        border-radius: 25px;
+        background-color: lightgray;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 7px;
+        padding-right: 7px;
+        text-align: center;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #selectTextStyleDiv>div>a {
+        text-decoration: none;
+        font-size: 27px;
+    }
+
+    #selectTextStyleDiv>div>a:hover {
+        color: #ffffff !important;
+    }
+</style>
+
+<div class="container0fluid" style="overflow-y: scroll; overflow-x: hidden; height: 95%;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h4 class="display-4 display-title anim-2" style="margin-top: 80px; text-align: center;">
+                Choose Any Five Text Styles
+            </h4>
+            <div class="row" id="selectTextStyleDiv">
+
+            </div>
+            <div class="row" style="position: fixed; bottom: 0; left: 0; right: 0; margin-bottom: 10px;">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <button id="submitTextStyle" class="btn btn-block btn-primary"
+                        style="font-weight: 800;">NEXT</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/design/loadFonts.js"></script>
+
+<script>
+    let count = 0;
+    let textStyles = [];
+    $(document).ready(function () {
+        $("#submitTextStyle").prop('disabled', true);
+        $("#submitTextStyle").click(function () {
+            console.log("Selected Text Styles are: ", textStyles);
+            localStorage.setItem("selectTextStyles", JSON.stringify(textStyles));
+            window.location.href = "http://localhost:3000/automated/makeDesign";
+        })
+    });
+
+    function selectTextStyle(styleClass) {
+        const borderColor = to_hex($(`#selectTextStyle${styleClass}`).css("border-color"));
+        console.log("Border Color: ", borderColor);
+        if (borderColor === "#ffffff") {
+            if (count >= 5) {
+                return;
+            }
+            $(`#selectTextStyle${styleClass}`).css({
+                "border-color": "#D1335B",
+                "border-width": "5px",
+                "border-style": "solid"
+            });
+            textStyles.push(styleClass);
+            count++;
+            if (count > 3) {
+                $("#submitTextStyle").prop('disabled', false);
+            }
+        }
+        else {
+            $(`#selectTextStyle${styleClass}`).css({
+                "border-color": "#FFFFFF",
+                "border-width": "0px",
+                "border-style": "solid"
+            });
+            count--;
+            let ts = [];
+            textStyles.forEach(sc => {
+                if (sc !== styleClass) {
+                    ts.push(sc);
+                }
+            });
+            textStyles = ts;
+            if (count < 4) {
+                $("#submitTextStyle").prop('disabled', true);
+            }
+        }
+    }
+
+    function to_hex(color) {
+        var chars = /(.*?)rgb\((\d+), (\d+), (\d+)\)/.exec(color);
+        var red = parseInt(chars[2]);
+        var green = parseInt(chars[3]);
+        var blue = parseInt(chars[4]);
+        var rgb = blue | (green << 8) | (red << 16);
+        return chars[1] + '#' + rgb.toString(16);
+    };
+</script>

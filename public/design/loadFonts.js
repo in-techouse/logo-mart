@@ -89,7 +89,12 @@ const fonts = [
 $(document).ready(function () {
   $(".fontsContainer").height(screen.height - 200);
   fonts.forEach((font) => {
-    let fontText = `<a href="#" class="${font.class}" onclick="fontSelected('${font.class}')">${font.family}</a>`;
+    let fontText = `<a href="javascript:;" class="${font.class}" onclick="fontSelected('${font.class}')">${font.family}</a>`;
     $(".fontsContainer").append(fontText);
+
+    let fontElement = `<div class="col-md-5" onclick="selectTextStyle('${font.class}')" id="selectTextStyle${font.class}">
+      <a href="javascript:;" class="${font.class}">${font.family}</a>
+    </div>`;
+    $("#selectTextStyleDiv").append(fontElement);
   });
 });
