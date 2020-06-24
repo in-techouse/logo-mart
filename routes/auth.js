@@ -50,7 +50,6 @@ router.post("/signin", function (req, res) {
             }
           }
         });
-      // res.json(user);
     })
     .catch((error) => {
       res.render("pages/auth/signin", {

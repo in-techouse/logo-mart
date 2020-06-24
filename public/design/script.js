@@ -98,6 +98,8 @@ $(document).ready(function () {
     $(this).removeClass("btn-default").addClass("btn-primary");
   });
 
+  initMainListeners();
+
   $("#download").click(function () {
     for (var i in map) {
       if (map[i] === true) {
@@ -136,6 +138,22 @@ $(document).ready(function () {
     }
   });
 
+  $("#fontSize").on("change", function () {
+    let widget = "";
+    for (var i in map) {
+      if (map[i] === true) {
+        widget = i;
+      }
+    }
+    if (widget.includes("input")) {
+      let str = widget.split("input");
+      let fontId = "font" + str[1];
+      $("#" + fontId).css({ "font-size": this.value });
+    }
+  });
+});
+
+function initMainListeners() {
   $("#MainDiv").resizable({
     containment: "parent",
     resize: function (e, ui) {
@@ -154,21 +172,7 @@ $(document).ready(function () {
   $("#MainDiv").click(function () {
     elementClicked("MainDiv");
   });
-
-  $("#fontSize").on("change", function () {
-    let widget = "";
-    for (var i in map) {
-      if (map[i] === true) {
-        widget = i;
-      }
-    }
-    if (widget.includes("input")) {
-      let str = widget.split("input");
-      let fontId = "font" + str[1];
-      $("#" + fontId).css({ "font-size": this.value });
-    }
-  });
-});
+}
 
 function elementClicked(id) {
   for (var i in map) {
@@ -245,6 +249,33 @@ function fontSelected(fontFamily) {
   setTimeout(() => {
     let count = fontCount;
     fontCount++;
+    $("#input" + count).draggable({
+      cursor: "pointer",
+      containment: "parent",
+    });
+    $("#input" + count).resizable({
+      containment: "parent",
+      resize: function (e, ui) {
+        $("#font" + count).css({
+          height: ui.size.height - 62 + "px",
+        });
+      },
+    });
+    $("#input" + count).rotatable();
+    $("#input" + count).dblclick(function () {
+      $("#font" + count).prop("readonly", false);
+    });
+    $("#font" + count).blur(function () {
+      $("#font" + count).prop("readonly", true);
+    });
+  }, 200);
+}
+
+function initFontListeners(fCount) {
+  map["input" + fCount] = true;
+  elementClicked("input" + fCount);
+  setTimeout(() => {
+    let count = fCount;
     $("#input" + count).draggable({
       cursor: "pointer",
       containment: "parent",

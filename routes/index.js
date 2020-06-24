@@ -33,16 +33,13 @@ router.get("/get-started", function (req, res) {
 router.post("/start", function (req, res) {
   let userDesign = {
     id: "",
-    userId: "",
+    userId: req.session.userId ? req.session.userId : "",
     tagline: req.body.tagline,
     companyName: req.body.companyName,
     designType: "",
     designId: "",
     designUrl: "",
   };
-  if (req.session.userId) {
-    userDesign.userId = req.session.userId;
-  }
   userDesign.id = firebase.database().ref().child("UserDesign").push().key;
   firebase
     .database()
@@ -179,80 +176,89 @@ router.get("/logo", function (req, res) {
 });
 
 router.get("/design", function (req, res) {
-  firebase
-    .database()
-    .ref()
-    .child(req.query.type)
-    .child(req.query.id)
-    .once("value")
-    .then((data) => {
-      if (req.session.userDesignId) {
-        firebase
-          .database()
-          .ref()
-          .child("UserDesign")
-          .child(req.session.userDesignId)
-          .once("value")
-          .then((userDesign) => {
-            let ud = {
-              id: userDesign.val().id,
-              designId: req.query.id,
-              designType: req.query.type,
-              userId: userDesign.val().userId,
-              tagline: userDesign.val().tagline,
-              companyName: userDesign.val().companyName,
-              designUrl: userDesign.val().designUrl,
-            };
-            firebase
-              .database()
-              .ref()
-              .child("UserDesign")
-              .child(ud.id)
-              .set(ud)
-              .then((d) => {
-                res.render("pages/design/finalDesign", {
-                  design: data,
-                  userDesign: ud,
-                  user: req.session,
-                });
-              });
-          });
-      } else {
-        let userDesign = {
-          id: "",
-          userId: "",
-          tagline: "",
-          companyName: "",
-          designType: req.query.type,
-          designId: req.query.id,
-          designUrl: "",
-        };
-        if (req.session.userId) {
-          userDesign.userId = req.session.userId;
-        }
-        userDesign.id = firebase
-          .database()
-          .ref()
-          .child("UserDesign")
-          .push().key;
-        firebase
-          .database()
-          .ref()
-          .child("UserDesign")
-          .child(userDesign.id)
-          .set(userDesign)
-          .then((d) => {
-            res.render("pages/design/finalDesign", {
-              design: data,
-              userDesign: userDesign,
-              user: req.session,
-            });
-          });
-      }
-    })
-    .catch((err) => {
-      res.redirect("/");
+  if (req.session.userDesign) {
+    // Start the Automated Design
+    res.render("pages/design/finalDesign", {
+      userDesign: req.session.userDesign,
+      user: req.session,
+      type: 1,
     });
+  } else {
+    // Start the Custom Design
+    firebase
+      .database()
+      .ref()
+      .child(req.query.type)
+      .child(req.query.id)
+      .once("value")
+      .then((data) => {
+        if (req.session.userDesignId) {
+          firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .child(req.session.userDesignId)
+            .once("value")
+            .then((userDesign) => {
+              let ud = {
+                id: userDesign.val().id,
+                designId: req.query.id,
+                designType: req.query.type,
+                userId: userDesign.val().userId,
+                tagline: userDesign.val().tagline,
+                companyName: userDesign.val().companyName,
+                designUrl: userDesign.val().designUrl,
+              };
+              firebase
+                .database()
+                .ref()
+                .child("UserDesign")
+                .child(ud.id)
+                .set(ud)
+                .then((d) => {
+                  res.render("pages/design/finalDesign", {
+                    design: data,
+                    userDesign: ud,
+                    user: req.session,
+                    type: 2,
+                  });
+                });
+            });
+        } else {
+          let userDesign = {
+            id: "",
+            userId: req.session.userId ? req.session.userId : "",
+            tagline: "",
+            companyName: "",
+            designType: req.query.type,
+            designId: req.query.id,
+            designUrl: "",
+          };
+          userDesign.id = firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .push().key;
+          firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .child(userDesign.id)
+            .set(userDesign)
+            .then((d) => {
+              res.render("pages/design/finalDesign", {
+                design: data,
+                userDesign: userDesign,
+                user: req.session,
+                type: 2,
+              });
+            });
+        }
+      })
+      .catch((err) => {
+        res.redirect("/");
+      });
+  }
 });
 
 // Gallery
