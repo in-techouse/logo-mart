@@ -214,6 +214,49 @@ function saveAs(uri, filename) {
   } else {
     window.open(uri);
   }
+
+  let dateTime = new Date().getTime();
+  var fileName = "" + dateTime + filename;
+  console.log("File Name: ", fileName);
+  var ref = firebase.storage().ref("Users").child("Designs").child(fileName);
+  console.log("Ref Created");
+  var uploadTask = ref.putString(uri.split(",")[1], "base64", {
+    contentType: "image/png",
+  });
+
+  uploadTask.on(
+    "state_changed",
+    function (snapshot) {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      progress = progress.toFixed(2);
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log("Upload is paused");
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log("Upload is running");
+          break;
+      }
+    },
+    function (error) {
+      console.log("Upload Error: ", error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        console.log("File available at", downloadURL);
+        const userDesignId = $("#userDesignId").val();
+        console.log("userDesignId: ", userDesignId);
+        firebase
+          .database()
+          .ref()
+          .child("UserDesign")
+          .child(userDesignId)
+          .child("designUrl")
+          .set(downloadURL);
+      });
+    }
+  );
 }
 
 function iconSelected(iconName) {

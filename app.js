@@ -28,8 +28,8 @@ app.set("trust proxy", 1); // trust first proxy
 app.use(
   session({
     secret: "XAS98HKN",
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
   })
 );
 

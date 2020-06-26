@@ -63,6 +63,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
 
     <script>
         // Your web app's Firebase configuration
@@ -96,89 +97,90 @@
     <%}%>
 
     <main class="page-main page-fullpage main-anim designPage" id="mainpage">
-        <div class="row designInner">
-            <div class="col-md-12 designInnerLevelOne">
-                <div class="card designInnerLevelTwo d-flex justify-content-lg-center" id="mainCanvas">
-                    <% if (type == 2){%>
-    <div id="MainDiv" class="designBorder">
-        <img src="<%= design.val().designURL %>" class="designImage" />
-    </div>
-    <%}%>
+        <input type="hidden" id="userDesignId" value="<%= userDesign.id %>"/>
+    <div class="row designInner">
+        <div class="col-md-12 designInnerLevelOne">
+            <div class="card designInnerLevelTwo d-flex justify-content-lg-center" id="mainCanvas">
+                <% if (type == 2){%>
+                <div id="MainDiv" class="designBorder">
+                    <img src="<%= design.val().designURL %>" class="designImage" />
+                </div>
+                <%}%>
                 </div>
             </div>
         </div>
     </main>
     <% if (type == 1){%>
-    <script>
-        const listDesings = JSON.parse(localStorage.getItem("selectedDesigns"));
-        const listColors = JSON.parse(localStorage.getItem("selectedColors"));
-        const listTextStyles = JSON.parse(localStorage.getItem("selectTextStyles"));
+                <script>
+                    const listDesings = JSON.parse(localStorage.getItem("selectedDesigns"));
+                    const listColors = JSON.parse(localStorage.getItem("selectedColors"));
+                    const listTextStyles = JSON.parse(localStorage.getItem("selectTextStyles"));
 
-        const indexDesign = randomInteger(0, listDesings.length - 1);
-        const indexColor = randomInteger(0, listColors.length - 1);
-        const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
-        let design = null;
-        $(document).ready(function () {
-            console.log("Automated Design page is ready");
-            console.log("List of designs: ", listDesings);
-            console.log("List of colors: ", listColors);
-            console.log("List of text styles: ", listTextStyles);
+                    const indexDesign = randomInteger(0, listDesings.length - 1);
+                    const indexColor = randomInteger(0, listColors.length - 1);
+                    const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
+                    let design = null;
+                    $(document).ready(function () {
+                        console.log("Automated Design page is ready");
+                        console.log("List of designs: ", listDesings);
+                        console.log("List of colors: ", listColors);
+                        console.log("List of text styles: ", listTextStyles);
 
-            console.log("Index of design: ", indexDesign);
-            console.log("Index of color: ", indexColor);
-            console.log("Index of text style: ", indexTextStyle);
+                        console.log("Index of design: ", indexDesign);
+                        console.log("Index of color: ", indexColor);
+                        console.log("Index of text style: ", indexTextStyle);
 
-            getDesign();
-        });
+                        getDesign();
+                    });
 
-        function randomInteger(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+                    function randomInteger(min, max) {
+                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                    }
 
-        function getDesign() {
-            const userDesignId = '<%= userDesign.id %>';
-            const designType = '<%= userDesign.designType %>';
-            const companyName = '<%= userDesign.companyName %>';
-            const tagline = '<%= userDesign.tagline %>';
+                    function getDesign() {
+                        const userDesignId = '<%= userDesign.id %>';
+                        const designType = '<%= userDesign.designType %>';
+                        const companyName = '<%= userDesign.companyName %>';
+                        const tagline = '<%= userDesign.tagline %>';
 
-            console.log("User Design id is: ", userDesignId);
-            console.log("User Design type is: ", designType);
+                        console.log("User Design id is: ", userDesignId);
+                        console.log("User Design type is: ", designType);
 
-            firebase.database().ref().child(designType).child(listDesings[indexDesign]).once("value")
-                .then(d => {
-                    design = d.val();
-                    console.log("Design is: ", design);
+                        firebase.database().ref().child(designType).child(listDesings[indexDesign]).once("value")
+                            .then(d => {
+                                design = d.val();
+                                console.log("Design is: ", design);
 
-                    let mainDesign = `
+                                let mainDesign = `
                     <div id="MainDiv" class="designBorder" style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;">
                         <img src="${design.designURL}" class="designImage" />
                     </div>`;
-                    $("#mainCanvas").append(mainDesign);
-                    setTimeout(function () {
-                        initMainListeners();
-                        insertCompanyName(companyName);
-                    }, 5000);
-                })
-                .catch(e => {
-                    console.log("Read value from database error: ", e.message);
-                });
-        }
+                                $("#mainCanvas").append(mainDesign);
+                                setTimeout(function () {
+                                    initMainListeners();
+                                    insertCompanyName(companyName);
+                                }, 5000);
+                            })
+                            .catch(e => {
+                                console.log("Read value from database error: ", e.message);
+                            });
+                    }
 
-        function insertCompanyName(companyName) {
-            let input = `
+                    function insertCompanyName(companyName) {
+                        let input = `
             <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}"><textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${companyName}</textarea></div>`;
-            $("#mainCanvas").append(input);
-            setTimeout(function () {
-                initFontListeners(0);
-                $("#font0").css({ color: "#" + listColors[indexColor] });
+                        $("#mainCanvas").append(input);
+                        setTimeout(function () {
+                            initFontListeners(0);
+                            $("#font0").css({ color: "#" + listColors[indexColor] });
 
-                setTimeout(function () {
-                    $("#automtedLoaded").fadeOut(1000);
-                }, 3000);
-            }, 5000);
-        }
-    </script>
-    <%}%>
+                            setTimeout(function () {
+                                $("#automtedLoaded").fadeOut(1000);
+                            }, 3000);
+                        }, 5000);
+                    }
+                </script>
+                <%}%>
 </body>
 
 </html>

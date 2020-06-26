@@ -1,0 +1,26 @@
+<% extend('./../layout.ejs') %>
+
+<div class="container0fluid" style="overflow-y: scroll; overflow-x: hidden; height: 95%;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <% data.forEach(d=>{ %>
+                <div class="col-md-4">
+                    <a href="/designDetail?id=<%= d.id%>" style="text-decoration: none;">
+                        <div class="jumbotron" style="padding: 5px 5px 5px 5px;">
+                            <!-- Display design 1 -->
+                            <img src="<%= d.designUrl %>" class="img-thumbnail img-responsive"
+                                style="height: 300px!important; width: 100%;" />
+                            <h3 class="designHeading">
+                                <%= d.companyName %>
+                            </h3>
+                        </div>
+                    </a>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

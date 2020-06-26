@@ -30,6 +30,20 @@
     <nav class="navbar-topmenu">
       <!-- Begin of CTA Actions, & Icons menu -->
       <ul class="navbar-nav navbar-nav-actions">
+        <% if (user && user.userId){%>
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-outline-white btn-round dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= user.firstName %> <%= user.lastName %>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/myDesigns">My Designs</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+          </div>
+        </li>
+        <%} else {%>
         <li class="nav-item">
           <a class="btn btn-outline-white btn-round" href="/auth/signin">
             Sign-In
@@ -38,6 +52,7 @@
             Sign-Up
           </a>
         </li>
+        <%}%>
       </ul>
       <!-- End of CTA & Icons menu -->
     </nav>
@@ -115,6 +130,7 @@
             <span class="txt">Projects</span>
           </a>
         </li>
+        <% if (!user || !user.userId){%>
         <li class="nav-item" data-menuanchor="register">
           <a href="/signup">
             <i class="icon ion-ios-compose-outline"></i>
@@ -127,6 +143,7 @@
             <span class="txt">SignIn</span>
           </a>
         </li>
+        <%}%>
         <li class="nav-item" data-menuanchor="contact">
           <a href="#contact">
             <i class="icon ion-ios-telephone-outline"></i>
@@ -164,6 +181,7 @@
             <span class="txt">Projects</span>
           </a>
         </li>
+        <% if (!user || !user.userId){%>
         <li class="nav-item" data-menuanchor="register">
           <a href="/signup">
             <i class="icon ion-ios-compose-outline"></i>
@@ -176,6 +194,7 @@
             <span class="txt">SignIn</span>
           </a>
         </li>
+        <%}%>
         <li class="nav-item" data-menuanchor="contact">
           <a href="/#contact">
             <i class="icon ion-ios-telephone-outline"></i>

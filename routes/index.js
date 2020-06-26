@@ -52,7 +52,7 @@ router.post("/start", function (req, res) {
       res.redirect("/get-started");
     })
     .catch((e) => {
-      res.render("pages/index", { action: "index", user: req.session });
+      res.render("pages/index", { action: "start", user: req.session });
     });
 });
 
@@ -217,6 +217,7 @@ router.get("/design", function (req, res) {
                 .set(ud)
                 .then((d) => {
                   res.render("pages/design/finalDesign", {
+                    action: "design",
                     design: data,
                     userDesign: ud,
                     user: req.session,
@@ -247,6 +248,7 @@ router.get("/design", function (req, res) {
             .set(userDesign)
             .then((d) => {
               res.render("pages/design/finalDesign", {
+                action: "design",
                 design: data,
                 userDesign: userDesign,
                 user: req.session,
@@ -300,7 +302,40 @@ router.get("/logout", function (req, res) {
 });
 
 router.get("/chat", function (req, res) {
-  res.render("pages/chat");
+  res.render("pages/chat", { action: "chat", user: req.session });
+});
+
+router.get("/myDesigns", function (req, res) {
+  if (!req.session.userId) {
+    res.redirect("/");
+  }
+  let designs = [];
+  const user = req.session;
+  firebase
+    .database()
+    .ref()
+    .child("UserDesign")
+    .orderByChild("userId")
+    .equalTo(req.session.userId)
+    .once("value")
+    .then((data) => {
+      data.forEach((d) => {
+        designs.push(d.val());
+      });
+      designs.reverse();
+      res.render("pages/myDesigns", {
+        action: "myDesigns",
+        user: req.session,
+        data: designs,
+      });
+    })
+    .catch((e) => {
+      res.render("pages/myDesigns", {
+        action: "myDesigns",
+        user: req.session,
+        data: designs,
+      });
+    });
 });
 
 module.exports = router;
