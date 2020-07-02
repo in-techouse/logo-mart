@@ -120,6 +120,7 @@ router.post("/signup", function (req, res) {
 router.get("/recovery", function (req, res) {
   res.render("pages/auth/recovery", {
     error: "",
+    success: "",
     action: "recovery",
     user: req.session,
   });
@@ -131,11 +132,18 @@ router.post("/recovery", function (req, res) {
     .auth()
     .sendPasswordResetEmail(req.body.userEmail)
     .then((user) => {
-      res.json(user);
+      res.render("pages/auth/recovery", {
+        error: "",
+        success:
+          "Instructions to reset your password has been sent successfully to your email. Follow the instrutions to reset your password.",
+        action: "recovery",
+        user: req.session,
+      });
     })
     .catch((error) => {
       res.render("pages/auth/recovery", {
         error: error.message,
+        success: "",
         action: "recovery",
         user: req.session,
       });

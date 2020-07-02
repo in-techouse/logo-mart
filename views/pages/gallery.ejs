@@ -16,80 +16,7 @@
             <div class="slider-wrapper carousel-swiper-beta carousel-smalls carousel-swiper-beta-demo mt-40">
                 <!-- slider -->
                 <div class="slider-container swiper-container">
-                    <ul class="item-list swiper-wrapper">
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample2-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Mountain</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample3-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Cloud</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample4-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Garden</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample5-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Sky</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample5-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Sky</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                        <!-- item -->
-                        <li class="slide-item swiper-slide">
-                            <div class="item-wrapper">
-                                <div class="illustr">
-                                    <img src="/public/img/items/img-sample5-small.jpg" alt="Image" class="img">
-                                </div>
-                                <a class="legend" href="#">
-                                    <h3 class="display-3">Sky</h3>
-                                    <h4>Music / Beats</h4>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
+                    <ul class="item-list swiper-wrapper" id="logoMartProjectsGallery"></ul>
                 </div>
                 <!-- pagination -->
                 <div class="items-pagination bar"></div>
@@ -118,3 +45,68 @@
 
 </main>
 <!-- END OF page main content -->
+
+<script>
+
+    $(document).ready(function () {
+        firebase
+            .database()
+            .ref()
+            .child("UserDesign")
+            .orderByKey()
+            .limitToLast(7)
+            .once("value")
+            .then((result) => {
+                result.forEach((r) => {
+                    console.log("Desing is: ", r.val());
+                    let content = `
+                    <li class="slide-item swiper-slide">
+                        <div class="item-wrapper">
+                            <div class="illustr" style="height: 700px !important;">
+                            <img src="${
+                        r.val().designUrl
+                        }" alt="Image" class="img" style="height: 700px !important;"/>
+                            </div>
+                            <a class="legend" href="item.html#project_url">
+                            <h3 class="display-3">${r.val().companyName}</h3>
+                            <h4>${r.val().tagline}</h4>
+                            </a>
+                        </div>
+                    </li>`;
+                    $("#logoMartProjectsGallery").prepend(content);
+                });
+
+                // 4 Carousel Slider
+                new Swiper(".carousel-swiper-beta-demo .swiper-container", {
+                    pagination: ".carousel-swiper-beta-demo .items-pagination",
+                    paginationClickable: ".carousel-beta-alpha-demo .items-pagination",
+                    nextButton: ".carousel-swiper-beta-demo .items-button-next",
+                    prevButton: ".carousel-swiper-beta-demo .items-button-prev",
+                    loop: true,
+                    grabCursor: true,
+                    centeredSlides: true,
+                    autoplay: 5000,
+                    autoplayDisableOnInteraction: false,
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    breakpoints: {
+                        1024: {
+                            slidesPerView: 1,
+                        },
+                        800: {
+                            slidesPerView: 1,
+                            spaceBetween: 0,
+                        },
+                        640: {
+                            slidesPerView: 1,
+                            spaceBetween: 0,
+                        },
+                        440: {
+                            slidesPerView: 1,
+                            spaceBetween: 0,
+                        },
+                    },
+                });
+            });
+    });
+</script>

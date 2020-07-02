@@ -16,6 +16,27 @@
           <input type="submit" class="btn btn-primary btn-block" value="Send Password Recovery Email"
             style="text-transform: uppercase;" />
         </form>
+        <br />
+        <% if (error != "" ){ %>
+        <div class="form-group form-success-gone" style="margin-top: 20px;">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <%= error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <% } %>
+        <% if (success != "" ){ %>
+        <div class="form-group form-success-gone" style="margin-top: 20px;">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+        <% } %>
       </div>
       <div class="row" style="padding: 30px 0px 0px 0px;">
         <div class="col-md-12">

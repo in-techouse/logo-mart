@@ -2,6 +2,7 @@ $(document).ready(function () {
   // Enable search on all selects
   $(".selectpicker").selectpicker();
 
+  loadDesigns();
   loadChat();
 
   $("#messageForm").submit(function (e) {
@@ -33,6 +34,68 @@ $(document).ready(function () {
     });
   });
 });
+
+function loadDesigns() {
+  firebase
+    .database()
+    .ref()
+    .child("UserDesign")
+    .orderByKey()
+    .limitToLast(5)
+    .once("value")
+    .then((result) => {
+      result.forEach((r) => {
+        console.log("Desing is: ", r.val());
+        let content = `
+        <li class="slide-item swiper-slide">
+          <div class="item-wrapper">
+            <div class="illustr" style="height: 700px !important;">
+              <img src="${
+                r.val().designUrl
+              }" alt="Image" class="img" style="height: 700px !important;"/>
+            </div>
+            <a class="legend" href="item.html#project_url">
+              <h3 class="display-3">${r.val().companyName}</h3>
+              <h4>${r.val().tagline}</h4>
+            </a>
+          </div>
+        </li>`;
+        $("#logoMartProjects").prepend(content);
+      });
+
+      // 4 Carousel Slider
+      new Swiper(".carousel-swiper-beta-demo .swiper-container", {
+        pagination: ".carousel-swiper-beta-demo .items-pagination",
+        paginationClickable: ".carousel-beta-alpha-demo .items-pagination",
+        nextButton: ".carousel-swiper-beta-demo .items-button-next",
+        prevButton: ".carousel-swiper-beta-demo .items-button-prev",
+        loop: true,
+        grabCursor: true,
+        centeredSlides: true,
+        autoplay: 5000,
+        autoplayDisableOnInteraction: false,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        breakpoints: {
+          1024: {
+            slidesPerView: 1,
+          },
+          800: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+          440: {
+            slidesPerView: 1,
+            spaceBetween: 0,
+          },
+        },
+      });
+    });
+}
 
 function loadChat() {
   let id = localStorage.getItem("rId");
