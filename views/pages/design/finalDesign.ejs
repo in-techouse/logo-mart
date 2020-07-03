@@ -88,10 +88,23 @@
     <%- include('../../shared/_design_header.ejs')%>
     <% if (type == 1){%>
     <div class="page-loader" id="automtedLoaded">
-        <div>
+        <div id="automtedLoadedInner">
             <div class="icon ion-spin"></div>
             <p style="letter-spacing: 0.3rem;">Working on your design</p>
             <p style="letter-spacing: 0.3rem; margin-top: 30px;">Please wait...</p>
+        </div>
+        <div class="row" id="automatedLogoMain" style="display: none; position: absolute; top: 0; margin-top: 60px;">
+            <div class="col-md-12">
+                <img src="" id="automatedLogoMainDesignUrl" />
+                <br />
+                <button class="btn btn-primary" id="downloadDesign" style="margin-top: 10px;">
+                    Download
+                </button>
+                <br />
+                <button class="btn btn-primary" id="editDesign" style="margin-top: 10px;">
+                    Edit Design
+                </button>
+            </div>
         </div>
     </div>
     <%}%>
@@ -110,12 +123,11 @@
             </div>
         </div>
     </main>
-    <% if (type == 1){%>
+    <% if (type == 1) { %>
                 <script>
                     const listDesings = JSON.parse(localStorage.getItem("selectedDesigns"));
                     const listColors = JSON.parse(localStorage.getItem("selectedColors"));
                     const listTextStyles = JSON.parse(localStorage.getItem("selectTextStyles"));
-
                     const indexDesign = randomInteger(0, listDesings.length - 1);
                     const indexColor = randomInteger(0, listColors.length - 1);
                     const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
@@ -125,11 +137,44 @@
                         console.log("List of designs: ", listDesings);
                         console.log("List of colors: ", listColors);
                         console.log("List of text styles: ", listTextStyles);
-
                         console.log("Index of design: ", indexDesign);
                         console.log("Index of color: ", indexColor);
                         console.log("Index of text style: ", indexTextStyle);
 
+                        // $("#input0").css("margin", 0);
+                        $("#MainDiv").mousedown(function () {
+                            $("#MainDiv").css("margin", 0);
+                        });
+                        $("#input0").mousedown(function () {
+                            $("#input0").css("margin", 0);
+                        });
+                        $("#editDesign").click(function () {
+                            $("#automtedLoaded").fadeOut(1100);
+                        });
+
+                        $("#downloadDesign").click(function () {
+                            for (var i in map) {
+                                if (map[i] === true) {
+                                    $("#" + i).removeClass("focusDesignBorder");
+                                } else {
+                                    $("#" + i).removeClass("designBorder");
+                                }
+                            }
+                            $(".ui-rotatable-handle").hide();
+                            html2canvas(document.querySelector("#mainCanvas"), {
+                                useCORS: true,
+                            }).then((canvas) => {
+                                downloadLogo(canvas.toDataURL(), "file-name.png");
+                                $(".ui-rotatable-handle").show();
+                                for (var i in map) {
+                                    if (map[i] === true) {
+                                        $("#" + i).addClass("focusDesignBorder");
+                                    } else {
+                                        $("#" + i).addClass("designBorder");
+                                    }
+                                }
+                            });
+                        });
                         getDesign();
                     });
 
@@ -150,11 +195,10 @@
                             .then(d => {
                                 design = d.val();
                                 console.log("Design is: ", design);
-
                                 let mainDesign = `
-                    <div id="MainDiv" class="designBorder" style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;">
-                        <img src="${design.designURL}" class="designImage" />
-                    </div>`;
+                            <div id="MainDiv" class="designBorder" onmousedown="elementClicked('MainDiv')" style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;">
+                                <img src="${design.designURL}" class="designImage" />
+                            </div>`;
                                 $("#mainCanvas").append(mainDesign);
                                 setTimeout(function () {
                                     initMainListeners();
@@ -168,16 +212,100 @@
 
                     function insertCompanyName(companyName) {
                         let input = `
-            <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}"><textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${companyName}</textarea></div>`;
+                    <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}">
+                        <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${companyName}</textarea>
+                    </div>`;
                         $("#mainCanvas").append(input);
                         setTimeout(function () {
                             initFontListeners(0);
                             $("#font0").css({ color: "#" + listColors[indexColor] });
-
                             setTimeout(function () {
-                                $("#automtedLoaded").fadeOut(1000);
+                                for (var i in map) {
+                                    if (map[i] === true) {
+                                        $("#" + i).removeClass("focusDesignBorder");
+                                    } else {
+                                        $("#" + i).removeClass("designBorder");
+                                    }
+                                }
+                                $(".ui-rotatable-handle").hide();
+                                html2canvas(document.querySelector("#mainCanvas"), {
+                                    useCORS: true,
+                                }).then((canvas) => {
+                                    saveToShow(canvas.toDataURL(), "file-name.png");
+                                    $(".ui-rotatable-handle").show();
+                                    for (var i in map) {
+                                        if (map[i] === true) {
+                                            $("#" + i).addClass("focusDesignBorder");
+                                        } else {
+                                            $("#" + i).addClass("designBorder");
+                                        }
+                                    }
+                                });
                             }, 3000);
                         }, 5000);
+                    }
+                    function saveToShow(uri, filename) {
+                        let dateTime = new Date().getTime();
+                        var fileName = "" + dateTime + filename;
+                        console.log("File Name: ", fileName);
+                        var ref = firebase.storage().ref("Users").child("Designs").child(fileName);
+                        console.log("Ref Created");
+                        var uploadTask = ref.putString(uri.split(",")[1], "base64", {
+                            contentType: "image/png",
+                        });
+
+                        uploadTask.on(
+                            "state_changed",
+                            function (snapshot) {
+                                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                console.log("Upload is " + progress + "% done");
+                                progress = progress.toFixed(2);
+                                switch (snapshot.state) {
+                                    case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                        console.log("Upload is paused");
+                                        break;
+                                    case firebase.storage.TaskState.RUNNING: // or 'running'
+                                        console.log("Upload is running");
+                                        break;
+                                }
+                            },
+                            function (error) {
+                                console.log("Upload Error: ", error);
+                            },
+                            function () {
+                                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                                    console.log("File available at", downloadURL);
+                                    const userDesignId = $("#userDesignId").val();
+                                    console.log("userDesignId: ", userDesignId);
+                                    firebase
+                                        .database()
+                                        .ref()
+                                        .child("UserDesign")
+                                        .child(userDesignId)
+                                        .child("designUrl")
+                                        .set(downloadURL);
+                                    console.log("Finish Last");
+                                    $("#automatedLogoMainDesignUrl").attr("src", downloadURL);
+                                    $("#automtedLoadedInner").fadeOut(1000);
+                                    $("#automatedLogoMain").fadeIn(1300);
+                                });
+                            }
+                        );
+                    }
+                    function downloadLogo(uri, filename) {
+                        var link = document.createElement("a");
+                        if (typeof link.download === "string") {
+                            link.href = uri;
+                            link.download = filename;
+                            //Firefox requires the link to be in the body
+                            document.body.appendChild(link);
+                            //simulate click
+                            link.click();
+                            //remove the link when done
+                            document.body.removeChild(link);
+                        } else {
+                            window.open(uri);
+                        }
                     }
                 </script>
                 <%}%>

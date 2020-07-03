@@ -198,6 +198,9 @@ function elementClicked(id) {
     $("#fontStylingCard").hide(300);
     $("#delete").fadeOut(300);
   }
+  if (id === "input0" || id === "MainDiv") {
+    $("#" + id).css("margin", 0);
+  }
 }
 
 function saveAs(uri, filename) {
