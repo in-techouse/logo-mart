@@ -4,6 +4,7 @@ var router = express.Router();
 
 // Automated Index
 router.get("/", function (req, res) {
+  req.session.userDesignId = null;
   res.render("pages/automated/automatedDesign", {
     error: "",
     action: "logo-maker",

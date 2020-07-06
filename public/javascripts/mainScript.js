@@ -45,7 +45,6 @@ function loadDesigns() {
     .once("value")
     .then((result) => {
       result.forEach((r) => {
-        console.log("Desing is: ", r.val());
         let content = `
         <li class="slide-item swiper-slide">
           <div class="item-wrapper">

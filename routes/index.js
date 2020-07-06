@@ -22,6 +22,7 @@ router.get("/", function (req, res) {
 
 // Get Started
 router.get("/get-started", function (req, res) {
+  req.session.userDesign = null;
   res.render("pages/get-started", {
     error: "",
     action: "getstarted",
@@ -31,6 +32,7 @@ router.get("/get-started", function (req, res) {
 
 // Make your Own logo
 router.post("/start", function (req, res) {
+  req.session.userDesign = null;
   let userDesign = {
     id: "",
     userId: req.session.userId ? req.session.userId : "",

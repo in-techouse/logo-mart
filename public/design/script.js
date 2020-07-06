@@ -89,8 +89,15 @@ const fontFamilies = [
 let iconCount = 0;
 let fontCount = 0;
 let map = {};
+let companyName = "";
+let tagline = "";
 $(document).ready(function () {
   map["MainDiv"] = false;
+
+  companyName = $("#companyName").val().trim();
+  tagline = $("#tagline").val().trim();
+  console.log("Company Name: ", companyName);
+  console.log("Tagline: ", tagline);
 
   // Tabs Listener
   $(".btn-pref .btn").click(function () {
@@ -112,7 +119,17 @@ $(document).ready(function () {
     html2canvas(document.querySelector("#mainCanvas"), {
       useCORS: true,
     }).then((canvas) => {
-      saveAs(canvas.toDataURL(), "file-name.png");
+      let fileName = "";
+      if (
+        companyName === null ||
+        companyName === undefined ||
+        companyName.length < 1
+      ) {
+        fileName = "file-name.png";
+      } else {
+        fileName = companyName + ".png";
+      }
+      saveAs(canvas.toDataURL(), fileName);
       $(".ui-rotatable-handle").show();
       for (var i in map) {
         if (map[i] === true) {
@@ -198,9 +215,6 @@ function elementClicked(id) {
     $("#fontStylingCard").hide(300);
     $("#delete").fadeOut(300);
   }
-  if (id === "input0" || id === "MainDiv") {
-    $("#" + id).css("margin", 0);
-  }
 }
 
 function saveAs(uri, filename) {
@@ -208,11 +222,8 @@ function saveAs(uri, filename) {
   if (typeof link.download === "string") {
     link.href = uri;
     link.download = filename;
-    //Firefox requires the link to be in the body
     document.body.appendChild(link);
-    //simulate click
     link.click();
-    //remove the link when done
     document.body.removeChild(link);
   } else {
     window.open(uri);

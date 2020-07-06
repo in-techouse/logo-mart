@@ -132,6 +132,9 @@
                     const indexColor = randomInteger(0, listColors.length - 1);
                     const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
                     let design = null;
+                    let automatedCompanyName = "";
+                    let automatedTagline = "";
+
                     $(document).ready(function () {
                         console.log("Automated Design page is ready");
                         console.log("List of designs: ", listDesings);
@@ -141,14 +144,15 @@
                         console.log("Index of color: ", indexColor);
                         console.log("Index of text style: ", indexTextStyle);
 
-                        // $("#input0").css("margin", 0);
-                        $("#MainDiv").mousedown(function () {
-                            $("#MainDiv").css("margin", 0);
-                        });
-                        $("#input0").mousedown(function () {
-                            $("#input0").css("margin", 0);
-                        });
+                        automatedCompanyName = $("#companyName").val().trim();
+                        automatedTagline = "\n" + $("#tagline").val().trim();
+                        console.log("Company Name: ", automatedCompanyName);
+                        console.log("Tagline: ", automatedTagline);
+
+
                         $("#editDesign").click(function () {
+                            $("#input0").css("margin", 0);
+                            $("#MainDiv").css("margin", 0);
                             $("#automtedLoaded").fadeOut(1100);
                         });
 
@@ -164,7 +168,17 @@
                             html2canvas(document.querySelector("#mainCanvas"), {
                                 useCORS: true,
                             }).then((canvas) => {
-                                downloadLogo(canvas.toDataURL(), "file-name.png");
+                                let fileName = "";
+                                if (
+                                    automatedCompanyName === null ||
+                                    automatedCompanyName === undefined ||
+                                    automatedCompanyName.length < 1
+                                ) {
+                                    fileName = "file-name.png";
+                                } else {
+                                    fileName = automatedCompanyName + ".png";
+                                }
+                                downloadLogo(canvas.toDataURL(), fileName);
                                 $(".ui-rotatable-handle").show();
                                 for (var i in map) {
                                     if (map[i] === true) {
@@ -214,11 +228,13 @@
                         let input = `
                     <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}">
                         <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${companyName}</textarea>
+                        <textarea id="font${1}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${tagline}</textarea>
                     </div>`;
                         $("#mainCanvas").append(input);
                         setTimeout(function () {
                             initFontListeners(0);
                             $("#font0").css({ color: "#" + listColors[indexColor] });
+                            $("#font1").css({ color: "#" + listColors[indexColor] })
                             setTimeout(function () {
                                 for (var i in map) {
                                     if (map[i] === true) {
@@ -297,11 +313,8 @@
                         if (typeof link.download === "string") {
                             link.href = uri;
                             link.download = filename;
-                            //Firefox requires the link to be in the body
                             document.body.appendChild(link);
-                            //simulate click
                             link.click();
-                            //remove the link when done
                             document.body.removeChild(link);
                         } else {
                             window.open(uri);
