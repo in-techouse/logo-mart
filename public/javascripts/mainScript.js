@@ -40,28 +40,40 @@ function loadDesigns() {
     .database()
     .ref()
     .child("UserDesign")
-    .orderByKey()
-    .limitToLast(5)
+    .limitToLast(15)
     .once("value")
     .then((result) => {
+      let count = 0;
+      let designs = [];
       result.forEach((r) => {
-        let content = `
-        <li class="slide-item swiper-slide">
-          <div class="item-wrapper">
-            <div class="illustr" style="height: 700px !important;">
-              <img src="${
-                r.val().designUrl
-              }" alt="Image" class="img" style="height: 700px !important;"/>
-            </div>
-            <a class="legend" href="item.html#project_url">
-              <h3 class="display-3">${r.val().companyName}</h3>
-              <h4>${r.val().tagline}</h4>
-            </a>
-          </div>
-        </li>`;
-        $("#logoMartProjects").prepend(content);
+        const design = r.val();
+        if (
+          design.designUrl !== null &&
+          design.designUrl !== undefined &&
+          design.designUrl.length > 0
+        ) {
+          designs.push(design);
+        }
       });
-
+      designs.reverse();
+      designs.forEach((design) => {
+        if (count < 6) {
+          let content = `
+            <li class="slide-item swiper-slide">
+                <div class="item-wrapper">
+                <div class="illustr" style="height: 700px !important;">
+                    <img src="${design.designUrl}" alt="Image" class="img" style="height: 700px !important;"/>
+                </div>
+                <a class="legend" href="item.html#project_url">
+                    <h3 class="display-3">${design.companyName}</h3>
+                    <h4>${design.tagline}</h4>
+                </a>
+                </div>
+            </li>`;
+          $("#logoMartProjects").append(content);
+          count++;
+        }
+      });
       // 4 Carousel Slider
       new Swiper(".carousel-swiper-beta-demo .swiper-container", {
         pagination: ".carousel-swiper-beta-demo .items-pagination",

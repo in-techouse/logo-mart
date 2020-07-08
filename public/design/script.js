@@ -91,6 +91,8 @@ let fontCount = 0;
 let map = {};
 let companyName = "";
 let tagline = "";
+let imageCount = 0;
+
 $(document).ready(function () {
   map["MainDiv"] = false;
 
@@ -168,7 +170,50 @@ $(document).ready(function () {
       $("#" + fontId).css({ "font-size": this.value });
     }
   });
+
+  $("#addImage").click(function () {
+    $("#addImageInput").trigger("click");
+  });
+
+  $("#addImageInput").change(function () {
+    imageCount++;
+    let content = `
+      <div id="MainDiv${imageCount}" class="designBorder">
+        <img src="" class="designImage" id="designImage${imageCount}"/>
+      </div>`;
+    $("#mainCanvas").append(content);
+    readDesignImageURL(this);
+  });
 });
+
+function readDesignImageURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $("#designImage" + imageCount).attr("src", e.target.result);
+
+      $("#MainDiv" + imageCount).resizable({
+        containment: "parent",
+        resize: function (e, ui) {
+          $("#designImage" + imageCount).css({
+            height: ui.size.height + "px",
+            width: ui.size.width + "px",
+          });
+        },
+      });
+      map["MainDiv" + imageCount] = true;
+      $("#MainDiv" + imageCount).draggable({
+        cursor: "pointer",
+        containment: "parent",
+      });
+      $("#MainDiv" + imageCount).rotatable();
+      $("#MainDiv" + imageCount).click(function () {
+        elementClicked("MainDiv" + imageCount);
+      });
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 
 function initMainListeners() {
   $("#MainDiv").resizable({

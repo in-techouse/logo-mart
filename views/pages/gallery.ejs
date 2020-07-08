@@ -47,33 +47,44 @@
 <!-- END OF page main content -->
 
 <script>
-
     $(document).ready(function () {
         firebase
             .database()
             .ref()
             .child("UserDesign")
-            .orderByKey()
-            .limitToLast(7)
+            .limitToLast(25)
             .once("value")
             .then((result) => {
+                let count = 0;
+                let designs = [];
                 result.forEach((r) => {
-                    console.log("Desing is: ", r.val());
-                    let content = `
-                    <li class="slide-item swiper-slide">
-                        <div class="item-wrapper">
-                            <div class="illustr" style="height: 700px !important;">
-                            <img src="${
-                        r.val().designUrl
-                        }" alt="Image" class="img" style="height: 700px !important;"/>
-                            </div>
-                            <a class="legend" href="item.html#project_url">
-                            <h3 class="display-3">${r.val().companyName}</h3>
-                            <h4>${r.val().tagline}</h4>
-                            </a>
-                        </div>
-                    </li>`;
-                    $("#logoMartProjectsGallery").prepend(content);
+                    const design = r.val();
+                    if (
+                        design.designUrl !== null &&
+                        design.designUrl !== undefined &&
+                        design.designUrl.length > 0
+                    ) {
+                        designs.push(design);
+                    }
+                });
+                designs.reverse();
+                designs.forEach(design => {
+                    if (count < 9) {
+                        let content = `
+                            <li class="slide-item swiper-slide">
+                                <div class="item-wrapper">
+                                <div class="illustr" style="height: 700px !important;">
+                                    <img src="${design.designUrl}" alt="Image" class="img" style="height: 700px !important;"/>
+                                </div>
+                                <a class="legend" href="item.html#project_url">
+                                    <h3 class="display-3">${design.companyName}</h3>
+                                    <h4>${design.tagline}</h4>
+                                </a>
+                                </div>
+                            </li>`;
+                        $("#logoMartProjectsGallery").append(content);
+                        count++;
+                    }
                 });
 
                 // 4 Carousel Slider
