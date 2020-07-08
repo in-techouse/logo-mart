@@ -255,6 +255,8 @@ function elementClicked(id) {
     $("#fontSize").val(size);
     $("#fontStylingCard").show(300);
     $("#fontStylingError").hide(300);
+  } else if (id.includes("MainDiv") && id !== "MainDiv") {
+    $("#delete").fadeIn(300);
   } else {
     $("#fontStylingError").show(300);
     $("#fontStylingCard").hide(300);
