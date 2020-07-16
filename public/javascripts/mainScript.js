@@ -26,6 +26,7 @@ $(document).ready(function () {
         $("#sound_tag")[0].play();
         setTimeout(function () {
           $("#successMessage").hide(500);
+          window.location.href = "/chat";
         }, 7000);
       },
       error: function (error) {
@@ -114,11 +115,11 @@ function loadChat() {
     console.log("Current Location: ", window.location.href);
     let url = window.location.href;
     if (!url.includes("chat")) {
-      // $("#miniChatBox").show(500);
+      $("#miniChatBox").show(500);
       // setTimeout(function () {
       //   console.log("Mini Chat Box, going to bounce");
       //   $("#sound_tag")[0].play();
-      //   $("#miniChatBox").effect("bounce", { times: 7 }, 2000);
+      $("#miniChatBox").effect("bounce", { times: 7 }, 2000);
       // }, 2400);
     }
   }

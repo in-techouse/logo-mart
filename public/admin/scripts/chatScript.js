@@ -1,5 +1,10 @@
+const adminMessages = [];
+let requestId = "";
+let userId = "";
 $(document).ready(function () {
   console.log("Chat Document is ready");
+  requestId = $("#requestId").val();
+  userId = $("#userId").val();
   setTimeout(function () {
     $(".scrollbar-container").scrollTop($("#mainChatRoom")[0].scrollHeight);
   }, 1500);
@@ -10,9 +15,6 @@ $(document).ready(function () {
       if (message.length < 1) {
         return;
       }
-
-      let requestId = $("#requestId").val();
-      let userId = $("#userId").val();
 
       let messageObj = {
         id: "",
@@ -69,8 +71,6 @@ $(document).ready(function () {
 });
 
 function loadPreviousChat() {
-  let requestId = $("#requestId").val();
-  let userId = $("#userId").val();
   firebase
     .database()
     .ref()
@@ -79,14 +79,15 @@ function loadPreviousChat() {
     .once("value")
     .then((data) => {
       data.forEach((d) => {
-        console.log("Single Message: ", d.val());
         let m = d.val();
+        adminMessages.push(m);
+        let box = "";
+        var formattedTime = moment(m.timeStamps).format(
+          "HH:mm:ss a, dddd MMM YYYY"
+        );
         if (m.userId === userId) {
           // Admin Message
-          var formattedTime = moment(m.timeStamps).format(
-            "HH:mm:ss a, dddd MMM YYYY"
-          );
-          let box = `
+          box = `
           <div class="row" style="margin-left: 20px; margin-right: 20px;"> 
               <div class="float-right" style="float: right; width: 100%;">
                   <div class="chat-box-wrapper chat-box-wrapper-right">
@@ -102,10 +103,24 @@ function loadPreviousChat() {
                   </div>
               </div>
           </div>`;
-          $("#mainChatRoom").append(box);
         } else {
           // User Message
+          box = `
+          <div class="chat-wrapper p-1">
+            <div class="chat-box-wrapper">
+              <div>
+                <div class="chat-box">
+                  ${m.message}
+                </div>
+                <small class="opacity-6">
+                  <i class="fa fa-calendar-alt mr-1"></i>
+                  ${formattedTime}
+                </small>
+              </div>
+            </div>
+          </div>`;
         }
+        $("#mainChatRoom").append(box);
       });
       $(".scrollbar-container").animate(
         {
@@ -113,6 +128,65 @@ function loadPreviousChat() {
         },
         1000
       );
+      listenToUserMessages();
     })
     .catch((err) => {});
+}
+
+function listenToUserMessages() {
+  console.log("Listen to user messages called, with Userid: ", userId);
+  const messageRef = firebase
+    .database()
+    .ref()
+    .child("Chats")
+    .child(requestId)
+    .orderByChild("userId")
+    .equalTo(userId);
+  messageRef.on("value", function (snapshot) {
+    const maxTimeStamps = Math.max.apply(
+      Math,
+      adminMessages.map(function (o) {
+        return o.timeStamps;
+      })
+    );
+    console.log("Max Timestamps: ", maxTimeStamps);
+    // let playSound = false;
+    // snapshot.forEach((m) => {
+    //   if (m.val().timeStamps > maxTimeStamps) {
+    //     playSound = true;
+    //     adminMessages.push(m.val());
+    //     setUserMessage(m.val());
+    //   }
+    // });
+    // if (playSound) {
+    //   $("#sound_tag")[0].play();
+    // }
+  });
+}
+
+function setUserMessage(m) {
+  const formattedTime = moment(m.timeStamps).format(
+    "HH:mm:ss a, dddd MMM YYYY"
+  );
+  const box = `
+          <div class="chat-wrapper p-1">
+            <div class="chat-box-wrapper">
+              <div>
+                <div class="chat-box">
+                  ${m.message}
+                </div>
+                <small class="opacity-6">
+                  <i class="fa fa-calendar-alt mr-1"></i>
+                  ${formattedTime}
+                </small>
+              </div>
+            </div>
+          </div>`;
+  $("#mainChatRoom").append(box);
+  $(".scrollbar-container").animate(
+    {
+      scrollTop: $("#mainChatRoom").height(),
+    },
+    1000
+  );
 }

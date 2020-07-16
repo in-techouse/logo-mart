@@ -1,3 +1,4 @@
+const messages = [];
 $(document).ready(function () {
   console.log("Chat page is ready");
   let rId = localStorage.getItem("rId");
@@ -75,7 +76,7 @@ function enableUserMessaging(rId, email) {
             </div>`;
       $("#userMainChatRoom").append(messageDiv);
       $("#userMessageBox").val("");
-
+      firebase.database().ref().child("Chats").child(rId).push(messageObj);
       $(".scrollbar-container").animate(
         {
           scrollTop: $("#userMainChatRoom").height(),
@@ -97,6 +98,7 @@ function loadPreviousChat(rId, email) {
     .then((data) => {
       data.forEach((d) => {
         let message = d.val();
+        messages.push(message);
         let messageDiv = "";
         var formattedTime = moment(message.timeStamps).format(
           "HH:mm:ss a, dddd MMM YYYY"
@@ -143,6 +145,66 @@ function loadPreviousChat(rId, email) {
         },
         1000
       );
+      listenToMessages(rId);
     })
     .catch((err) => {});
+}
+
+function listenToMessages(rId) {
+  const messageRef = firebase
+    .database()
+    .ref()
+    .child("Chats")
+    .child(rId)
+    .orderByChild("userId")
+    .equalTo("admin-gmail_com");
+  messageRef.on("value", function (snapshot) {
+    const maxTimeStamps = Math.max.apply(
+      Math,
+      messages.map(function (o) {
+        return o.timeStamps;
+      })
+    );
+    console.log("Max Timestamps: ", maxTimeStamps);
+    let playSound = false;
+    snapshot.forEach((m) => {
+      if (m.val().timeStamps > maxTimeStamps) {
+        playSound = true;
+        messages.push(m.val());
+        if (m.val().userId === "admin-gmail_com") {
+          setAdminMessage(m.val());
+        }
+      }
+    });
+    if (playSound) {
+      $("#sound_tag")[0].play();
+    }
+  });
+}
+
+function setAdminMessage(message) {
+  const formattedTime = moment(message.timeStamps).format(
+    "HH:mm:ss a, dddd MMM YYYY"
+  );
+  const messageDiv = `
+    <div class="chat-wrapper p-1 msg">
+        <div class="chat-box-wrapper">
+            <div>
+                <div class="chat-box">
+                    <p style="width: 100%; text-align: left; color: #303030;">${message.message}</p>
+                </div>
+                <small class="opacity-6">
+                    <i class="fa fa-calendar-alt mr-1"></i>
+                    ${formattedTime}
+                </small>
+            </div>
+        </div>
+    </div>`;
+  $("#userMainChatRoom").append(messageDiv);
+  $(".scrollbar-container").animate(
+    {
+      scrollTop: $("#userMainChatRoom").height(),
+    },
+    1000
+  );
 }
