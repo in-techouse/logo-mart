@@ -1,10 +1,15 @@
 const adminMessages = [];
 let requestId = "";
 let userId = "";
+let currentUserId = "";
 $(document).ready(function () {
   console.log("Chat Document is ready");
   requestId = $("#requestId").val();
   userId = $("#userId").val();
+  currentUserId = $("#currentUserId").text();
+  console.log("User Id: ", userId);
+  console.log("Request Id: ", requestId);
+  console.log("Current User Id: ", currentUserId);
   setTimeout(function () {
     $(".scrollbar-container").scrollTop($("#mainChatRoom")[0].scrollHeight);
   }, 1500);
@@ -134,14 +139,19 @@ function loadPreviousChat() {
 }
 
 function listenToUserMessages() {
-  console.log("Listen to user messages called, with Userid: ", userId);
+  console.log(
+    "Listen to user messages called, with Current User Id: ",
+    currentUserId
+  );
+  console.log("Listen to user messages called, with Request Id: ", requestId);
+
   const messageRef = firebase
     .database()
     .ref()
     .child("Chats")
     .child(requestId)
     .orderByChild("userId")
-    .equalTo(userId);
+    .equalTo(currentUserId);
   messageRef.on("value", function (snapshot) {
     const maxTimeStamps = Math.max.apply(
       Math,
@@ -150,17 +160,18 @@ function listenToUserMessages() {
       })
     );
     console.log("Max Timestamps: ", maxTimeStamps);
-    // let playSound = false;
-    // snapshot.forEach((m) => {
-    //   if (m.val().timeStamps > maxTimeStamps) {
-    //     playSound = true;
-    //     adminMessages.push(m.val());
-    //     setUserMessage(m.val());
-    //   }
-    // });
-    // if (playSound) {
-    //   $("#sound_tag")[0].play();
-    // }
+    console.log("Admin Previous Messages are: ", adminMessages);
+    let playSound = false;
+    snapshot.forEach((m) => {
+      if (m.val().timeStamps > maxTimeStamps) {
+        playSound = true;
+        adminMessages.push(m.val());
+        setUserMessage(m.val());
+      }
+    });
+    if (playSound) {
+      $("#sound_tag")[0].play();
+    }
   });
 }
 

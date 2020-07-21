@@ -30,6 +30,7 @@ $(document).ready(function () {
         </div>`;
 
       $("#userMainChatRoom").append(firstMessage);
+      $("#userOrderDetail").append(firstMessage);
       loadPreviousChat(rId, data.val().email);
       enableUserMessaging(rId, data.val().email);
     })
