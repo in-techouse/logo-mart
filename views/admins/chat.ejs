@@ -1,125 +1,132 @@
 <% extend('../admin_layout.ejs') %>
-<script type="text/javascript" src="/public/admin/scripts/chatScript.js"></script>
-<script type="text/javascript" src="/public/admin/scripts/deliverOrder.js"></script>
-<div class="app-main__outer">
-    <div class="app-main__inner">
+    <script type="text/javascript" src="/public/admin/scripts/chatScript.js"></script>
+    <script type="text/javascript" src="/public/admin/scripts/deliverOrder.js"></script>
+    <div class="app-main__outer">
+        <div class="app-main__inner">
 
-        <div class="row">
-            <!-- User Requirement Section -->
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                            <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Request Requirements
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="card-hover-shadow-2x mb-3 card">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Chat with
+                                <b style="margin-left: 3px;"> <%= request.name %></b></div>
                         </div>
-                    </div>
-                    <div class="scroll-area-lg" style="height: 200px;">
-                        <div class="scrollbar-container">
-                            <div class="p-2">
-                                <input type="hidden" id="userId" value="admin-gmail_com" />
-                                <input type="hidden" id="requestId" value="<%= request.id %>" />
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h6><b>Name:</b></h6>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6 style="float: right;"><%= request.name %></h6>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6><b>Email:</b></h6>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6 id="currentUserId" style="float: right;"><%= request.email %></h6>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h6><b>Description:</b></h6>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h6><%= request.text %></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Order Deliver Section -->
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                            <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Deliver Order
-                        </div>
-                    </div>
-                    <div class="scroll-area-lg" style="height: 200px;">
-                        <form id="deliverOrder" method="POST" action="/admin/deliverOrder" style="padding: 10px;">
-                            <div class="form-group">
-                                <label>Select Files</label>
-                                <input id="files" name="files" type="file" class="form-control" multiple required />
-                            </div>
-                            <div class="form-group" id="orderUpload" style="display: none; width: 100%;">
-                                <p style="float: right;" class="btn btn-primary btn-sm">UPLOAD</p>
-                            </div>
-                            <div class="progress" style="display: none; width: 100%;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-                            </div>
-                            <div class="form-group">
-                                <label>Order Description</label>
-                                <br />
-                                <textarea id="orderContent" required class="form-control" style="width: 100%; resize: none;"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input id="deliverOrder" type="submit" class="btn btn-block btn-primary"
-                                    value="Deliver Order" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                <div class="card-hover-shadow-2x mb-3 card">
-                    <div class="card-header-tab card-header">
-                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                            <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Chat with
-                            <b style="margin-left: 3px;"> <%= request.name %></b></div>
-                    </div>
-                    <div class="scroll-area-lg">
-                        <div class="scrollbar-container">
-                            <div class="p-2" id="mainChatRoom">
-
-                                <!-- User first message -->
-                                <div class="chat-wrapper p-1">
-                                    <div class="chat-box-wrapper">
-                                        <div>
-                                            <div class="chat-box">
-                                                <%= request.text %>
+                        <div class="scroll-area-lg" style="height: 620px !important; overflow-x: hidden;">
+                            <div class="scrollbar-container">
+                                <div class="p-2" id="mainChatRoom">
+                                    <!-- User first message -->
+                                    <div class="chat-wrapper p-1">
+                                        <div class="chat-box-wrapper">
+                                            <div>
+                                                <div class="chat-box">
+                                                    <%= request.text %>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                <textarea id="messageBox" class="form-control chatTextArea" placeholder="Enter your message here"></textarea>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <button class="btn">SEND</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- User Requirement Section -->
+                <div class="col-lg-6 col-md-6 col-sm-12" style="overflow-x: hidden;">
+                    <div class="card-hover-shadow-2x mb-3 card" style="overflow-x: hidden;">
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Request Requirements& Deliver Order
+                            </div>
+                        </div>
+                        <div class="scroll-area-lg" style="height: 720px !important; overflow-x: hidden;">
+                            <div class="scrollbar-container" style="overflow-x: hidden;">
+                                <div class="p-2">
+                                    <input type="hidden" id="userId" value="admin-gmail_com" />
+                                    <input type="hidden" id="requestId" value="<%= request.id %>" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h6><b>Name:</b></h6>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 style="float: right;">
+                                                <%= request.name %>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6><b>Email:</b></h6>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 id="currentUserId" style="float: right;">
+                                                <%= request.email %>
+                                            </h6>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h6><b>Description:</b></h6>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <h6>
+                                                <%= request.text %>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="deliverOrder" method="POST" action="/admin/deliverOrder" style="padding: 10px;">
+                                    <div class="form-group">
+                                        <label>Select Files</label>
+                                        <input id="files" name="files" type="file" class="form-control" multiple required />
+                                    </div>
+                                    <div class="form-group" id="orderUpload" style="display: none; width: 100%;">
+                                        <p style="float: right;" class="btn btn-primary btn-sm">UPLOAD</p>
+                                    </div>
+                                    <div class="progress" style="display: none; width: 100%;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Order Description</label>
+                                        <br />
+                                        <textarea id="orderContent" required class="form-control" style="width: 100%; resize: none;"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="deliverOrder" type="submit" class="btn btn-block btn-primary" value="Deliver Order" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="scroll-area-lg" style="height: 200px;">
+                                <form id="deliverOrder" method="POST" action="/admin/deliverOrder" style="padding: 10px;">
+                                    <div class="form-group">
+                                        <label>Select Files</label>
+                                        <input id="files" name="files" type="file" class="form-control" multiple required />
+                                    </div>
+                                    <div class="form-group" id="orderUpload" style="display: none; width: 100%;">
+                                        <p style="float: right;" class="btn btn-primary btn-sm">UPLOAD</p>
+                                    </div>
+                                    <div class="progress" style="display: none; width: 100%;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Order Description</label>
+                                        <br />
+                                        <textarea id="orderContent" required class="form-control" style="width: 100%; resize: none;"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="deliverOrder" type="submit" class="btn btn-block btn-primary" value="Deliver Order" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                            <textarea id="messageBox" class="form-control chatTextArea"
-                                placeholder="Enter your message here"></textarea>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <button class="btn">SEND</button>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-
     </div>
-</div>
