@@ -1,5 +1,6 @@
 <% extend('./../layout.ejs') %>
     <script type="text/javascript" src="/public/javascripts/userChat.js"></script>
+    <script type="text/javascript" src="/public/javascripts/userDeliveries.js"></script>
 
     <div class="row" style="height: 100%;">
         <div class="col-md-2 col-sm-12 col-xs-12"></div>
@@ -25,12 +26,21 @@
             </div>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-6">
-            <div class="jumbotron" style="padding-top: 7px!important; padding-bottom: 7px!important; height: 710px;">
+            <div class="jumbotron" style="padding-top: 7px!important; padding-bottom: 7px!important; height: 710px; overflow-y: scroll;">
                 <div class="row" style="padding-top: 13px; padding-bottom: 13px; text-transform: uppercase;">
                     <h5><b>Order Detail</b></h5>
                 </div>
                 <div class="row">
                     <div class="col-md-12" id="userOrderDetail">
+
+                    </div>
+                </div>
+                <hr style="background-color: white;" />
+                <div class="row" style="padding-top: 13px; padding-bottom: 13px; text-transform: uppercase;">
+                    <h5><b>Order Deliveries</b></h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="userOrderDeliveries">
 
                     </div>
                 </div>

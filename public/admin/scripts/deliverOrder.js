@@ -23,9 +23,7 @@ $(document).ready(function() {
 });
 
 function loadOldDeliveries() {
-    // $("#oldDeliveries")
     firebase.database().ref().child("Orders").orderByChild("requestId").equalTo(requestId).once('value').then(data => {
-        // console.log("Old Deliveries are: ", data.val());
         const deliveries = [];
         data.forEach(d => {
             console.log("Delivery: ", d.val());
@@ -51,7 +49,10 @@ function showOrderDeliveries(deliveries) {
         const content = `
           <div class="col-md-12">
             <h4>Order Delivery ${count} <b>(${d.status})</b></h4>
+            <p><b>YOUR MESSAGE</b><p>
             <p>${d.content}</p>
+            <p><b>CLIENT's MESSAGE</b><p>
+            <p>${d.userContent === undefined ? "" : d.userContent}</p>
             ${fileContent}            
           </div>
           <hr/>
