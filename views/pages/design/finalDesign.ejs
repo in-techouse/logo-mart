@@ -4,8 +4,7 @@
 <head>
     <title>LOGO MART</title>
     <!-- Meta Tags -->
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <!-- Styling Files -->
     <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css" type="text/css" />
@@ -24,7 +23,6 @@
     <link rel="stylesheet" href="/public/stylesheets/bootstrap-select.min.css" />
     <link rel="stylesheet" href="/public/design/style.css" />
     <link rel="stylesheet" href="/public/design/jquery-ui.min.css" />
-
 
     <!-- Script Files -->
     <script src="/public/javascripts/vendor/modernizr-2.7.1.min.js"></script>
@@ -52,8 +50,7 @@
     <!-- This file will load and display all the background colors. -->
     <script src="/public/design/loadBackgroundColor.js"></script>
 
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/godswearhats/jquery-ui-rotatable@1.1/jquery.ui.rotatable.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/godswearhats/jquery-ui-rotatable@1.1/jquery.ui.rotatable.css" />
     <script src="/public/design/jquery.ui.rotatable.min.js"></script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -65,6 +62,10 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
 
+    <script src="/node_modules/watermarkjs/dist/watermark.js"></script>
+    <!-- <script src="/node_modules/watermarkjs/dist/watermark.min.js"></script> -->
+
+
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -75,7 +76,7 @@
             storageBucket: "logo-mart.appspot.com",
             messagingSenderId: "654640285591",
             appId: "1:654640285591:web:9dceebf9d27f8ec999a6d2",
-            measurementId: "G-VPBLGZ4WQC"
+            measurementId: "G-VPBLGZ4WQC",
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -85,243 +86,290 @@
 
 <body id="menu" class="body-page">
     <%- include('../../shared/_loading.ejs')%>
-    <%- include('../../shared/_design_header.ejs')%>
-    <% if (type == 1){%>
-    <div class="page-loader" id="automtedLoaded">
-        <div id="automtedLoadedInner">
-            <div class="icon ion-spin"></div>
-            <p style="letter-spacing: 0.3rem;">Working on your design</p>
-            <p style="letter-spacing: 0.3rem; margin-top: 30px;">Please wait...</p>
-        </div>
-        <div class="row" id="automatedLogoMain" style="display: none; position: absolute; top: 0; margin-top: 60px;">
-            <div class="col-md-12">
-                <img src="" id="automatedLogoMainDesignUrl" />
-                <br />
-                <button class="btn btn-primary" id="downloadDesign" style="margin-top: 10px;">
-                    Download
-                </button>
-                <br />
-                <button class="btn btn-primary" id="editDesign" style="margin-top: 10px;">
-                    Edit Design
-                </button>
-            </div>
-        </div>
-    </div>
-    <%}%>
-
-    <main class="page-main page-fullpage main-anim designPage" id="mainpage">
-        <input type="hidden" id="userDesignId" value="<%= userDesign.id %>"/>
-    <div class="row designInner">
-        <div class="col-md-12 designInnerLevelOne">
-            <div class="card designInnerLevelTwo d-flex justify-content-lg-center" id="mainCanvas">
-                <% if (type == 2){%>
-                <div id="MainDiv" class="designBorder">
-                    <img src="<%= design.val().designURL %>" class="designImage" />
+        <%-
+    include('../../shared/_design_header.ejs')%>
+            <% if (type == 1){%>
+                <div class="page-loader" id="automtedLoaded">
+                    <div id="automtedLoadedInner">
+                        <div class="icon ion-spin"></div>
+                        <p style="letter-spacing: 0.3rem;">Working on your design</p>
+                        <p style="letter-spacing: 0.3rem; margin-top: 30px;">Please wait...</p>
+                    </div>
+                    <div class="row" id="automatedLogoMain" style="display: none; position: absolute; top: 0; margin-top: 60px;">
+                        <div class="col-md-12">
+                            <img src="" id="automatedLogoMainDesignUrl" />
+                            <br />
+                            <button class="btn btn-primary" id="downloadDesign" style="margin-top: 10px;">
+            Download
+          </button>
+                            <br />
+                            <button class="btn btn-primary" id="editDesign" style="margin-top: 10px;">
+            Edit Design
+          </button>
+                        </div>
+                    </div>
                 </div>
                 <%}%>
-                </div>
-            </div>
-        </div>
-    </main>
-    <% if (type == 1) { %>
-                <script>
-                    const listDesings = JSON.parse(localStorage.getItem("selectedDesigns"));
-                    const listColors = JSON.parse(localStorage.getItem("selectedColors"));
-                    const listTextStyles = JSON.parse(localStorage.getItem("selectTextStyles"));
-                    const indexDesign = randomInteger(0, listDesings.length - 1);
-                    const indexColor = randomInteger(0, listColors.length - 1);
-                    const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
-                    let design = null;
-                    let automatedCompanyName = "";
-                    let automatedTagline = "";
 
-                    $(document).ready(function () {
-                        console.log("Automated Design page is ready");
-                        console.log("List of designs: ", listDesings);
-                        console.log("List of colors: ", listColors);
-                        console.log("List of text styles: ", listTextStyles);
-                        console.log("Index of design: ", indexDesign);
-                        console.log("Index of color: ", indexColor);
-                        console.log("Index of text style: ", indexTextStyle);
+                    <main class="page-main page-fullpage main-anim designPage" id="mainpage">
+                        <input type="hidden" id="userDesignId" value="<%= userDesign.id %>" />
+                        <div class="row designInner">
+                            <div class="col-md-12 designInnerLevelOne" id="mainCanvasUpper">
+                                <div class="card designInnerLevelTwo d-flex justify-content-lg-center" id="mainCanvas">
+                                    <% if (type == 2){%>
+                                        <div id="MainDiv" class="designBorder">
+                                            <img src="<%= design.val().designURL %>" class="designImage" />
+                                        </div>
+                                        <%}%>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <% if (type == 1) { %>
+                        <script>
+                            const listDesings = JSON.parse(localStorage.getItem("selectedDesigns"));
+                            const listColors = JSON.parse(localStorage.getItem("selectedColors"));
+                            const listTextStyles = JSON.parse(
+                                localStorage.getItem("selectTextStyles")
+                            );
+                            const indexDesign = randomInteger(0, listDesings.length - 1);
+                            const indexColor = randomInteger(0, listColors.length - 1);
+                            const indexTextStyle = randomInteger(0, listTextStyles.length - 1);
+                            let design = null;
+                            let automatedCompanyName = "";
+                            let automatedTagline = "";
 
-                        automatedCompanyName = $("#companyName").val().trim();
-                        automatedTagline = "\n" + $("#tagline").val().trim();
-                        console.log("Company Name: ", automatedCompanyName);
-                        console.log("Tagline: ", automatedTagline);
+                            $(document).ready(function() {
+                                console.log("Automated Design page is ready");
+                                console.log("List of designs: ", listDesings);
+                                console.log("List of colors: ", listColors);
+                                console.log("List of text styles: ", listTextStyles);
+                                console.log("Index of design: ", indexDesign);
+                                console.log("Index of color: ", indexColor);
+                                console.log("Index of text style: ", indexTextStyle);
 
+                                automatedCompanyName = $("#companyName").val().trim();
+                                automatedTagline = "\n" + $("#tagline").val().trim();
+                                console.log("Company Name: ", automatedCompanyName);
+                                console.log("Tagline: ", automatedTagline);
 
-                        $("#editDesign").click(function () {
-                            $("#input0").css("margin", 0);
-                            $("#MainDiv").css("margin", 0);
-                            $("#automtedLoaded").fadeOut(1100);
-                        });
+                                $("#editDesign").click(function() {
+                                    $("#input0").css("margin", 0);
+                                    $("#input1").css("margin", 0);
+                                    $("#MainDiv").css("margin", 0);
+                                    $("#automtedLoaded").fadeOut(1100);
+                                });
 
-                        $("#downloadDesign").click(function () {
-                            for (var i in map) {
-                                if (map[i] === true) {
-                                    $("#" + i).removeClass("focusDesignBorder");
-                                } else {
-                                    $("#" + i).removeClass("designBorder");
-                                }
-                            }
-                            $(".ui-rotatable-handle").hide();
-                            html2canvas(document.querySelector("#mainCanvas"), {
-                                useCORS: true,
-                            }).then((canvas) => {
-                                let fileName = "";
-                                if (
-                                    automatedCompanyName === null ||
-                                    automatedCompanyName === undefined ||
-                                    automatedCompanyName.length < 1
-                                ) {
-                                    fileName = "file-name.png";
-                                } else {
-                                    fileName = automatedCompanyName + ".png";
-                                }
-                                downloadLogo(canvas.toDataURL(), fileName);
-                                $(".ui-rotatable-handle").show();
-                                for (var i in map) {
-                                    if (map[i] === true) {
-                                        $("#" + i).addClass("focusDesignBorder");
-                                    } else {
-                                        $("#" + i).addClass("designBorder");
-                                    }
-                                }
-                            });
-                        });
-                        getDesign();
-                    });
+                                $("#downloadDesign").click(function() {
+                                    var Html = `<div id='myDiv'>
+                                        <p style="font-size: 50px; width: 100%; text-align: center;">LOGO MART</p>
+                                        LOGO MART 
+                                        <p style="font-size: 50px; width: 100%; text-align: center; margin-top: 30px;">LOGO MART</p>
+                                        </div>`;
+                                    $("#mainCanvas").append(Html);
+                                    $("#myDiv").css({
+                                        "color": "rgba(128, 128, 128, 0.1)",
+                                        "font-size": "100px",
+                                        "position": "absolute",
+                                        "margin": "0 auto",
+                                        "left": "28%",
+                                        "z-index": "0",
+                                        "transform": "rotate(45deg)",
+                                    });
 
-                    function randomInteger(min, max) {
-                        return Math.floor(Math.random() * (max - min + 1)) + min;
-                    }
-
-                    function getDesign() {
-                        const userDesignId = '<%= userDesign.id %>';
-                        const designType = '<%= userDesign.designType %>';
-                        const companyName = '<%= userDesign.companyName %>';
-                        const tagline = '<%= userDesign.tagline %>';
-
-                        console.log("User Design id is: ", userDesignId);
-                        console.log("User Design type is: ", designType);
-
-                        firebase.database().ref().child(designType).child(listDesings[indexDesign]).once("value")
-                            .then(d => {
-                                design = d.val();
-                                console.log("Design is: ", design);
-                                let mainDesign = `
-                            <div id="MainDiv" class="designBorder" onmousedown="elementClicked('MainDiv')" style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;">
-                                <img src="${design.designURL}" class="designImage" />
-                            </div>`;
-                                $("#mainCanvas").append(mainDesign);
-                                setTimeout(function () {
-                                    initMainListeners();
-                                    insertCompanyName(companyName);
-                                }, 5000);
-                            })
-                            .catch(e => {
-                                console.log("Read value from database error: ", e.message);
-                            });
-                    }
-
-                    function insertCompanyName(companyName) {
-                        let input = `
-                    <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}">
-                        <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${companyName}</textarea>
-                        <textarea id="font${1}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" type="text" style="text-align: center;">${tagline}</textarea>
-                    </div>`;
-                        $("#mainCanvas").append(input);
-                        setTimeout(function () {
-                            initFontListeners(0);
-                            $("#font0").css({ color: "#" + listColors[indexColor] });
-                            $("#font1").css({ color: "#" + listColors[indexColor] })
-                            setTimeout(function () {
-                                for (var i in map) {
-                                    if (map[i] === true) {
-                                        $("#" + i).removeClass("focusDesignBorder");
-                                    } else {
-                                        $("#" + i).removeClass("designBorder");
-                                    }
-                                }
-                                $(".ui-rotatable-handle").hide();
-                                html2canvas(document.querySelector("#mainCanvas"), {
-                                    useCORS: true,
-                                }).then((canvas) => {
-                                    saveToShow(canvas.toDataURL(), "file-name.png");
-                                    $(".ui-rotatable-handle").show();
                                     for (var i in map) {
                                         if (map[i] === true) {
-                                            $("#" + i).addClass("focusDesignBorder");
+                                            $("#" + i).removeClass("focusDesignBorder");
                                         } else {
-                                            $("#" + i).addClass("designBorder");
+                                            $("#" + i).removeClass("designBorder");
                                         }
                                     }
+                                    $(".ui-rotatable-handle").hide();
+                                    html2canvas(document.querySelector("#mainCanvas"), {
+                                        useCORS: true,
+                                    }).then((canvas) => {
+                                        let fileName = "";
+                                        if (
+                                            automatedCompanyName === null ||
+                                            automatedCompanyName === undefined ||
+                                            automatedCompanyName.length < 1
+                                        ) {
+                                            fileName = "file-name.png";
+                                        } else {
+                                            fileName = automatedCompanyName + ".png";
+                                        }
+                                        downloadLogo(canvas.toDataURL(), fileName);
+                                        $(".ui-rotatable-handle").show();
+                                        for (var i in map) {
+                                            if (map[i] === true) {
+                                                $("#" + i).addClass("focusDesignBorder");
+                                            } else {
+                                                $("#" + i).addClass("designBorder");
+                                            }
+                                        }
+                                        $("#myDiv").remove();
+                                    });
                                 });
-                            }, 3000);
-                        }, 5000);
-                    }
-                    function saveToShow(uri, filename) {
-                        let dateTime = new Date().getTime();
-                        var fileName = "" + dateTime + filename;
-                        console.log("File Name: ", fileName);
-                        var ref = firebase.storage().ref("Users").child("Designs").child(fileName);
-                        console.log("Ref Created");
-                        var uploadTask = ref.putString(uri.split(",")[1], "base64", {
-                            contentType: "image/png",
-                        });
+                                getDesign();
+                            });
 
-                        uploadTask.on(
-                            "state_changed",
-                            function (snapshot) {
-                                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                console.log("Upload is " + progress + "% done");
-                                progress = progress.toFixed(2);
-                                switch (snapshot.state) {
-                                    case firebase.storage.TaskState.PAUSED: // or 'paused'
-                                        console.log("Upload is paused");
-                                        break;
-                                    case firebase.storage.TaskState.RUNNING: // or 'running'
-                                        console.log("Upload is running");
-                                        break;
-                                }
-                            },
-                            function (error) {
-                                console.log("Upload Error: ", error);
-                            },
-                            function () {
-                                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                                    console.log("File available at", downloadURL);
-                                    const userDesignId = $("#userDesignId").val();
-                                    console.log("userDesignId: ", userDesignId);
-                                    firebase
-                                        .database()
-                                        .ref()
-                                        .child("UserDesign")
-                                        .child(userDesignId)
-                                        .child("designUrl")
-                                        .set(downloadURL);
-                                    console.log("Finish Last");
-                                    $("#automatedLogoMainDesignUrl").attr("src", downloadURL);
-                                    $("#automtedLoadedInner").fadeOut(1000);
-                                    $("#automatedLogoMain").fadeIn(1300);
-                                });
+                            function randomInteger(min, max) {
+                                return Math.floor(Math.random() * (max - min + 1)) + min;
                             }
-                        );
-                    }
-                    function downloadLogo(uri, filename) {
-                        var link = document.createElement("a");
-                        if (typeof link.download === "string") {
-                            link.href = uri;
-                            link.download = filename;
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        } else {
-                            window.open(uri);
-                        }
-                    }
-                </script>
-                <%}%>
+
+                            function getDesign() {
+                                const userDesignId = "<%= userDesign.id %>";
+                                const designType = "<%= userDesign.designType %>";
+                                const companyName = "<%= userDesign.companyName %>";
+                                const tagline = "<%= userDesign.tagline %>";
+
+                                console.log("User Design id is: ", userDesignId);
+                                console.log("User Design type is: ", designType);
+
+                                firebase
+                                    .database()
+                                    .ref()
+                                    .child(designType)
+                                    .child(listDesings[indexDesign])
+                                    .once("value")
+                                    .then((d) => {
+                                        design = d.val();
+                                        console.log("Design is: ", design);
+                                        let mainDesign = `
+                                            <div id="MainDiv" class="designBorder" onmousedown="elementClicked('MainDiv')" style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;">
+                                                <img src="${design.designURL}" class="designImage" />
+                                            </div>`;
+                                        $("#mainCanvas").append(mainDesign);
+                                        setTimeout(function() {
+                                            initMainListeners();
+                                            insertCompanyName(companyName);
+                                        }, 50);
+                                    })
+                                    .catch((e) => {
+                                        console.log("Read value from database error: ", e.message);
+                                    });
+                            }
+
+                            function insertCompanyName(companyName) {
+                                let input = `
+                                    <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}">
+                                        <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" style="text-align: center; font-weight: 800; font-size: 30px;">
+                                            ${companyName}
+                                        </textarea>
+                                    </div>`;
+                                let taglineInput = `
+                                    <div style="position: absolute; left: 0; right: 0; top: 50px; bottom: 0; margin: auto;" onmousedown="elementClicked('input${1}')" class="designInputUpper designBorder" id="input${1}">
+                                        <textarea id="font${1}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}"style="text-align: center;">
+                                            ${tagline}
+                                        </textarea>
+                                    </div>`;
+                                $("#mainCanvas").append(input);
+                                $("#mainCanvas").append(taglineInput);
+                                setTimeout(function() {
+                                    initFontListeners(0);
+                                    initFontListeners(1);
+                                    $("#font0").css({
+                                        color: "#" + listColors[indexColor],
+                                    });
+                                    $("#font1").css({
+                                        color: "#" + listColors[indexColor],
+                                    });
+                                    setTimeout(function() {
+                                        for (var i in map) {
+                                            if (map[i] === true) {
+                                                $("#" + i).removeClass("focusDesignBorder");
+                                            } else {
+                                                $("#" + i).removeClass("designBorder");
+                                            }
+                                        }
+                                        $(".ui-rotatable-handle").hide();
+                                        html2canvas(document.querySelector("#mainCanvas"), {
+                                            useCORS: true,
+                                        }).then((canvas) => {
+                                            saveToShow(canvas.toDataURL(), "file-name.png");
+                                            $(".ui-rotatable-handle").show();
+                                            for (var i in map) {
+                                                if (map[i] === true) {
+                                                    $("#" + i).addClass("focusDesignBorder");
+                                                } else {
+                                                    $("#" + i).addClass("designBorder");
+                                                }
+                                            }
+                                        });
+                                    }, 30);
+                                }, 50);
+                            }
+
+                            function saveToShow(uri, filename) {
+                                let dateTime = new Date().getTime();
+                                var fileName = "" + dateTime + filename;
+                                console.log("File Name: ", fileName);
+                                var ref = firebase
+                                    .storage()
+                                    .ref("Users")
+                                    .child("Designs")
+                                    .child(fileName);
+                                console.log("Ref Created");
+                                var uploadTask = ref.putString(uri.split(",")[1], "base64", {
+                                    contentType: "image/png",
+                                });
+
+                                uploadTask.on(
+                                    "state_changed",
+                                    function(snapshot) {
+                                        var progress =
+                                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                        console.log("Upload is " + progress + "% done");
+                                        progress = progress.toFixed(2);
+                                        switch (snapshot.state) {
+                                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                                console.log("Upload is paused");
+                                                break;
+                                            case firebase.storage.TaskState.RUNNING: // or 'running'
+                                                console.log("Upload is running");
+                                                break;
+                                        }
+                                    },
+                                    function(error) {
+                                        console.log("Upload Error: ", error);
+                                    },
+                                    function() {
+                                        uploadTask.snapshot.ref
+                                            .getDownloadURL()
+                                            .then(function(downloadURL) {
+                                                console.log("File available at", downloadURL);
+                                                const userDesignId = $("#userDesignId").val();
+                                                console.log("userDesignId: ", userDesignId);
+                                                firebase
+                                                    .database()
+                                                    .ref()
+                                                    .child("UserDesign")
+                                                    .child(userDesignId)
+                                                    .child("designUrl")
+                                                    .set(downloadURL);
+                                                console.log("Finish Last");
+                                                $("#automatedLogoMainDesignUrl").attr("src", downloadURL);
+                                                $("#automtedLoadedInner").fadeOut(1000);
+                                                $("#automatedLogoMain").fadeIn(1300);
+                                            });
+                                    }
+                                );
+                            }
+
+                            function downloadLogo(uri, filename) {
+                                var link = document.createElement("a");
+                                if (typeof link.download === "string") {
+                                    link.href = uri;
+                                    link.download = filename;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                } else {
+                                    window.open(uri);
+                                }
+                            }
+                        </script>
+                        <%}%>
 </body>
 
 </html>
