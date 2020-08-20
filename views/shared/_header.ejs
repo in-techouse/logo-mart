@@ -1,7 +1,7 @@
 <!-- BEGIN OF site header Menu -->
 <header class="page-header navbar page-header-alpha scrolled-white menu-right topmenu-right">
-  <!-- Begin of menu icon toggler -->
-  <button class="navbar-toggler site-menu-icon" id="navMenuIcon">
+    <!-- Begin of menu icon toggler -->
+    <button class="navbar-toggler site-menu-icon" id="navMenuIcon">
     <!-- Available class : menu-icon-dot / menu-icon-thick /menu-icon-random -->
     <span class="menu-icon menu-icon-random">
       <span class="bars">
@@ -11,201 +11,200 @@
       </span>
     </span>
   </button>
-  <!-- End of menu icon toggler -->
+    <!-- End of menu icon toggler -->
 
-  <!-- Begin of logo/brand -->
-  <a class="navbar-brand" href="/">
-    <span class="logo">
+    <!-- Begin of logo/brand -->
+    <a class="navbar-brand" href="/">
+        <span class="logo">
       <img class="light-logo" src="/public/img/logo1.png" alt="Logo" />
     </span>
-    <span class="text">
+        <span class="text">
       <span class="line">Logo Mart</span>
-    </span>
-  </a>
-  <!-- End of logo/brand -->
+        </span>
+    </a>
+    <!-- End of logo/brand -->
 
-  <!-- begin of menu wrapper -->
-  <div class="all-menu-wrapper" id="navbarMenu">
-    <!-- Begin of top menu -->
-    <nav class="navbar-topmenu">
-      <!-- Begin of CTA Actions, & Icons menu -->
-      <ul class="navbar-nav navbar-nav-actions">
-        <% if (user && user !== undefined && user !== null && user.userId){%>
-        <li class="nav-item">
-          <div class="dropdown">
-            <button class="btn btn-outline-white btn-round dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <!-- begin of menu wrapper -->
+    <div class="all-menu-wrapper" id="navbarMenu">
+        <!-- Begin of top menu -->
+        <nav class="navbar-topmenu">
+            <!-- Begin of CTA Actions, & Icons menu -->
+            <ul class="navbar-nav navbar-nav-actions">
+                <% if (typeof user !== 'undefined' && user !== undefined && user !== null && user.userId){%>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-white btn-round dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= user.firstName %> <%= user.lastName %>
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/myDesigns">My Designs</a>
-              <a class="dropdown-item" href="/logout">Logout</a>
-            </div>
-          </div>
-        </li>
-        <%} else {%>
-        <li class="nav-item">
-          <a class="btn btn-outline-white btn-round" href="/auth/signin">
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/myDesigns">My Designs</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                    <%} else {%>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-white btn-round" href="/auth/signin">
             Sign-In
           </a>
-          <a class="btn btn-outline-white btn-round" href="/auth/signup">
+                            <a class="btn btn-outline-white btn-round" href="/auth/signup">
             Sign-Up
           </a>
-        </li>
-        <%}%>
-      </ul>
-      <!-- End of CTA & Icons menu -->
-    </nav>
-    <!-- End of top menu -->
+                        </li>
+                        <%}%>
+            </ul>
+            <!-- End of CTA & Icons menu -->
+        </nav>
+        <!-- End of top menu -->
 
-    <!-- Begin of hamburger mainmenu menu -->
-    <nav class="navbar-mainmenu">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home
+        <!-- Begin of hamburger mainmenu menu -->
+        <nav class="navbar-mainmenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home
             <span class="sr-only">(current)</span>
           </a>
-        </li>
-        <% if (typeof action !== 'undefined' && action == 'index') { %>
-        <li class="nav-item" data-menuanchor="about">
-          <a class="nav-link" href="#about">
-            <span class="txt">About</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="contact">
-          <a class="nav-link" href="#contact">
-            <span class="txt">Contact</span>
-          </a>
-        </li>
-        <% } else {%>
-        <li class="nav-item" data-menuanchor="about">
-          <a class="nav-link" href="/#about">
-            <span class="txt">About</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="contact">
-          <a class="nav-link" href="/#contact">
-            <span class="txt">Contact</span>
-          </a>
-        </li>
-        <%}%>
-        <li class="nav-item">
-          <a class="nav-link" href="/gallery">Gallery</a>
-        </li>
-      </ul>
-    </nav>
-    <!-- End of hamburger mainmenu menu -->
+                </li>
+                <% if (typeof action !== 'undefined' && action == 'index') { %>
+                    <li class="nav-item" data-menuanchor="about">
+                        <a class="nav-link" href="#about">
+                            <span class="txt">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-menuanchor="contact">
+                        <a class="nav-link" href="#contact">
+                            <span class="txt">Contact</span>
+                        </a>
+                    </li>
+                    <% } else {%>
+                        <li class="nav-item" data-menuanchor="about">
+                            <a class="nav-link" href="/#about">
+                                <span class="txt">About</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-menuanchor="contact">
+                            <a class="nav-link" href="/#contact">
+                                <span class="txt">Contact</span>
+                            </a>
+                        </li>
+                        <%}%>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/gallery">Gallery</a>
+                            </li>
+            </ul>
+        </nav>
+        <!-- End of hamburger mainmenu menu -->
 
-    <!-- Begin of sidebar nav menu params class: text-only / icon-only-->
-    <nav class="navbar-sidebar ">
-      <ul class="navbar-nav" id="qmenu">
-        <% if (typeof action !== 'undefined' && action == 'index') { %>
-        <li class="nav-item" data-menuanchor="home">
-          <a href="#home">
-            <i class="icon ion-ios-home-outline"></i>
-            <span class="txt">Home</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="about">
-          <a href="#about">
-            <i class="icon ion-ios-information-outline"></i>
-            <span class="txt">About</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="team">
-          <a href="#team">
-            <i class="icon ion-ios-people"></i>
-            <span class="txt">Team</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="services">
-          <a href="#services">
-            <i class="icon ion-ios-list-outline"></i>
-            <span class="txt">Services</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="projects">
-          <a href="#projects">
-            <i class="icon ion-ios-albums-outline"></i>
-            <span class="txt">Projects</span>
-          </a>
-        </li>
-        <% if (user === undefined || user === null || user.userId === undefined || user.userid === null){%>
-        <li class="nav-item" data-menuanchor="register">
-          <a href="/auth/signup">
-            <i class="icon ion-ios-compose-outline"></i>
-            <span class="txt">SignUp</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="register">
-          <a href="/auth/signin">
-            <i class="icon ion-ios-compose-outline"></i>
-            <span class="txt">SignIn</span>
-          </a>
-        </li>
-        <%}%>
-        <li class="nav-item" data-menuanchor="contact">
-          <a href="#contact">
-            <i class="icon ion-ios-telephone-outline"></i>
-            <span class="txt">Contact</span>
-          </a>
-        </li>
-        <% } else {%>
-        <li class="nav-item" data-menuanchor="home">
-          <a href="/#home">
-            <i class="icon ion-ios-home-outline"></i>
-            <span class="txt">Home</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="about">
-          <a href="/#about">
-            <i class="icon ion-ios-information-outline"></i>
-            <span class="txt">About</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="team">
-          <a href="/#team">
-            <i class="icon ion-ios-people"></i>
-            <span class="txt">Team</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="services">
-          <a href="/#services">
-            <i class="icon ion-ios-list-outline"></i>
-            <span class="txt">Services</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="projects">
-          <a href="/#projects">
-            <i class="icon ion-ios-albums-outline"></i>
-            <span class="txt">Projects</span>
-          </a>
-        </li>
-        <% if (user === undefined || user === null || user.userId === undefined || user.userid === null){%>
-        <li class="nav-item" data-menuanchor="register">
-          <a href="/auth/signup">
-            <i class="icon ion-ios-compose-outline"></i>
-            <span class="txt">SignUp</span>
-          </a>
-        </li>
-        <li class="nav-item" data-menuanchor="register">
-          <a href="/auth/signin">
-            <i class="icon ion-ios-compose-outline"></i>
-            <span class="txt">SignIn</span>
-          </a>
-        </li>
-        <%}%>
-        <li class="nav-item" data-menuanchor="contact">
-          <a href="/#contact">
-            <i class="icon ion-ios-telephone-outline"></i>
-            <span class="txt">Contact</span>
-          </a>
-        </li>
-        <% } %>
-      </ul>
-    </nav>
-    <!-- End of sidebar nav menu -->
-  </div>
-  <!-- end of menu wrapper -->
+        <!-- Begin of sidebar nav menu params class: text-only / icon-only-->
+        <nav class="navbar-sidebar ">
+            <ul class="navbar-nav" id="qmenu">
+                <% if (typeof action !== 'undefined' && action == 'index') { %>
+                    <li class="nav-item" data-menuanchor="home">
+                        <a href="#home">
+                            <i class="icon ion-ios-home-outline"></i>
+                            <span class="txt">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-menuanchor="about">
+                        <a href="#about">
+                            <i class="icon ion-ios-information-outline"></i>
+                            <span class="txt">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-menuanchor="team">
+                        <a href="#team">
+                            <i class="icon ion-ios-people"></i>
+                            <span class="txt">Team</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-menuanchor="services">
+                        <a href="#services">
+                            <i class="icon ion-ios-list-outline"></i>
+                            <span class="txt">Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-menuanchor="projects">
+                        <a href="#projects">
+                            <i class="icon ion-ios-albums-outline"></i>
+                            <span class="txt">Projects</span>
+                        </a>
+                    </li>
+                    <% if (typeof user === 'undefined' || user === undefined || user === null || user.userId === undefined || user.userid === null){%>
+                        <li class="nav-item" data-menuanchor="register">
+                            <a href="/auth/signup">
+                                <i class="icon ion-ios-compose-outline"></i>
+                                <span class="txt">SignUp</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" data-menuanchor="register">
+                            <a href="/auth/signin">
+                                <i class="icon ion-ios-compose-outline"></i>
+                                <span class="txt">SignIn</span>
+                            </a>
+                        </li>
+                        <%}%>
+                            <li class="nav-item" data-menuanchor="contact">
+                                <a href="#contact">
+                                    <i class="icon ion-ios-telephone-outline"></i>
+                                    <span class="txt">Contact</span>
+                                </a>
+                            </li>
+                            <% } else {%>
+                                <li class="nav-item" data-menuanchor="home">
+                                    <a href="/#home">
+                                        <i class="icon ion-ios-home-outline"></i>
+                                        <span class="txt">Home</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-menuanchor="about">
+                                    <a href="/#about">
+                                        <i class="icon ion-ios-information-outline"></i>
+                                        <span class="txt">About</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-menuanchor="team">
+                                    <a href="/#team">
+                                        <i class="icon ion-ios-people"></i>
+                                        <span class="txt">Team</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-menuanchor="services">
+                                    <a href="/#services">
+                                        <i class="icon ion-ios-list-outline"></i>
+                                        <span class="txt">Services</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item" data-menuanchor="projects">
+                                    <a href="/#projects">
+                                        <i class="icon ion-ios-albums-outline"></i>
+                                        <span class="txt">Projects</span>
+                                    </a>
+                                </li>
+                                <% if (typeof user === 'undefined' || user === undefined || user === null || user.userId === undefined || user.userid === null){%>
+                                    <li class="nav-item" data-menuanchor="register">
+                                        <a href="/auth/signup">
+                                            <i class="icon ion-ios-compose-outline"></i>
+                                            <span class="txt">SignUp</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" data-menuanchor="register">
+                                        <a href="/auth/signin">
+                                            <i class="icon ion-ios-compose-outline"></i>
+                                            <span class="txt">SignIn</span>
+                                        </a>
+                                    </li>
+                                    <%}%>
+                                        <li class="nav-item" data-menuanchor="contact">
+                                            <a href="/#contact">
+                                                <i class="icon ion-ios-telephone-outline"></i>
+                                                <span class="txt">Contact</span>
+                                            </a>
+                                        </li>
+                                        <% } %>
+            </ul>
+        </nav>
+        <!-- End of sidebar nav menu -->
+    </div>
+    <!-- end of menu wrapper -->
 </header>
 <!-- END OF site header Menu-->

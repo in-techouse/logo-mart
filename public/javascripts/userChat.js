@@ -29,9 +29,52 @@ $(document).ready(function() {
                 </div>
             </div>
         </div>`;
+            let contact = "";
+            if (data.val().contact !== undefined) {
+                contact = `<b>Contact: ${data.val().contact}</b><br />`;
+            }
+            let quantity = "";
+            if (data.val().quantity !== undefined) {
+                quantity = `<b>Quantity: ${data.val().quantity}</b><br />`;
+            }
+            let type = "";
+            if (data.val().type !== undefined) {
+                type = `<b>Type: ${data.val().type}</b><br />`;
+            }
+            let size = "";
+            if (data.val().size !== undefined) {
+                size = `<b>Size: ${data.val().size}</b><br />`;
+            }
+            let sealType = "";
+            if (data.val().sealType !== undefined) {
+                sealType = `<b>Seal Type: ${data.val().sealType}</b><br />`;
+            }
+            const userOrderDetail = `
+            <div class="row msg" style="margin-left: 20px; margin-right: 20px;">
+                <div class="float-right" style="float: right; width: 100%;">
+                    <div class="chat-box-wrapper chat-box-wrapper-right">
+                        <div style="float: right; width: 100%;">
+                            <div class="chat-box">
+                                <p style="width: 100%; text-align: left; color: #303030;">
+                                    <u>Email: ${data.val().email}</u>
+                                    <br />
+                                    <b>Name: ${data.val().name}</b>
+                                    ${contact}
+                                    ${quantity}
+                                    ${type}
+                                    ${size}
+                                    ${sealType}
+                                    ${data.val().text}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
 
             $("#userMainChatRoom").append(firstMessage);
-            $("#userOrderDetail").append(firstMessage);
+            $("#userOrderDetail").append(userOrderDetail);
             currentChattingUserEmail = data.val().email;
             loadPreviousChat(rId, data.val().email);
             enableUserMessaging(rId, data.val().email);

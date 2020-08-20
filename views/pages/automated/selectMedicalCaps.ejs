@@ -1,0 +1,153 @@
+<% extend('./../../layout.ejs') %>
+    <div class="container0fluid" style="overflow-y: scroll; overflow-x: hidden; height: 95%;">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h4 class="display-4 display-title anim-2" style="margin-top: 80px; text-align: center;">
+                    Select Your Design
+                </h4>
+                <div class="row">
+                    <% designs.forEach(d=>{ %>
+                        <div class="col-md-4" id="designUpper<%= d.val().id %>">
+                            <a onclick="selectMedicalCapDesign('<%= d.val().id %>')" data-toggle="modal" data-target="#exampleModalCenter" href="javascript:;" style="text-decoration: none;" id="design<%= d.val().id %>">
+                                <div class="jumbotron" style="padding: 5px 5px 5px 5px;">
+                                    <img src="<%= d.val().designURL %>" class="img-thumbnail img-responsive" style="height: 300px!important; width: 100%;" />
+                                    <h3 class="designHeading">
+                                        <%= d.val().designName %>
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content" style="color: black !important;">
+                <form id="medicalCapForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Sepcify Your Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <input type="hidden" id="medicalCapId" required class="form-control" />
+                            <input value="<%= user.userDesign.companyName %>" type="hidden" id="compantName" required class="form-control" />
+                            <input value="<%= user.userDesign.tagline %>" type="hidden" id="tagline" required class="form-control" />
+
+                            <div class="form-group">
+                                <label>Select Medical Cap Type</label>
+                                <select class="form-control" required id="type">
+                                <option value="PP">PP</option>
+                                <option value="RO">RO</option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Medical Cap Size</label>
+                                <select class="form-control" required id="size">
+                                <option value=" 20MM ">20MM</option>
+                                <option value="22MM ">22MM</option>
+                                <option value="24MM ">24MM</option>
+                                <option value="25MM ">25MM</option>
+                                <option value="28MM ">28MM</option>
+                                <option value="30MM ">30MM</option>
+                                <option value="32MM ">32MM</option>
+                                <option value="35MM ">35MM</option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Medical Cap Seal Type</label>
+                                <select class="form-control" required id="sealType">
+                                <option value="Imported ">Imported</option>
+                                <option value="Local ">Local</option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Enter Medical Cap Quantity</label>
+                                <input name="quantity" required id="quantity" type="number" min="30000" placeholder="Enter quantity here " class="form-control " />
+                            </div>
+                            <div class="form-group">
+                                <label>Enter Your Name</label>
+                                <input type="text" name="name" required id="name" placeholder="Enter email here " class="form-control " />
+                            </div>
+                            <div class="form-group">
+                                <label>Enter Your Email</label>
+                                <input type="email" name="email" required id="email" placeholder="Enter email here " class="form-control " />
+                            </div>
+                            <div class="form-group">
+                                <label>Enter Your Contact Number</label>
+                                <input name="contact" required id="contact" placeholder="Enter contact here " class="form-control " />
+                            </div>
+                            <div class="form-group">
+                                <label>Describe Your Order here</label>
+                                <textarea required id="text" class="form-control" style="resize: none;" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#medicalCapForm").submit(function(e) {
+                e.preventDefault();
+                const medicalCapId = $("#medicalCapId").val().trim();
+                const type = $("#type").val().trim();
+                const size = $("#size").val().trim();
+                const sealType = $("#sealType").val().trim();
+                const quantity = $("#quantity").val().trim();
+                const email = $("#email").val().trim();
+                const contact = $("#contact").val().trim();
+                const name = $("#name").val().trim();
+                const text = $("#text").val().trim();
+
+                console.log("Medical Caps Id: ", medicalCapId);
+                console.log("Medical Caps Type: ", type);
+                console.log("Medical Caps Size: ", size);
+                console.log("Medical Caps Seal Type: ", sealType);
+                console.log("Medical Caps Quantity: ", quantity);
+                console.log("Medical Caps Email: ", email);
+                console.log("Medical Caps Contatc: ", contact);
+                console.log("Medical Caps Name: ", name);
+
+
+                const database = firebase.database().ref().child("Requests");
+                const id = database.push().key;
+                console.log("Medical Cap Request Id: ", id);
+                const request = {
+                    id,
+                    medicalCapId,
+                    type,
+                    size,
+                    sealType,
+                    quantity,
+                    email,
+                    contact,
+                    name,
+                    text
+                };
+                console.log("Medical Cap Request: ", request);
+                database.child(id).set(request).then(r => {
+                    localStorage.setItem("rId", id);
+                    window.location.href = "/chat";
+                }).catch(e => {
+                    window.location.href = "/";
+                });
+            });
+        });
+
+        function selectMedicalCapDesign(id) {
+            $("#medicalCapId ").val(id);
+        }
+    </script>

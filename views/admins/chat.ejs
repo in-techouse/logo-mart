@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <button class="btn btn-primary btn-sm" id="sendAdminMessage" style="cursor: pointer;">SEND</button>
-                                <br/>
+                                <br />
                                 <i class="fa fa-paperclip" aria-hidden="true" style="cursor: pointer;" id="chatSelectFileAdmin"></i>
                                 <input id="chatFileAdmin" type="file" style="display: none;" />
                             </div>
@@ -74,17 +74,67 @@
                                                 <%= request.email %>
                                             </h6>
                                         </div>
-                                        <div class="col-md-12">
-                                            <h6><b>Description:</b></h6>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <h6>
-                                                <%= request.text %>
-                                            </h6>
-                                        </div>
+                                        <% if (request.contact !== undefined) {%>
+                                            <div class="col-md-6">
+                                                <h6><b>Contact:</b></h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6 style="float: right;">
+                                                    <%= request.contact %>
+                                                </h6>
+                                            </div>
+                                            <% } %>
+                                                <% if (request.quantity !== undefined) {%>
+                                                    <div class="col-md-6">
+                                                        <h6><b>Quantity:</b></h6>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h6 style="float: right;">
+                                                            <%= request.quantity %>
+                                                        </h6>
+                                                    </div>
+                                                    <% } %>
+                                                        <% if (request.size !== undefined) {%>
+                                                            <div class="col-md-6">
+                                                                <h6><b>Size:</b></h6>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h6 style="float: right;">
+                                                                    <%= request.size %>
+                                                                </h6>
+                                                            </div>
+                                                            <% } %>
+                                                                <% if (request.type !== undefined) {%>
+                                                                    <div class="col-md-6">
+                                                                        <h6><b>Type:</b></h6>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <h6 style="float: right;">
+                                                                            <%= request.type %>
+                                                                        </h6>
+                                                                    </div>
+                                                                    <% } %>
+                                                                        <% if (request.sealType !== undefined) {%>
+                                                                            <div class="col-md-6">
+                                                                                <h6><b>Seal Type:</b></h6>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <h6 style="float: right;">
+                                                                                    <%= request.sealType %>
+                                                                                </h6>
+                                                                            </div>
+                                                                            <% } %>
+                                                                                <div class="col-md-12">
+                                                                                    <h6><b>Description:</b></h6>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <h6>
+                                                                                        <%= request.text %>
+                                                                                    </h6>
+                                                                                </div>
                                     </div>
                                 </div>
-                                <hr/>
+                                <hr />
                                 <form id="deliverOrder" method="POST" action="/admin/deliverOrder" style="padding: 10px; overflow-x: hidden;">
                                     <div class="form-group">
                                         <label>Select Files</label>
@@ -105,14 +155,14 @@
                                         <input id="deliverOrder" type="submit" class="btn btn-block btn-primary" value="Deliver Order" />
                                     </div>
                                 </form>
-                                <hr/>
+                                <hr />
                                 <div class="col-md-12" style="overflow-x: hidden;">
                                     <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                                         <i class="header-icon lnr-printer icon-gradient bg-ripe-malin"> </i>Previous Order Deliveries
                                     </div>
-                                    <hr/>
+                                    <hr />
                                     <div class="row" id="oldDeliveries">
-                                        <br/><br/><br/><br/>
+                                        <br /><br /><br /><br />
                                     </div>
                                 </div>
                             </div>
