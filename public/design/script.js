@@ -184,7 +184,9 @@ $(document).ready(function() {
         if (widget.includes("input")) {
             let str = widget.split("input");
             let fontId = "font" + str[1];
-            $("#" + fontId).css({ "font-size": this.value });
+            $("#" + fontId).css({
+                "font-size": this.value
+            });
         }
     });
 
@@ -344,7 +346,7 @@ function saveAs(uri, filename) {
 
 function iconSelected(iconName) {
     let iconDiv = `<i id="icon${iconCount}" class="designBorder designIcon ${iconName}" onmousedown="elementClicked('icon${iconCount}')"></i>`;
-    $("#mainCanvas").append(iconDiv);
+    $("#mainCanvas").prepend(iconDiv);
     map["icon" + iconCount] = true;
     elementClicked("icon" + iconCount);
     setTimeout(() => {
@@ -367,9 +369,19 @@ function iconSelected(iconName) {
 }
 
 function fontSelected(fontFamily) {
+    if (fontCount === 0) {
+        const input0 = $("#input0").length;
+        const input1 = $("#input1").length;
+        console.log("Input 0: ", input0);
+        console.log("Input 1: ", input1);
+        if (input0 > 0 && input1 > 0) {
+            fontCount = fontCount + 2;
+        }
+    }
+
     let input = `
-    <div onmousedown="elementClicked('input${fontCount}')" class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
-    $("#mainCanvas").append(input);
+    <div style="position: relative; top: 0px; left: 0px; z-index: ${fontCount}" onmousedown="elementClicked('input${fontCount}')" class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
+    $("#mainCanvas").prepend(input);
     map["input" + fontCount] = true;
     elementClicked("input" + fontCount);
     setTimeout(() => {
@@ -434,10 +446,14 @@ function colorSelected(color) {
     if (widget.includes("input")) {
         let str = widget.split("input");
         let fontId = "font" + str[1];
-        $("#" + fontId).css({ color: color });
+        $("#" + fontId).css({
+            color: color
+        });
     } else if (widget.includes("icon")) {}
 }
 
 function backgroundSelected(color) {
-    $(".designInnerLevelTwo").css({ "background-color": color });
+    $(".designInnerLevelTwo").css({
+        "background-color": color
+    });
 }

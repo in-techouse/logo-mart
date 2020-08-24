@@ -100,12 +100,12 @@
                             <img src="" id="automatedLogoMainDesignUrl" />
                             <br />
                             <button class="btn btn-primary" id="downloadDesign" style="margin-top: 10px;">
-            Download
-          </button>
+                        Download
+                    </button>
                             <br />
                             <button class="btn btn-primary" id="editDesign" style="margin-top: 10px;">
-            Edit Design
-          </button>
+                        Edit Design
+                    </button>
                         </div>
                     </div>
                 </div>
@@ -154,9 +154,51 @@
                                 console.log("Tagline: ", automatedTagline);
 
                                 $("#editDesign").click(function() {
-                                    $("#input0").css("margin", 0);
-                                    $("#input1").css("margin", 0);
-                                    $("#MainDiv").css("margin", 0);
+                                    $("#MainDiv").css({
+                                        'position': 'relative',
+                                        'top': '0px',
+                                        'bottom': '',
+                                        'left': '0px',
+                                        'right': '',
+                                        'margin': ''
+                                    });
+                                    $("#input0").css({
+                                        'position': 'relative',
+                                        'top': '0px',
+                                        'bottom': '',
+                                        'left': '0px',
+                                        'right': '',
+                                        'margin': ''
+                                    });
+                                    $("#input1").css({
+                                        'position': 'relative',
+                                        'top': '0px',
+                                        'bottom': '',
+                                        'left': '0px',
+                                        'right': '',
+                                        'margin': ''
+                                    });
+                                    /* $("#MainDiv").removeProp("position");
+                                    $("#MainDiv").removeProp("top");
+                                    $("#MainDiv").removeProp("bottom");
+                                    $("#MainDiv").removeProp("left");
+                                    $("#MainDiv").removeProp("right");
+                                    $("#MainDiv").removeProp("margin");
+                                    $("#input0").removeProp("position");
+                                    $("#input0").removeProp("top");
+                                    $("#input0").removeProp("bottom");
+                                    $("#input0").removeProp("left");
+                                    $("#input0").removeProp("right");
+                                    $("#input0").removeProp("margin");
+                                    $("#input1").removeProp("position");
+                                    $("#input1").removeProp("top");
+                                    $("#input1").removeProp("bottom");
+                                    $("#input1").removeProp("left");
+                                    $("#input1").removeProp("right");
+                                    $("#input1").removeProp("margin");*/
+                                    // $("#input0").css("margin", 0);
+                                    // $("#input1").css("margin", 0);
+                                    // $("#MainDiv").css("margin", 0);
                                     $("#automtedLoaded").fadeOut(1100);
                                 });
 
@@ -253,15 +295,11 @@
                             function insertCompanyName(companyName) {
                                 let input = `
                                     <div style="position: absolute; left: 0; right: 0; top:0; bottom: 0; margin: auto;" onmousedown="elementClicked('input${0}')" class="designInputUpper designBorder" id="input${0}">
-                                        <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" style="text-align: center; font-weight: 800; font-size: 30px;">
-                                            ${companyName}
-                                        </textarea>
+                                        <textarea id="font${0}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}" style="text-align: center; font-weight: 800; font-size: 30px;">${companyName}</textarea>
                                     </div>`;
                                 let taglineInput = `
                                     <div style="position: absolute; left: 0; right: 0; top: 50px; bottom: 0; margin: auto;" onmousedown="elementClicked('input${1}')" class="designInputUpper designBorder" id="input${1}">
-                                        <textarea id="font${1}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}"style="text-align: center;">
-                                            ${tagline}
-                                        </textarea>
+                                        <textarea id="font${1}" readonly="readonly" class="designInput designBorder ${listTextStyles[indexTextStyle]}"style="text-align: center;">${tagline}</textarea>
                                     </div>`;
                                 $("#mainCanvas").append(input);
                                 $("#mainCanvas").append(taglineInput);
@@ -371,5 +409,7 @@
                         </script>
                         <%}%>
 </body>
+
+</html>
 
 </html>
