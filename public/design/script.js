@@ -197,7 +197,7 @@ $(document).ready(function() {
     $("#addImageInput").change(function() {
         imageCount++;
         const imageContent = ` 
-        <div id="MainDiv${imageCount}" class="designBorder">
+        <div id="MainDiv${imageCount}" style="position: absolute; top: 0; left: 0; z-index: ${imageCount+1}" class="designBorder">
             <img src="" class="designImage" id="designImage${imageCount}" />
         </div>`;
         $("#mainCanvas").append(imageContent);
@@ -342,7 +342,7 @@ function saveAs(uri, filename) {
 }
 
 function iconSelected(iconName) {
-    let iconDiv = `<i id="icon${iconCount}" style="z-index: ${iconCount + 1}" class="designBorder designIcon ${iconName}" onmousedown="elementClicked('icon${iconCount}')"></i>`;
+    let iconDiv = `<i id="icon${iconCount}" style="position: absolute; top: 0; left: 0; z-index: ${iconCount + 1}" class="designBorder designIcon ${iconName}" onmousedown="elementClicked('icon${iconCount}')"></i>`;
     $("#mainCanvas").prepend(iconDiv);
     map["icon" + iconCount] = true;
     elementClicked("icon" + iconCount);
@@ -377,7 +377,7 @@ function fontSelected(fontFamily) {
     }
 
     let input = `
-    <div style="position: relative; top: 0px; left: 0px; z-index: ${fontCount+1}" onmousedown="elementClicked('input${fontCount}')" class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
+    <div style="position: absolute; top: 0; left: 0; z-index: ${fontCount+1}" onmousedown="elementClicked('input${fontCount}')" class="designInputUpper designBorder" id="input${fontCount}"><textarea id="font${fontCount}" readonly="readonly" class="designInput designBorder ${fontFamily}" type="text">Double click to edit</textarea></div>`;
     $("#mainCanvas").prepend(input);
     map["input" + fontCount] = true;
     elementClicked("input" + fontCount);
